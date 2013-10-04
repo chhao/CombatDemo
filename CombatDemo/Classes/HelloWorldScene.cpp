@@ -4,32 +4,35 @@
 using namespace cocos2d;
 using namespace CocosDenshion;
 
-CCScene* HelloWorld::scene()
-{
-    // 'scene' is an autorelease object
-    CCScene *scene = CCScene::create();
-    
-    // 'layer' is an autorelease object
-    HelloWorld *layer = HelloWorld::create();
-
-    // add layer as a child to scene
-    scene->addChild(layer);
-
-    // return the scene
-    return scene;
-}
-
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool GameScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if ( !CCLayer::init() )
+    if ( !CCScene::init() )
     {
         return false;
     }
 
+	m_mainlayer = MainLayer::create();
+	m_mainlayer->retain();
+	addChild(m_mainlayer);
     
+	m_prebattlelayer = PrepareBattleLayer::create();
+	m_prebattlelayer->retain();
     return true;
 }
 
+void GameScene::setActiveLayer(GameScene::LayerType type)
+{
+	removeAllChildren();
+	switch (type)
+	{
+		case Layer_Main:
+			addChild(m_mainlayer);
+			break;
+		case Layer_PreBattle:
+			addChild(m_prebattlelayer);
+			break;
+		default:
+			break;
+	}
+}

@@ -2,18 +2,29 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "MainLayer.h"
+#include "PrepareBattleLayer.h"
 
-class HelloWorld : public cocos2d::CCLayer
+class GameScene : public cocos2d::CCScene
 {
 public:
-    // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
-    virtual bool init();
-
-    // there's no 'id' in cpp, so we recommend to return the class instance pointer
-    static cocos2d::CCScene* scene();
-    
     // preprocessor macro for "static create()" constructor ( node() deprecated )
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(GameScene);
+
+	bool init();
+	
+	enum LayerType
+	{
+		Layer_Main = 1,
+		Layer_PreBattle = 2,
+		Layer_Battle = 3,
+	};
+
+	void setActiveLayer(LayerType type);
+
+private:
+	MainLayer* m_mainlayer;
+	PrepareBattleLayer* m_prebattlelayer;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

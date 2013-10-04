@@ -278,8 +278,6 @@
 		D622E1EF17FE5F6A00D0A525 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D622E1EE17FE5F6A00D0A525 /* AppDelegate.cpp */; };
 		D622E1F217FE5F6A00D0A525 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D622E1F117FE5F6A00D0A525 /* HelloWorldScene.cpp */; };
 		D625C09A17FE7D4400C591CB /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C07D17FE7D4300C591CB /* back.png */; };
-		D625C09B17FE7D4400C591CB /* BattleScene.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = D625C07E17FE7D4400C591CB /* BattleScene.ccbi */; };
-		D625C09C17FE7D4400C591CB /* BattleScene.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C07F17FE7D4400C591CB /* BattleScene.json */; };
 		D625C09D17FE7D4400C591CB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C08017FE7D4400C591CB /* bg.png */; };
 		D625C09E17FE7D4400C591CB /* box1.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C08217FE7D4400C591CB /* box1.png */; };
 		D625C09F17FE7D4400C591CB /* box2.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C08317FE7D4400C591CB /* box2.png */; };
@@ -297,10 +295,23 @@
 		D625C0AB17FE7D4400C591CB /* ListItem.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = D625C09317FE7D4400C591CB /* ListItem.ccbi */; };
 		D625C0AC17FE7D4400C591CB /* ListItem.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C09417FE7D4400C591CB /* ListItem.json */; };
 		D625C0AD17FE7D4400C591CB /* main.js in Sources */ = {isa = PBXBuildFile; fileRef = D625C09517FE7D4400C591CB /* main.js */; };
-		D625C0AE17FE7D4400C591CB /* MainScene.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = D625C09617FE7D4400C591CB /* MainScene.ccbi */; };
-		D625C0AF17FE7D4400C591CB /* MainScene.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C09717FE7D4400C591CB /* MainScene.json */; };
 		D625C0B017FE7D4400C591CB /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C09817FE7D4400C591CB /* title.png */; };
 		D625C0B117FE7D4400C591CB /* top_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C09917FE7D4400C591CB /* top_bg.png */; };
+		D625C46D17FEF12C00C591CB /* MainLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C46B17FEF12B00C591CB /* MainLayer.cpp */; };
+		D625C47017FEF16300C591CB /* HelperUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C46E17FEF16300C591CB /* HelperUtil.cpp */; };
+		D625C48617FEF1E300C591CB /* CSContentJsonDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C47217FEF1E300C591CB /* CSContentJsonDictionary.cpp */; };
+		D625C48717FEF1E300C591CB /* json_internalarray.inl in Resources */ = {isa = PBXBuildFile; fileRef = D625C47A17FEF1E300C591CB /* json_internalarray.inl */; };
+		D625C48817FEF1E300C591CB /* json_internalmap.inl in Resources */ = {isa = PBXBuildFile; fileRef = D625C47B17FEF1E300C591CB /* json_internalmap.inl */; };
+		D625C48917FEF1E300C591CB /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C47D17FEF1E300C591CB /* json_reader.cpp */; };
+		D625C48A17FEF1E300C591CB /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C47F17FEF1E300C591CB /* json_value.cpp */; };
+		D625C48B17FEF1E300C591CB /* json_valueiterator.inl in Resources */ = {isa = PBXBuildFile; fileRef = D625C48017FEF1E300C591CB /* json_valueiterator.inl */; };
+		D625C48C17FEF1E300C591CB /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C48117FEF1E300C591CB /* json_writer.cpp */; };
+		D625C48D17FEF1E300C591CB /* sconscript in Resources */ = {isa = PBXBuildFile; fileRef = D625C48317FEF1E300C591CB /* sconscript */; };
+		D625C49017FEF43B00C591CB /* ListViewLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C48E17FEF43B00C591CB /* ListViewLayer.cpp */; };
+		D625C49317FEFEA900C591CB /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C49117FEFEA900C591CB /* Game.cpp */; };
+		D625C49617FF004C00C591CB /* PrepareBattleLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C49417FF004B00C591CB /* PrepareBattleLayer.cpp */; };
+		D625C49917FF084B00C591CB /* MainLayer.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C49717FF084B00C591CB /* MainLayer.json */; };
+		D625C49A17FF084B00C591CB /* PreBattleLayer.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C49817FF084B00C591CB /* PreBattleLayer.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -891,8 +902,6 @@
 		D622E1F017FE5F6A00D0A525 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
 		D622E1F117FE5F6A00D0A525 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
 		D625C07D17FE7D4300C591CB /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = Resources/back.png; sourceTree = "<group>"; };
-		D625C07E17FE7D4400C591CB /* BattleScene.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = BattleScene.ccbi; path = Resources/BattleScene.ccbi; sourceTree = "<group>"; };
-		D625C07F17FE7D4400C591CB /* BattleScene.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = BattleScene.json; path = Resources/BattleScene.json; sourceTree = "<group>"; };
 		D625C08017FE7D4400C591CB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		D625C08217FE7D4400C591CB /* box1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = box1.png; sourceTree = "<group>"; };
 		D625C08317FE7D4400C591CB /* box2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = box2.png; sourceTree = "<group>"; };
@@ -910,10 +919,39 @@
 		D625C09317FE7D4400C591CB /* ListItem.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = ListItem.ccbi; path = Resources/ListItem.ccbi; sourceTree = "<group>"; };
 		D625C09417FE7D4400C591CB /* ListItem.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ListItem.json; path = Resources/ListItem.json; sourceTree = "<group>"; };
 		D625C09517FE7D4400C591CB /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = Resources/main.js; sourceTree = "<group>"; };
-		D625C09617FE7D4400C591CB /* MainScene.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = MainScene.ccbi; path = Resources/MainScene.ccbi; sourceTree = "<group>"; };
-		D625C09717FE7D4400C591CB /* MainScene.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MainScene.json; path = Resources/MainScene.json; sourceTree = "<group>"; };
 		D625C09817FE7D4400C591CB /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = Resources/title.png; sourceTree = "<group>"; };
 		D625C09917FE7D4400C591CB /* top_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = top_bg.png; path = Resources/top_bg.png; sourceTree = "<group>"; };
+		D625C46B17FEF12B00C591CB /* MainLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainLayer.cpp; path = Classes/MainLayer.cpp; sourceTree = "<group>"; };
+		D625C46C17FEF12C00C591CB /* MainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainLayer.h; path = Classes/MainLayer.h; sourceTree = "<group>"; };
+		D625C46E17FEF16300C591CB /* HelperUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HelperUtil.cpp; path = Classes/HelperUtil.cpp; sourceTree = "<group>"; };
+		D625C46F17FEF16300C591CB /* HelperUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelperUtil.h; path = Classes/HelperUtil.h; sourceTree = "<group>"; };
+		D625C47217FEF1E300C591CB /* CSContentJsonDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSContentJsonDictionary.cpp; sourceTree = "<group>"; };
+		D625C47317FEF1E300C591CB /* CSContentJsonDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSContentJsonDictionary.h; sourceTree = "<group>"; };
+		D625C47517FEF1E300C591CB /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
+		D625C47617FEF1E300C591CB /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		D625C47717FEF1E300C591CB /* features.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = features.h; sourceTree = "<group>"; };
+		D625C47817FEF1E300C591CB /* forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forwards.h; sourceTree = "<group>"; };
+		D625C47917FEF1E300C591CB /* json_batchallocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_batchallocator.h; sourceTree = "<group>"; };
+		D625C47A17FEF1E300C591CB /* json_internalarray.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_internalarray.inl; sourceTree = "<group>"; };
+		D625C47B17FEF1E300C591CB /* json_internalmap.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_internalmap.inl; sourceTree = "<group>"; };
+		D625C47C17FEF1E300C591CB /* json_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_lib.h; sourceTree = "<group>"; };
+		D625C47D17FEF1E300C591CB /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
+		D625C47E17FEF1E300C591CB /* json_tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_tool.h; sourceTree = "<group>"; };
+		D625C47F17FEF1E300C591CB /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
+		D625C48017FEF1E300C591CB /* json_valueiterator.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_valueiterator.inl; sourceTree = "<group>"; };
+		D625C48117FEF1E300C591CB /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
+		D625C48217FEF1E300C591CB /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		D625C48317FEF1E300C591CB /* sconscript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sconscript; sourceTree = "<group>"; };
+		D625C48417FEF1E300C591CB /* value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = value.h; sourceTree = "<group>"; };
+		D625C48517FEF1E300C591CB /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		D625C48E17FEF43B00C591CB /* ListViewLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListViewLayer.cpp; path = Classes/ListViewLayer.cpp; sourceTree = "<group>"; };
+		D625C48F17FEF43B00C591CB /* ListViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListViewLayer.h; path = Classes/ListViewLayer.h; sourceTree = "<group>"; };
+		D625C49117FEFEA900C591CB /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = Classes/Game.cpp; sourceTree = "<group>"; };
+		D625C49217FEFEA900C591CB /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = Classes/Game.h; sourceTree = "<group>"; };
+		D625C49417FF004B00C591CB /* PrepareBattleLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrepareBattleLayer.cpp; path = Classes/PrepareBattleLayer.cpp; sourceTree = "<group>"; };
+		D625C49517FF004B00C591CB /* PrepareBattleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrepareBattleLayer.h; path = Classes/PrepareBattleLayer.h; sourceTree = "<group>"; };
+		D625C49717FF084B00C591CB /* MainLayer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MainLayer.json; path = Resources/MainLayer.json; sourceTree = "<group>"; };
+		D625C49817FF084B00C591CB /* PreBattleLayer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = PreBattleLayer.json; path = Resources/PreBattleLayer.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -985,9 +1023,9 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D625C49717FF084B00C591CB /* MainLayer.json */,
+				D625C49817FF084B00C591CB /* PreBattleLayer.json */,
 				D625C07D17FE7D4300C591CB /* back.png */,
-				D625C07E17FE7D4400C591CB /* BattleScene.ccbi */,
-				D625C07F17FE7D4400C591CB /* BattleScene.json */,
 				D625C08017FE7D4400C591CB /* bg.png */,
 				D625C08117FE7D4400C591CB /* block */,
 				D625C08D17FE7D4400C591CB /* btn_1.png */,
@@ -999,8 +1037,6 @@
 				D625C09317FE7D4400C591CB /* ListItem.ccbi */,
 				D625C09417FE7D4400C591CB /* ListItem.json */,
 				D625C09517FE7D4400C591CB /* main.js */,
-				D625C09617FE7D4400C591CB /* MainScene.ccbi */,
-				D625C09717FE7D4400C591CB /* MainScene.json */,
 				D625C09817FE7D4400C591CB /* title.png */,
 				D625C09917FE7D4400C591CB /* top_bg.png */,
 				D622DE6117FE5F6400D0A525 /* Default.png */,
@@ -1741,6 +1777,7 @@
 		D622E08617FE5F6800D0A525 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D625C47117FEF1E300C591CB /* Json */,
 				D622E0D817FE5F6800D0A525 /* cocos-ext.h */,
 				D622E0E617FE5F6800D0A525 /* ExtensionMacros.h */,
 				D622E08717FE5F6800D0A525 /* AssetsManager */,
@@ -2148,10 +2185,20 @@
 		D622E1EC17FE5F6A00D0A525 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D625C48E17FEF43B00C591CB /* ListViewLayer.cpp */,
+				D625C48F17FEF43B00C591CB /* ListViewLayer.h */,
+				D625C46E17FEF16300C591CB /* HelperUtil.cpp */,
+				D625C46F17FEF16300C591CB /* HelperUtil.h */,
 				D622E1ED17FE5F6A00D0A525 /* AppDelegate.h */,
 				D622E1EE17FE5F6A00D0A525 /* AppDelegate.cpp */,
 				D622E1F017FE5F6A00D0A525 /* HelloWorldScene.h */,
 				D622E1F117FE5F6A00D0A525 /* HelloWorldScene.cpp */,
+				D625C46B17FEF12B00C591CB /* MainLayer.cpp */,
+				D625C46C17FEF12C00C591CB /* MainLayer.h */,
+				D625C49117FEFEA900C591CB /* Game.cpp */,
+				D625C49217FEFEA900C591CB /* Game.h */,
+				D625C49417FF004B00C591CB /* PrepareBattleLayer.cpp */,
+				D625C49517FF004B00C591CB /* PrepareBattleLayer.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2201,6 +2248,41 @@
 			children = (
 			);
 			path = "resources-iphonehd";
+			sourceTree = "<group>";
+		};
+		D625C47117FEF1E300C591CB /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				D625C47217FEF1E300C591CB /* CSContentJsonDictionary.cpp */,
+				D625C47317FEF1E300C591CB /* CSContentJsonDictionary.h */,
+				D625C47417FEF1E300C591CB /* lib_json */,
+			);
+			name = Json;
+			path = libs/extensions/Json;
+			sourceTree = "<group>";
+		};
+		D625C47417FEF1E300C591CB /* lib_json */ = {
+			isa = PBXGroup;
+			children = (
+				D625C47517FEF1E300C591CB /* autolink.h */,
+				D625C47617FEF1E300C591CB /* config.h */,
+				D625C47717FEF1E300C591CB /* features.h */,
+				D625C47817FEF1E300C591CB /* forwards.h */,
+				D625C47917FEF1E300C591CB /* json_batchallocator.h */,
+				D625C47A17FEF1E300C591CB /* json_internalarray.inl */,
+				D625C47B17FEF1E300C591CB /* json_internalmap.inl */,
+				D625C47C17FEF1E300C591CB /* json_lib.h */,
+				D625C47D17FEF1E300C591CB /* json_reader.cpp */,
+				D625C47E17FEF1E300C591CB /* json_tool.h */,
+				D625C47F17FEF1E300C591CB /* json_value.cpp */,
+				D625C48017FEF1E300C591CB /* json_valueiterator.inl */,
+				D625C48117FEF1E300C591CB /* json_writer.cpp */,
+				D625C48217FEF1E300C591CB /* reader.h */,
+				D625C48317FEF1E300C591CB /* sconscript */,
+				D625C48417FEF1E300C591CB /* value.h */,
+				D625C48517FEF1E300C591CB /* writer.h */,
+			);
+			path = lib_json;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2264,8 +2346,6 @@
 				D622DF1117FE5F6500D0A525 /* ChangeLog in Resources */,
 				D622E08517FE5F6800D0A525 /* project.pbxproj in Resources */,
 				D625C09A17FE7D4400C591CB /* back.png in Resources */,
-				D625C09B17FE7D4400C591CB /* BattleScene.ccbi in Resources */,
-				D625C09C17FE7D4400C591CB /* BattleScene.json in Resources */,
 				D625C09D17FE7D4400C591CB /* bg.png in Resources */,
 				D625C09E17FE7D4400C591CB /* box1.png in Resources */,
 				D625C09F17FE7D4400C591CB /* box2.png in Resources */,
@@ -2282,10 +2362,14 @@
 				D625C0AA17FE7D4400C591CB /* fileLookup.plist in Resources */,
 				D625C0AB17FE7D4400C591CB /* ListItem.ccbi in Resources */,
 				D625C0AC17FE7D4400C591CB /* ListItem.json in Resources */,
-				D625C0AE17FE7D4400C591CB /* MainScene.ccbi in Resources */,
-				D625C0AF17FE7D4400C591CB /* MainScene.json in Resources */,
 				D625C0B017FE7D4400C591CB /* title.png in Resources */,
 				D625C0B117FE7D4400C591CB /* top_bg.png in Resources */,
+				D625C48717FEF1E300C591CB /* json_internalarray.inl in Resources */,
+				D625C48817FEF1E300C591CB /* json_internalmap.inl in Resources */,
+				D625C48B17FEF1E300C591CB /* json_valueiterator.inl in Resources */,
+				D625C48D17FEF1E300C591CB /* sconscript in Resources */,
+				D625C49917FF084B00C591CB /* MainLayer.json in Resources */,
+				D625C49A17FF084B00C591CB /* PreBattleLayer.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2546,6 +2630,15 @@
 				D622E1EF17FE5F6A00D0A525 /* AppDelegate.cpp in Sources */,
 				D622E1F217FE5F6A00D0A525 /* HelloWorldScene.cpp in Sources */,
 				D625C0AD17FE7D4400C591CB /* main.js in Sources */,
+				D625C46D17FEF12C00C591CB /* MainLayer.cpp in Sources */,
+				D625C47017FEF16300C591CB /* HelperUtil.cpp in Sources */,
+				D625C48617FEF1E300C591CB /* CSContentJsonDictionary.cpp in Sources */,
+				D625C48917FEF1E300C591CB /* json_reader.cpp in Sources */,
+				D625C48A17FEF1E300C591CB /* json_value.cpp in Sources */,
+				D625C48C17FEF1E300C591CB /* json_writer.cpp in Sources */,
+				D625C49017FEF43B00C591CB /* ListViewLayer.cpp in Sources */,
+				D625C49317FEFEA900C591CB /* Game.cpp in Sources */,
+				D625C49617FF004C00C591CB /* PrepareBattleLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
