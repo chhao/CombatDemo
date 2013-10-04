@@ -9,7 +9,7 @@
 #include "MainLayer.h"
 #include "HelperUtil.h"
 #include "Game.h"
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 #include <sstream>
 
 using namespace cocos2d;
@@ -106,11 +106,15 @@ void MainLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {
 	CCPoint touchLocation = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
 	
-	if(isHit(m_backSprite->getQuad(), m_backSprite->convertToNodeSpace(touchLocation)))
+	if(isHit(m_backSprite->getQuad(), m_backSprite->convertToNodeSpace(touchLocation)) ||
+	   isHit(m_AdventureSprite->getQuad(), m_AdventureSprite->convertToNodeSpace(touchLocation)))
 	{
-		Game::getInstance()->setCurrentWorld(-1);
-		Game::getInstance()->setCurrentLevel(-1);
+		Game* game = Game::getInstance();
+		
+		game->setCurrentWorld(-1);
+		game->setCurrentLevel(-1);
 		updateListView();
+		
 		return;
 	}
 	

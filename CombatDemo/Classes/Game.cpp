@@ -7,7 +7,7 @@
 //
 
 #include "Game.h"
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 
 using namespace cocos2d;
 

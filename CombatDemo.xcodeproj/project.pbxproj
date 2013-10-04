@@ -276,7 +276,7 @@
 		D622E1E117FE5F6A00D0A525 /* cpVect.c in Sources */ = {isa = PBXBuildFile; fileRef = D622E1E017FE5F6A00D0A525 /* cpVect.c */; };
 		D622E1E917FE5F6A00D0A525 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D622E1E817FE5F6A00D0A525 /* libwebsockets.a */; };
 		D622E1EF17FE5F6A00D0A525 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D622E1EE17FE5F6A00D0A525 /* AppDelegate.cpp */; };
-		D622E1F217FE5F6A00D0A525 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D622E1F117FE5F6A00D0A525 /* HelloWorldScene.cpp */; };
+		D622E1F217FE5F6A00D0A525 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D622E1F117FE5F6A00D0A525 /* GameScene.cpp */; };
 		D625C09A17FE7D4400C591CB /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C07D17FE7D4300C591CB /* back.png */; };
 		D625C09D17FE7D4400C591CB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C08017FE7D4400C591CB /* bg.png */; };
 		D625C09E17FE7D4400C591CB /* box1.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C08217FE7D4400C591CB /* box1.png */; };
@@ -312,6 +312,12 @@
 		D625C49617FF004C00C591CB /* PrepareBattleLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C49417FF004B00C591CB /* PrepareBattleLayer.cpp */; };
 		D625C49917FF084B00C591CB /* MainLayer.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C49717FF084B00C591CB /* MainLayer.json */; };
 		D625C49A17FF084B00C591CB /* PreBattleLayer.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C49817FF084B00C591CB /* PreBattleLayer.json */; };
+		D625C49D17FF11C100C591CB /* BattleLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C49B17FF11C000C591CB /* BattleLayer.cpp */; };
+		D625C4A017FF11D000C591CB /* ResultLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C49E17FF11D000C591CB /* ResultLayer.cpp */; };
+		D625C4A317FF145100C591CB /* combatresult.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C4A117FF145100C591CB /* combatresult.png */; };
+		D625C4A417FF145100C591CB /* ResultLayer.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C4A217FF145100C591CB /* ResultLayer.json */; };
+		D625C4A617FF18C100C591CB /* HudLayer.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C4A517FF18C100C591CB /* HudLayer.json */; };
+		D625C4A917FF18D000C591CB /* HUDLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C4A717FF18CF00C591CB /* HUDLayer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -899,8 +905,8 @@
 		D622E1EB17FE5F6A00D0A525 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		D622E1ED17FE5F6A00D0A525 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		D622E1EE17FE5F6A00D0A525 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
-		D622E1F017FE5F6A00D0A525 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
-		D622E1F117FE5F6A00D0A525 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
+		D622E1F017FE5F6A00D0A525 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = Classes/GameScene.h; sourceTree = "<group>"; };
+		D622E1F117FE5F6A00D0A525 /* GameScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = Classes/GameScene.cpp; sourceTree = "<group>"; };
 		D625C07D17FE7D4300C591CB /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = Resources/back.png; sourceTree = "<group>"; };
 		D625C08017FE7D4400C591CB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		D625C08217FE7D4400C591CB /* box1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = box1.png; sourceTree = "<group>"; };
@@ -952,6 +958,15 @@
 		D625C49517FF004B00C591CB /* PrepareBattleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrepareBattleLayer.h; path = Classes/PrepareBattleLayer.h; sourceTree = "<group>"; };
 		D625C49717FF084B00C591CB /* MainLayer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MainLayer.json; path = Resources/MainLayer.json; sourceTree = "<group>"; };
 		D625C49817FF084B00C591CB /* PreBattleLayer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = PreBattleLayer.json; path = Resources/PreBattleLayer.json; sourceTree = "<group>"; };
+		D625C49B17FF11C000C591CB /* BattleLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BattleLayer.cpp; path = Classes/BattleLayer.cpp; sourceTree = "<group>"; };
+		D625C49C17FF11C000C591CB /* BattleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BattleLayer.h; path = Classes/BattleLayer.h; sourceTree = "<group>"; };
+		D625C49E17FF11D000C591CB /* ResultLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResultLayer.cpp; path = Classes/ResultLayer.cpp; sourceTree = "<group>"; };
+		D625C49F17FF11D000C591CB /* ResultLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultLayer.h; path = Classes/ResultLayer.h; sourceTree = "<group>"; };
+		D625C4A117FF145100C591CB /* combatresult.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combatresult.png; path = Resources/combatresult.png; sourceTree = "<group>"; };
+		D625C4A217FF145100C591CB /* ResultLayer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ResultLayer.json; path = Resources/ResultLayer.json; sourceTree = "<group>"; };
+		D625C4A517FF18C100C591CB /* HudLayer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = HudLayer.json; path = Resources/HudLayer.json; sourceTree = "<group>"; };
+		D625C4A717FF18CF00C591CB /* HUDLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HUDLayer.cpp; path = Classes/HUDLayer.cpp; sourceTree = "<group>"; };
+		D625C4A817FF18CF00C591CB /* HUDLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HUDLayer.h; path = Classes/HUDLayer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1023,6 +1038,9 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D625C4A517FF18C100C591CB /* HudLayer.json */,
+				D625C4A117FF145100C591CB /* combatresult.png */,
+				D625C4A217FF145100C591CB /* ResultLayer.json */,
 				D625C49717FF084B00C591CB /* MainLayer.json */,
 				D625C49817FF084B00C591CB /* PreBattleLayer.json */,
 				D625C07D17FE7D4300C591CB /* back.png */,
@@ -2191,14 +2209,20 @@
 				D625C46F17FEF16300C591CB /* HelperUtil.h */,
 				D622E1ED17FE5F6A00D0A525 /* AppDelegate.h */,
 				D622E1EE17FE5F6A00D0A525 /* AppDelegate.cpp */,
-				D622E1F017FE5F6A00D0A525 /* HelloWorldScene.h */,
-				D622E1F117FE5F6A00D0A525 /* HelloWorldScene.cpp */,
+				D622E1F017FE5F6A00D0A525 /* GameScene.h */,
+				D622E1F117FE5F6A00D0A525 /* GameScene.cpp */,
 				D625C46B17FEF12B00C591CB /* MainLayer.cpp */,
 				D625C46C17FEF12C00C591CB /* MainLayer.h */,
 				D625C49117FEFEA900C591CB /* Game.cpp */,
 				D625C49217FEFEA900C591CB /* Game.h */,
 				D625C49417FF004B00C591CB /* PrepareBattleLayer.cpp */,
 				D625C49517FF004B00C591CB /* PrepareBattleLayer.h */,
+				D625C49B17FF11C000C591CB /* BattleLayer.cpp */,
+				D625C49C17FF11C000C591CB /* BattleLayer.h */,
+				D625C49E17FF11D000C591CB /* ResultLayer.cpp */,
+				D625C49F17FF11D000C591CB /* ResultLayer.h */,
+				D625C4A717FF18CF00C591CB /* HUDLayer.cpp */,
+				D625C4A817FF18CF00C591CB /* HUDLayer.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2370,6 +2394,9 @@
 				D625C48D17FEF1E300C591CB /* sconscript in Resources */,
 				D625C49917FF084B00C591CB /* MainLayer.json in Resources */,
 				D625C49A17FF084B00C591CB /* PreBattleLayer.json in Resources */,
+				D625C4A317FF145100C591CB /* combatresult.png in Resources */,
+				D625C4A417FF145100C591CB /* ResultLayer.json in Resources */,
+				D625C4A617FF18C100C591CB /* HudLayer.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2628,7 +2655,7 @@
 				D622E1DF17FE5F6A00D0A525 /* cpSweep1D.c in Sources */,
 				D622E1E117FE5F6A00D0A525 /* cpVect.c in Sources */,
 				D622E1EF17FE5F6A00D0A525 /* AppDelegate.cpp in Sources */,
-				D622E1F217FE5F6A00D0A525 /* HelloWorldScene.cpp in Sources */,
+				D622E1F217FE5F6A00D0A525 /* GameScene.cpp in Sources */,
 				D625C0AD17FE7D4400C591CB /* main.js in Sources */,
 				D625C46D17FEF12C00C591CB /* MainLayer.cpp in Sources */,
 				D625C47017FEF16300C591CB /* HelperUtil.cpp in Sources */,
@@ -2639,6 +2666,9 @@
 				D625C49017FEF43B00C591CB /* ListViewLayer.cpp in Sources */,
 				D625C49317FEFEA900C591CB /* Game.cpp in Sources */,
 				D625C49617FF004C00C591CB /* PrepareBattleLayer.cpp in Sources */,
+				D625C49D17FF11C100C591CB /* BattleLayer.cpp in Sources */,
+				D625C4A017FF11D000C591CB /* ResultLayer.cpp in Sources */,
+				D625C4A917FF18D000C591CB /* HUDLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

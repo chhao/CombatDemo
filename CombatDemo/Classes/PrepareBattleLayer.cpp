@@ -9,7 +9,7 @@
 #include "PrepareBattleLayer.h"
 #include "HelperUtil.h"
 #include "Game.h"
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 using namespace cocos2d;
 
 PrepareBattleLayer::PrepareBattleLayer()
@@ -56,7 +56,7 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 	
 	if(isHit(m_startSprite->getQuad(), m_startSprite->convertToNodeSpace(touchLocation)))
 	{
-		//start
+		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Battle);
 	}
 	
 	if(isHit(m_backSprite->getQuad(), m_backSprite->convertToNodeSpace(touchLocation)))
