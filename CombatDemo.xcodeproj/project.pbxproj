@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D608851F18004CB600E9E5D7 /* cards in Resources */ = {isa = PBXBuildFile; fileRef = D608851E18004CB600E9E5D7 /* cards */; };
+		D6088522180077A700E9E5D7 /* effect_attack.png in Resources */ = {isa = PBXBuildFile; fileRef = D6088521180077A700E9E5D7 /* effect_attack.png */; };
 		D622DE4C17FE5F6400D0A525 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4B17FE5F6400D0A525 /* QuartzCore.framework */; };
 		D622DE4E17FE5F6400D0A525 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4D17FE5F6400D0A525 /* OpenGLES.framework */; };
 		D622DE5017FE5F6400D0A525 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4F17FE5F6400D0A525 /* OpenAL.framework */; };
@@ -329,9 +331,13 @@
 		D625C51317FFF3DA00C591CB /* chk_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C51117FFF3D900C591CB /* chk_2.png */; };
 		D625C51517FFF40F00C591CB /* btn_form.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C51417FFF40F00C591CB /* btn_form.png */; };
 		D625C5171800264B00C591CB /* SelectGuard.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C5161800264B00C591CB /* SelectGuard.json */; };
+		D625C5191800389900C591CB /* cardConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C5181800389900C591CB /* cardConfig.json */; };
+		D625C51C180038CE00C591CB /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C51A180038CD00C591CB /* Card.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D608851E18004CB600E9E5D7 /* cards */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cards; path = Resources/cards; sourceTree = "<group>"; };
+		D6088521180077A700E9E5D7 /* effect_attack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effect_attack.png; path = Resources/effect_attack.png; sourceTree = "<group>"; };
 		D622DE4817FE5F6400D0A525 /* CombatDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CombatDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D622DE4B17FE5F6400D0A525 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D622DE4D17FE5F6400D0A525 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -991,6 +997,9 @@
 		D625C51117FFF3D900C591CB /* chk_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chk_2.png; path = Resources/chk_2.png; sourceTree = "<group>"; };
 		D625C51417FFF40F00C591CB /* btn_form.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_form.png; path = Resources/btn_form.png; sourceTree = "<group>"; };
 		D625C5161800264B00C591CB /* SelectGuard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SelectGuard.json; path = Resources/SelectGuard.json; sourceTree = "<group>"; };
+		D625C5181800389900C591CB /* cardConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = cardConfig.json; path = Resources/cardConfig.json; sourceTree = "<group>"; };
+		D625C51A180038CD00C591CB /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Card.cpp; path = Classes/Card.cpp; sourceTree = "<group>"; };
+		D625C51B180038CD00C591CB /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Card.h; path = Classes/Card.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1062,6 +1071,9 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D6088521180077A700E9E5D7 /* effect_attack.png */,
+				D608851E18004CB600E9E5D7 /* cards */,
+				D625C5181800389900C591CB /* cardConfig.json */,
 				D625C5161800264B00C591CB /* SelectGuard.json */,
 				D625C51417FFF40F00C591CB /* btn_form.png */,
 				D625C51017FFF3D900C591CB /* chk_1.png */,
@@ -2266,6 +2278,8 @@
 				D625C4AB17FFC4C200C591CB /* Tile.h */,
 				D625C4B117FFE07B00C591CB /* SelectCardGroup.cpp */,
 				D625C4B217FFE07C00C591CB /* SelectCardGroup.h */,
+				D625C51A180038CD00C591CB /* Card.cpp */,
+				D625C51B180038CD00C591CB /* Card.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2402,6 +2416,9 @@
 				D625C51317FFF3DA00C591CB /* chk_2.png in Resources */,
 				D625C51517FFF40F00C591CB /* btn_form.png in Resources */,
 				D625C5171800264B00C591CB /* SelectGuard.json in Resources */,
+				D625C5191800389900C591CB /* cardConfig.json in Resources */,
+				D608851F18004CB600E9E5D7 /* cards in Resources */,
+				D6088522180077A700E9E5D7 /* effect_attack.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2676,6 +2693,7 @@
 				D625C4A917FF18D000C591CB /* HUDLayer.cpp in Sources */,
 				D625C4AC17FFC4C300C591CB /* Tile.cpp in Sources */,
 				D625C4B317FFE07C00C591CB /* SelectCardGroup.cpp in Sources */,
+				D625C51C180038CE00C591CB /* Card.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2748,7 +2766,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zynga Game Network Inc";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zynga Game Network Inc";
 				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CombatDemo/Prefix.pch;
@@ -2767,6 +2790,8 @@
 					"-websockets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "BA27383C-B6CB-4C83-9965-79FC360EEF36";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BA27383C-B6CB-4C83-9965-79FC360EEF36";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"CombatDemo/libs/Chipmunk/include/chipmunk\"";
 				WRAPPER_EXTENSION = app;
@@ -2777,7 +2802,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zynga Game Network Inc";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zynga Game Network Inc";
 				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CombatDemo/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
@@ -2795,6 +2825,8 @@
 					"-websockets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "BA27383C-B6CB-4C83-9965-79FC360EEF36";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BA27383C-B6CB-4C83-9965-79FC360EEF36";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"CombatDemo/libs/Chipmunk/include/chipmunk\"";
 				VALIDATE_PRODUCT = YES;

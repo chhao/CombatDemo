@@ -234,7 +234,7 @@ void SelectBackGround::updateMagicGuard(bool show)
 		CCSize itemsize = CCSizeMake(626*0.98, 139*0.98);
 		m_listviewLayer = ListViewLayer::create();
 		
-		m_listviewLayer->setListViewRect(CCRectMake(10, 220,itemsize.width,itemsize.height* 1.01 * 3));
+		m_listviewLayer->setListViewRect(CCRectMake(10, 210,itemsize.width,itemsize.height* 1.01 * 3));
 		m_listviewLayer->setScrollDirection(cocos2d::extension::kCCScrollViewDirectionVertical);
 		m_listviewLayer->setItemContent(itemsize.width,itemsize.height,1,3);
 		

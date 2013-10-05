@@ -15,23 +15,23 @@ using namespace cocos2d;
 MapTile* MapTile::create(MapTile::TileType type)
 {
 	MapTile* tile = new MapTile;
-	std::string image = "box1.png";
+	std::string image = "block/box1.png";
 	switch (type)
 	{
 		case Wind:
-			image = "box2.png";
+			image = "block/box2.png";
 			break;
 		case Water:
-			image = "box3.png";
+			image = "block/box3.png";
 			break;
 		case Fire:
-			image = "box4.png";
+			image = "block/box4.png";
 			break;
 		case Wood:
-			image = "box5.png";
+			image = "block/box5.png";
 			break;
 		case End:
-			image = "box7.png";
+			image = "block/box7.png";
 			break;
 		default:
 			break;
