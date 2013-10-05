@@ -328,6 +328,7 @@
 		D625C51217FFF3DA00C591CB /* chk_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C51017FFF3D900C591CB /* chk_1.png */; };
 		D625C51317FFF3DA00C591CB /* chk_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C51117FFF3D900C591CB /* chk_2.png */; };
 		D625C51517FFF40F00C591CB /* btn_form.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C51417FFF40F00C591CB /* btn_form.png */; };
+		D625C5171800264B00C591CB /* SelectGuard.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C5161800264B00C591CB /* SelectGuard.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -989,6 +990,7 @@
 		D625C51017FFF3D900C591CB /* chk_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chk_1.png; path = Resources/chk_1.png; sourceTree = "<group>"; };
 		D625C51117FFF3D900C591CB /* chk_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chk_2.png; path = Resources/chk_2.png; sourceTree = "<group>"; };
 		D625C51417FFF40F00C591CB /* btn_form.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_form.png; path = Resources/btn_form.png; sourceTree = "<group>"; };
+		D625C5161800264B00C591CB /* SelectGuard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SelectGuard.json; path = Resources/SelectGuard.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1060,6 +1062,7 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D625C5161800264B00C591CB /* SelectGuard.json */,
 				D625C51417FFF40F00C591CB /* btn_form.png */,
 				D625C51017FFF3D900C591CB /* chk_1.png */,
 				D625C51117FFF3D900C591CB /* chk_2.png */,
@@ -2398,6 +2401,7 @@
 				D625C51217FFF3DA00C591CB /* chk_1.png in Resources */,
 				D625C51317FFF3DA00C591CB /* chk_2.png in Resources */,
 				D625C51517FFF40F00C591CB /* btn_form.png in Resources */,
+				D625C5171800264B00C591CB /* SelectGuard.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

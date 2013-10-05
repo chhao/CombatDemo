@@ -11,33 +11,109 @@
 
 using namespace cocos2d;
 
-SelectCardGroup::SelectCardGroup()
+MagicGuard::MagicGuard()
 {
 	
 }
 
-SelectCardGroup::~SelectCardGroup()
+MagicGuard::~MagicGuard()
 {
 	
 }
 
-bool SelectCardGroup::init()
+bool MagicGuard::init()
 {
 	if(!CCNode::init())
 		return false;
 	
-	readLayout(this, "SelectCardGroup.json");
+	readLayout(this, "SelectGuard.json", ccp(-626*0.5*0.98, -139*0.5*0.98));
+	m_checkBox = (CCSprite*)getChildByTag(MagicGuard::CheckBox);
+	m_label = (CCLabelTTF*)getChildByTag(MagicGuard::Label);
 	
 	return true;
 }
 
-int SelectCardGroup::isHit(cocos2d::CCPoint pt)
+bool MagicGuard::getSelected()
 {
-	return -1;
+	return m_select;
 }
+
+void MagicGuard::setSelected(bool select)
+{
+	m_select = select;
+}
+
+bool MagicGuard::isHit(cocos2d::CCPoint pt)
+{
+	if(::isHit(m_checkBox->getQuad(), m_checkBox->convertToNodeSpace(pt)))
+	{
+		m_select = !m_select;
+		if(m_select)
+			m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_2.png"));
+		else
+			m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_1.png"));
+		
+		return true;
+	}
+	
+	return false;
+}
+///////////////////////////////////
+CardGroup::CardGroup()
+{
+	
+}
+
+CardGroup::~CardGroup()
+{
+	
+}
+
+bool CardGroup::init()
+{
+	if(!CCNode::init())
+		return false;
+	
+	readLayout(this, "SelectCardGroup.json", ccp(-626*0.5*0.98, -139*0.5*0.98));
+	for (int i = 0; i < 5; i++)
+	{
+		m_card[i] = (CCSprite*)getChildByTag(i+3);
+	}
+	m_checkBox = (CCSprite*)getChildByTag(CardGroup::CheckBox);
+	
+	return true;
+}
+
+bool CardGroup::isHit(cocos2d::CCPoint pt)
+{
+	if(::isHit(m_checkBox->getQuad(), m_checkBox->convertToNodeSpace(pt)))
+	{
+		m_select = !m_select;
+		if(m_select)
+			m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_2.png"));
+		else
+			m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_1.png"));
+		
+		return true;
+	}
+	
+	return false;
+}
+
+bool CardGroup::getSelected()
+{
+	return m_select;
+}
+
+void CardGroup::setSelected(bool select)
+{
+	m_select = select;
+}
+
 
 ///////////////////////////////////////////
 SelectBackGround::SelectBackGround()
+:m_listviewLayer(NULL)
 {
 	
 }
@@ -54,9 +130,14 @@ bool SelectBackGround::init()
 	
 	readLayout(this, "SelectBackgroud.json");
 	
-	m_cardGroup = SelectCardGroup::create();
-	addChild(m_cardGroup);
-	
+	CCPoint basePt = ccp(320, 550);
+	for(int i = 0; i<3; i++)
+	{
+		m_cardGroup[i] = CardGroup::create();
+		m_cardGroup[i]->setPosition(ccpAdd(basePt, ccp(0, -i*135)));
+		addChild(m_cardGroup[i]);
+	}
+
 	m_btnCancle = (CCSprite*)getChildByTag(SelectBackGround::BtnCancel);
 	m_btnOK = (CCSprite*)getChildByTag(SelectBackGround::BtnOK);
 	m_tabCardGroup = (CCSprite*)getChildByTag(SelectBackGround::TabCardGroup);
@@ -127,7 +208,72 @@ int SelectBackGround::isHit(cocos2d::CCPoint pt)
 		return BtnOK;
 	}
 	
+	for (int i = 0; i < 3; i++)
+	{
+		if(m_cardGroup[i]->isVisible() && m_cardGroup[i]->isHit(pt))
+			return -1;
+	}
+	
+	if(m_listviewLayer && m_listviewLayer->isVisible())
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			if(m_magicGuard[i]->isHit(pt))
+				return -1;
+		}
+	}
+	
 	return -1;
+}
+
+void SelectBackGround::updateMagicGuard(bool show)
+{
+	if(!m_listviewLayer)
+	{
+		//init items
+		CCSize itemsize = CCSizeMake(626*0.98, 139*0.98);
+		m_listviewLayer = ListViewLayer::create();
+		
+		m_listviewLayer->setListViewRect(CCRectMake(10, 220,itemsize.width,itemsize.height* 1.01 * 3));
+		m_listviewLayer->setScrollDirection(cocos2d::extension::kCCScrollViewDirectionVertical);
+		m_listviewLayer->setItemContent(itemsize.width,itemsize.height,1,3);
+		
+		addChild(m_listviewLayer);
+		
+		for(int i = 0; i < 8; i++)
+		{
+			MagicGuard* guard = MagicGuard::create();
+			m_listviewLayer->addItem(guard);
+			m_magicGuard[i] = guard;
+		}
+	}
+	
+	if (show)
+	{
+		m_listviewLayer->setVisible(true);
+	}
+	else
+	{
+		m_listviewLayer->setVisible(false);
+	}
+}
+
+void SelectBackGround::updateCardGroup(bool show)
+{
+	if(!show)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			m_cardGroup[i]->setVisible(false);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			m_cardGroup[i]->setVisible(true);
+		}
+	}
 }
 
 void SelectBackGround::setTab(int tab)
@@ -136,12 +282,14 @@ void SelectBackGround::setTab(int tab)
 	{
 		m_tabCardGroup->setZOrder(5);
 		m_tabTrap->setZOrder(0);
-		m_cardGroup->setVisible(true);
+		updateCardGroup(true);
+		updateMagicGuard(false);
 	}
 	else
 	{
 		m_tabCardGroup->setZOrder(0);
 		m_tabTrap->setZOrder(5);
-		m_cardGroup->setVisible(false);
+		updateCardGroup(false);
+		updateMagicGuard(true);
 	}
 }

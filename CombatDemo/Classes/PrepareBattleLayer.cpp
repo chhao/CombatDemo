@@ -97,7 +97,8 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 		return;
 	}
 
-	if(m_selectGroup && m_selectGroup->isVisible() && (m_selectGroup->isHit(touchLocation)== SelectBackGround::BtnCancel || m_selectGroup->isHit(touchLocation)== SelectBackGround::BtnOK))
+	hit = m_selectGroup->isHit(touchLocation);
+	if(m_selectGroup && m_selectGroup->isVisible() && (hit== SelectBackGround::BtnCancel || hit== SelectBackGround::BtnOK))
 	{
 		ShowPage(Terrain);
 		return;
