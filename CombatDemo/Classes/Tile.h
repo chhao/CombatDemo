@@ -25,6 +25,21 @@ public:
 		End = 6,
 	};
 	
+	enum TileMark
+	{
+		Card1 = 0,
+		Card2,
+		Card3,
+		Guard1,
+		Guard2,
+		Guard3,
+		Guard4,
+		Guard5,
+		Guard6,
+		Guard7,
+		Guard8,
+	};
+	
 	MapTile();
 	~MapTile();
 	
@@ -39,9 +54,11 @@ public:
 	
 	void setTileID(int ID) {m_id = ID;}
 	void setNextTile(int ID) {m_nextTile = ID;}
-	
+
+	void setMark(TileMark mark);
 private:
 	TileType m_type;
+	TileMark m_mark;
 	int m_id;
 	int m_nextTile;
 };
@@ -58,8 +75,10 @@ public:
 	
 	int isHit(cocos2d::CCPoint pt);
 	
+	void markCurTile(MapTile::TileMark mark);
 private:
 	std::list<MapTile*> m_tilelist;
+	MapTile* m_curTile;
 };
 
 #endif /* defined(__CombatDemo__Tile__) */

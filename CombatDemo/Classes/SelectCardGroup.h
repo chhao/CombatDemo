@@ -29,6 +29,8 @@ public:
 	void setSelected(bool select);
 	bool getSelected();
 	
+	void setLabel(const std::string& label);
+	
 	enum ItemTag
 	{
 		CheckBox = 2,
@@ -91,6 +93,8 @@ public:
 	void updateCardGroup(bool show);
 	void updateMagicGuard(bool show);
 	
+	void resetCheckStatus();
+	
 	enum ItemTag
 	{
 		TileType = 0,
@@ -103,8 +107,10 @@ public:
 	
 private:
 	CardGroup* m_cardGroup[3];
-	
 	MagicGuard* m_magicGuard[8];
+	
+	int m_selectIndex;
+	
 	ListViewLayer* m_listviewLayer;
 	
 	cocos2d::CCSprite* m_btnCancle;

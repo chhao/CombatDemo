@@ -77,9 +77,9 @@ void Combat::singleRound(Card *card)
 	Card* opcard = findOpponent(card);
 	assert(opcard);
 	
-	opcard->m_hp -= card->m_bdmg;
+	opcard->m_bhp -= card->m_bdmg;
 	
-	if(opcard->m_hp < 0)
+	if(opcard->m_bhp < 0)
 	{
 		m_attackQueue.erase(std::find(m_attackQueue.begin(), m_attackQueue.end(), opcard));
 		auto itr = m_cardgroup1.find(opcard);
@@ -113,7 +113,7 @@ Card* Combat::findOpponent(Card* card)
 		for (auto itr = m_cardgroup2.begin(); itr != m_cardgroup2.end(); ++itr)
 		{
 			Card* opcard = itr->first;
-			if(opcard->m_hp > 0)
+			if(opcard->m_bhp > 0)
 				return opcard;
 		}
 	}
@@ -122,7 +122,7 @@ Card* Combat::findOpponent(Card* card)
 		for (auto itr = m_cardgroup1.begin(); itr != m_cardgroup1.end(); ++itr)
 		{
 			Card* opcard = itr->first;
-			if(opcard->m_hp > 0)
+			if(opcard->m_bhp > 0)
 				return opcard;
 		}
 	}

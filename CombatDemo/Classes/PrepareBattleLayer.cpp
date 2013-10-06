@@ -89,19 +89,27 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 {
 	CCPoint touchLocation = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
 	
-	int hit = m_terrain->isHit(touchLocation);
-	if(m_terrain && m_terrain->isVisible() && hit != -1)
+	if(m_terrain && m_terrain->isVisible())
 	{
-		ShowPage(SelectCard);
-		m_selectGroup->setInfo(hit);
-		return;
+		int hit = m_terrain->isHit(touchLocation);
+		if(hit != -1)
+		{
+			ShowPage(SelectCard);
+			m_selectGroup->setInfo(hit);
+			return;			
+		}
 	}
 
-	hit = m_selectGroup->isHit(touchLocation);
-	if(m_selectGroup && m_selectGroup->isVisible() && (hit== SelectBackGround::BtnCancel || hit== SelectBackGround::BtnOK))
+	if(m_selectGroup && m_selectGroup->isVisible())
 	{
-		ShowPage(Terrain);
-		return;
+		int hit = m_selectGroup->isHit(touchLocation);
+		if(hit != -1)
+		{
+			m_terrain->markCurTile((MapTile::TileMark)hit);
+			
+			ShowPage(Terrain);
+			return;			
+		}
 	}
 	
 	if(isHit(m_startSprite->getQuad(), m_startSprite->convertToNodeSpace(touchLocation)))
@@ -127,6 +135,7 @@ void PrepareBattleLayer::ShowPage(PrepareBattleLayer::PageType type)
 			break;
 		case SelectCard:
 			m_selectGroup->setVisible(true);
+			m_selectGroup->resetCheckStatus();
 			m_terrain->setVisible(false);
 			break;
 		default:

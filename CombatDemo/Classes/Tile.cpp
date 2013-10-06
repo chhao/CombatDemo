@@ -72,6 +72,40 @@ bool MapTile::isHit(cocos2d::CCPoint pt)
 	return false;
 }
 
+void MapTile::setMark(MapTile::TileMark mark)
+{
+	m_mark = mark;
+	std::stringstream ss;
+	switch (m_mark)
+	{
+		case Card1:
+		case Card2:
+		case Card3:
+		{
+			ss << "C" << m_mark+1;
+		}
+			break;
+		case Guard1:
+		case Guard2:
+		case Guard3:
+		case Guard4:
+		case Guard5:
+		case Guard6:
+		case Guard7:
+		case Guard8:
+		{
+			ss << "G" << m_mark-2;
+		}
+			break;
+		default:
+			break;
+	}
+	CCSize size = getContentSize();
+	CCLabelTTF* label = CCLabelTTF::create(ss.str().c_str(), "", 30,size,kCCTextAlignmentCenter, kCCVerticalTextAlignmentCenter);
+	label->setPosition(ccp(size.width*0.5, size.height*0.5));
+	addChild(label, 5);
+}
+
 ///////////////////////////////
 TerrainMap* TerrainMap::createWithMap(const std::string &layout)
 {
@@ -106,8 +140,8 @@ void TerrainMap::readLayout(const std::string &layout)
 		CSJson::Value value = root[i];
 		
 		MapTile* tile = MapTile::create(MapTile::TileType(value["type"].asInt()));
-		tile->setPositionX(320 + (value["posX"].asInt() - 2)*101);
-		tile->setPositionY(480 - (value["posY"].asInt() - 2)*101);
+		tile->setPositionX(320 + (value["posX"].asInt() - 2)*100);
+		tile->setPositionY(480 - (value["posY"].asInt() - 2)*100);
 		tile->setTileID(value["id"].asInt());
 		tile->setNextTile(value["nextId"].asInt());
 		
@@ -122,8 +156,17 @@ int TerrainMap::isHit(cocos2d::CCPoint pt)
 	{
 		MapTile* tile = *itr;
 		if(tile->isHit(pt))
+		{
+			m_curTile = tile;
 			return tile->getType();
+		}
 	}
 	
+	m_curTile = NULL;
 	return -1;
+}
+
+void TerrainMap::markCurTile(MapTile::TileMark mark)
+{
+	m_curTile->setMark(mark);
 }

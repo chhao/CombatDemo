@@ -41,22 +41,28 @@ bool MagicGuard::getSelected()
 void MagicGuard::setSelected(bool select)
 {
 	m_select = select;
+	
+	if(m_select)
+		m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_2.png"));
+	else
+		m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_1.png"));
 }
 
 bool MagicGuard::isHit(cocos2d::CCPoint pt)
 {
 	if(::isHit(m_checkBox->getQuad(), m_checkBox->convertToNodeSpace(pt)))
 	{
-		m_select = !m_select;
-		if(m_select)
-			m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_2.png"));
-		else
-			m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_1.png"));
+		setSelected(!m_select);
 		
 		return true;
 	}
 	
 	return false;
+}
+
+void MagicGuard::setLabel(const std::string &label)
+{
+	m_label->setString(label.c_str());
 }
 ///////////////////////////////////
 CardGroup::CardGroup()
@@ -88,11 +94,7 @@ bool CardGroup::isHit(cocos2d::CCPoint pt)
 {
 	if(::isHit(m_checkBox->getQuad(), m_checkBox->convertToNodeSpace(pt)))
 	{
-		m_select = !m_select;
-		if(m_select)
-			m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_2.png"));
-		else
-			m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_1.png"));
+		setSelected(!m_select);
 		
 		return true;
 	}
@@ -108,14 +110,32 @@ bool CardGroup::getSelected()
 void CardGroup::setSelected(bool select)
 {
 	m_select = select;
+	
+	if(m_select)
+		m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_2.png"));
+	else
+		m_checkBox->setTexture(CCTextureCache::sharedTextureCache()->addImage("chk_1.png"));
 }
 
 
 ///////////////////////////////////////////
+std::vector<std::string> g_labelvec;
+
 SelectBackGround::SelectBackGround()
 :m_listviewLayer(NULL)
+,m_selectIndex(-1)
 {
-	
+	if(g_labelvec.empty())
+	{
+		g_labelvec.push_back("加速恢复");
+		g_labelvec.push_back("增加魔法防御");
+		g_labelvec.push_back("增加物理防御");
+		g_labelvec.push_back("增加速度");
+		g_labelvec.push_back("增加物理攻击");
+		g_labelvec.push_back("增加魔法攻击");
+		g_labelvec.push_back("增加暴击几率");
+		g_labelvec.push_back("使己方攻击有一定几率吸血");
+	}
 }
 
 SelectBackGround::~SelectBackGround()
@@ -147,6 +167,22 @@ bool SelectBackGround::init()
 	m_label = (CCLabelTTF*)getChildByTag(SelectBackGround::DescriptionLabel);
 	
 	return true;
+}
+
+void SelectBackGround::resetCheckStatus()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		m_cardGroup[i]->setSelected(false);
+	}
+	
+	if(m_listviewLayer)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_magicGuard[i]->setSelected(false);
+		}
+	}
 }
 
 void SelectBackGround::setInfo(int tiletype)
@@ -200,18 +236,21 @@ int SelectBackGround::isHit(cocos2d::CCPoint pt)
 	
 	if(::isHit(m_btnCancle->getQuad(), m_btnCancle->convertToNodeSpace(pt)))
 	{
-		return BtnCancel;
+		return -1;
 	}
 	
 	if(::isHit(m_btnOK->getQuad(), m_btnOK->convertToNodeSpace(pt)))
 	{
-		return BtnOK;
+		return m_selectIndex;
 	}
 	
 	for (int i = 0; i < 3; i++)
 	{
 		if(m_cardGroup[i]->isVisible() && m_cardGroup[i]->isHit(pt))
+		{
+			m_selectIndex = i;
 			return -1;
+		}
 	}
 	
 	if(m_listviewLayer && m_listviewLayer->isVisible())
@@ -219,7 +258,10 @@ int SelectBackGround::isHit(cocos2d::CCPoint pt)
 		for (int i = 0; i < 8; i++)
 		{
 			if(m_magicGuard[i]->isHit(pt))
+			{
+				m_selectIndex = 3+i;
 				return -1;
+			}
 		}
 	}
 	
@@ -244,6 +286,7 @@ void SelectBackGround::updateMagicGuard(bool show)
 		{
 			MagicGuard* guard = MagicGuard::create();
 			m_listviewLayer->addItem(guard);
+			guard->setLabel(g_labelvec[i]);
 			m_magicGuard[i] = guard;
 		}
 	}

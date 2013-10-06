@@ -43,6 +43,7 @@ void CardConfig::readConfig()
 		card->m_nature = value["nature"].asInt();
 		card->m_bexp = value["bexp"].asInt();
 		card->m_egold = value["egold"].asInt();
+		card->m_bhp = value["bhp"].asInt();
 		card->m_uhp = value["uhp"].asInt();
 		card->m_bdmg = value["bdmg"].asInt();
 		card->m_udmg = value["udmg"].asInt();
