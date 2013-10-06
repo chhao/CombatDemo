@@ -12,6 +12,7 @@
 #include <iostream>
 #include "cocos2d.h"
 #include "Card.h"
+#include "Combat.h"
 
 class CardSprite : public cocos2d::CCSprite
 {
@@ -22,13 +23,7 @@ public:
 class BattleEvent
 {
 public:
-	enum EventType
-	{
-		NormalAttack = 1,
-		Dead = 2,
-	};
-	
-	BattleEvent(CardSprite* card1, CardSprite* card2, EventType type, std::string discription = "")
+	BattleEvent(CardSprite* card1, CardSprite* card2, Combat::ActionType type, std::string discription = "")
 	:m_type(type)
 	,m_discription(discription)
 	,m_card1(card1)
@@ -37,7 +32,7 @@ public:
 		
 	}
 	
-	EventType m_type;
+	Combat::ActionType m_type;
 	std::string m_discription;
 	CardSprite* m_card1;
 	CardSprite* m_card2;
@@ -56,6 +51,7 @@ public:
 	bool init();
 	
 	void onEnter();
+	void onExit();
 
 	void setCardGroup(const std::vector<Card*>& card1, const std::vector<Card*>& card2);
 
@@ -64,18 +60,10 @@ public:
 	void nextEvent();
 
 private:
-	
-	void getAttackQueue();
-	
-	void caculate();
-	
 	void createSprite(Card* card, int i, bool bOnBottom);
 	
 private:
-	typedef std::map<Card*, int> CardGroup;
 	typedef std::map<Card*, CardSprite*> CardSpriteMap;
-	CardGroup m_cardgroup1;
-	CardGroup m_cardgroup2;
 	CardSpriteMap m_cardmap;
 	
 	cocos2d::CCSprite* m_attackEffect;

@@ -15,7 +15,10 @@
 class Card
 {
 public:
-	Card() {}
+	Card()
+	:m_hp(1000)
+	{
+	}
 	~Card()
 	{
 		
@@ -34,6 +37,7 @@ public:
 	int m_star;
 	int m_sp;
 	int m_usp;
+	int m_hp;
 	
 	void clone(Card* card)
 	{
@@ -51,8 +55,10 @@ public:
 		m_star = card->m_star;
 		m_sp = card->m_sp;
 		m_usp = card->m_usp;
+		m_hp = card->m_hp;
 	}
 };
+
 
 class CardConfig
 {

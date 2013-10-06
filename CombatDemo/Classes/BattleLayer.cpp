@@ -10,10 +10,14 @@
 #include "HelperUtil.h"
 #include "Game.h"
 #include "GameScene.h"
+#include "Combat.h"
 #include <sstream>
 #include <iomanip>
 
 using namespace cocos2d;
+
+const float c_attack = 0.4;
+const float c_defense = 0.4;
 
 CardSprite* CardSprite::createByID(int ID)
 {
@@ -46,6 +50,68 @@ bool BattleLayer::init()
 {
 	if(!CCLayer::init())
 		return false;
+
+	return true;
+}
+
+void BattleLayer::createSprite(Card *card, int i, bool bOnBottom)
+{
+	CardSprite* sprite = CardSprite::createByID(card->m_id);
+	if(bOnBottom)
+	{
+		int row = i / 3;
+		sprite->setPositionX( 120 + (i%3) * 180 );
+		sprite->setPositionY(100 + row * 180);
+	}
+	else
+	{
+		int row = i / 3;
+		sprite->setPositionX( 120 + (i%3) * 180 );
+		sprite->setPositionY(960 - 100 - row * 180);
+	}
+	addChild(sprite);
+	m_cardmap.insert(std::make_pair(card, sprite));
+}
+
+void BattleLayer::setCardGroup(const std::vector<Card *> &card1, const std::vector<Card *> &card2 )
+{
+	Combat* combat = new Combat;
+	
+	for (int i = 0; i < 6; i++)
+	{
+		createSprite(card1[i], i, true);
+		createSprite(card2[i], i, false);
+	}
+	
+	const Combat::CombatActionList& combatlist = combat->runCombat(card1, card2);
+	for (auto itr = combatlist.begin(); itr != combatlist.end(); ++itr)
+	{
+		//TODO
+		Combat::CombatAction* action = *itr;
+		Card* card1 = action->card1;
+		Card* card2 = action->resultlist.begin()->first;
+		int hit = action->resultlist.begin()->second;
+		
+		std::stringstream ss;
+		ss << hit;
+		
+		BattleEvent* event = new BattleEvent(m_cardmap[card1], m_cardmap[card2], action->type, ss.str());
+		m_eventlist.push_back(event);
+	}
+	
+	delete combat;
+}
+
+void BattleLayer::onEnter()
+{
+	std::vector<Card *> card1, card2;
+	for (int i = 1; i < 7; i++)
+	{
+		card1.push_back(CardConfig::getInstance()->getCardByID(i));
+		card2.push_back(CardConfig::getInstance()->getCardByID(i + 10));
+	}
+	
+	setCardGroup(card1, card2);
 	
 	m_attackEffect = CCSprite::create("effect_attack.png");
 	addChild(m_attackEffect, 5);
@@ -56,29 +122,18 @@ bool BattleLayer::init()
 	m_label->setVisible(false);
 	addChild(m_label, 5);
 	
-	std::vector<Card *> card1, card2;
-	for (int i = 1; i < 7; i++)
-	{
-		card1.push_back(CardConfig::getInstance()->getCardByID(i));
-		card2.push_back(CardConfig::getInstance()->getCardByID(i + 10));
-	}
-	
-	setCardGroup(card1, card2);
-	caculate();
-	
-	return true;
-}
-
-void BattleLayer::onEnter()
-{
-//	runAction(CCSequence::create(CCDelayTime::create(2.0),CCCallFunc::create(this, callfunc_selector(BattleLayer::battleEnd)),NULL));
-	
 	excuteEvents();
 	return CCLayer::onEnter();
 }
 
-const float c_attack = 0.4;
-const float c_defense = 0.4;
+void BattleLayer::onExit()
+{
+	removeAllChildren();
+	
+	m_cardmap.clear();
+	
+	return CCLayer::onExit();
+}
 
 void BattleLayer::excuteEvents()
 {
@@ -90,7 +145,7 @@ void BattleLayer::excuteEvents()
 	
 	switch (event->m_type)
 	{
-		case BattleEvent::NormalAttack:
+		case Combat::NormalAttack:
 		{
 			event->m_card1->runAction(CCSequence::create(CCScaleTo::create(c_attack*0.5, 1.2*1.5), CCScaleTo::create(c_attack*0.5, 1.0*1.5),NULL));
 			event->m_card2->runAction(CCSequence::create(CCDelayTime::create(c_attack),CCScaleTo::create(c_defense*0.5, 0.8*1.5), CCScaleTo::create(c_defense*0.5, 1.0*1.5),callback,NULL));
@@ -104,18 +159,18 @@ void BattleLayer::excuteEvents()
 			m_label->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCMoveBy::create(c_defense*0.3, ccp(0, -50)), CCHide::create(),NULL));
 		}
 			break;
-		case BattleEvent::Dead:
+		case Combat::Dead:
 		{
-			event->m_card1->runAction(CCSequence::create(CCScaleTo::create(1.2, c_attack*0.5), CCScaleTo::create(1.0, c_attack*0.5),NULL));
-			event->m_card2->runAction(CCSequence::create(CCDelayTime::create(c_attack),CCScaleTo::create(0.8, c_defense*0.5), CCScaleTo::create(1.0, c_defense*0.5),CCHide::create(), callback, NULL));
+			event->m_card1->runAction(CCSequence::create(CCScaleTo::create(c_attack*0.5, 1.2*1.5), CCScaleTo::create(c_attack*0.5, 1.0*1.5),NULL));
+			event->m_card2->runAction(CCSequence::create(CCDelayTime::create(c_attack),CCScaleTo::create(c_defense*0.5, 0.8*1.5), CCScaleTo::create(c_defense*0.5, 1.0*1.5), CCHide::create() ,callback,NULL));
 			
 			m_attackEffect->setPosition(event->m_card2->getPosition());
 			m_label->setPosition(event->m_card2->getPosition());
 			
-			m_attackEffect->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCScaleTo::create(1.2, c_defense*0.2), CCScaleTo::create(1.0, c_defense*0.2), CCShow::create(),CCHide::create(),NULL));
+			m_attackEffect->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCScaleTo::create(c_defense*0.3, 1.2*1.5), CCScaleTo::create(c_defense*0.3, 1.0*1.5),CCHide::create(),NULL));
 			
 			m_label->setString(event->m_discription.c_str());
-			m_label->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCMoveBy::create(1.2, ccp(0, 100)), CCShow::create(),CCHide::create(),NULL));
+			m_label->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCMoveBy::create(c_defense*0.3, ccp(0, -50)), CCHide::create(),NULL));
 		}
 			break;
 	}
@@ -149,53 +204,4 @@ void BattleLayer::clearEvents()
 	}
 	m_eventlist.clear();
 }
-
-void BattleLayer::createSprite(Card *card, int i, bool bOnBottom)
-{
-	CardSprite* sprite = CardSprite::createByID(card->m_id);
-	if(bOnBottom)
-	{
-		int row = i / 3;
-		sprite->setPositionX( 120 + (i%3) * 180 );
-		sprite->setPositionY(100 + row * 180);
-	}
-	else
-	{
-		int row = i / 3;
-		sprite->setPositionX( 120 + (i%3) * 180 );
-		sprite->setPositionY(960 - 100 - row * 180);
-	}
-	addChild(sprite);
-	m_cardmap.insert(std::make_pair(card, sprite));
-}
-
-void BattleLayer::setCardGroup(const std::vector<Card *> &card1, const std::vector<Card *> &card2 )
-{
-	m_cardgroup1.clear();
-	m_cardgroup2.clear();
-	
-	for (int i = 0; i < 6; i++)
-	{
-		if (card1[i])
-		{
-			m_cardgroup1.insert(std::make_pair(card1[i], i));
-			createSprite(card1[i], i, true);
-		}
-		if (card2[i])
-		{
-			m_cardgroup2.insert(std::make_pair(card2[i], i));
-			createSprite(card2[i], i, false);
-		}
-	}
-	
-	caculate();
-}
-
-void BattleLayer::caculate()
-{
-	
-	m_eventlist.push_back(new BattleEvent(m_cardmap[m_cardgroup1.begin()->first], m_cardmap[m_cardgroup2.begin()->first], BattleEvent::NormalAttack, "-15"));
-	m_eventlist.push_back(new BattleEvent(m_cardmap[m_cardgroup2.begin()->first], m_cardmap[m_cardgroup1.begin()->first], BattleEvent::NormalAttack, "-30"));
-}
-
 
