@@ -98,23 +98,8 @@ TerrainMap::~TerrainMap()
 
 void TerrainMap::readLayout(const std::string &layout)
 {
-	CSJson::Reader reader;
 	CSJson::Value root;
-	
-	unsigned char* pBuffer = NULL;
-    unsigned long bufferSize = 0;
-    
-    pBuffer = CCFileUtils::sharedFileUtils()->getFileData(layout.c_str(), "r", &bufferSize);
-    
-	std::stringstream in;
-    in << pBuffer;
-    delete pBuffer;
-    pBuffer = NULL;
-	
-	if (!reader.parse(in.str(), root))
-	{
-		return;
-	}
+	readJsonFile(layout, root);
 	
 	for (int i = 0; i < root.size(); i++)
 	{

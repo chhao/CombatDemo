@@ -12,6 +12,7 @@
 #include <iostream>
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "json_lib.h"
 
 typedef std::vector<std::string> StringVector;
 typedef std::list<std::string> StringList;
@@ -45,5 +46,7 @@ std::string getSpriteFrameResourceFullPath(const std::string& file);
 const char* getResolutionPath();
 bool isHighResolution();
 float getResolutionScale();
+
+void readJsonFile(const std::string& filename, CSJson::Value& root);
 
 #endif /* defined(__FairyTales__HelperUtil__) */

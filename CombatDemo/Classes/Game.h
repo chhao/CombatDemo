@@ -10,6 +10,7 @@
 #define __CombatDemo__Game__
 
 #include <iostream>
+#include "Card.h"
 
 class GameScene;
 class Game
@@ -30,11 +31,17 @@ public:
 	int getCurrentLevel();
 	
 	GameScene* getGameScene();
+	
+	const CardVector& getCardGroup(int i);
 private:
 	Game();
 	
+	void init();
+	
 	int m_world;
 	int m_level;
+	
+	CardVector m_cardgroup[3];
 };
 
 #endif /* defined(__CombatDemo__Game__) */

@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
 
 class Card
 {
@@ -58,7 +59,7 @@ public:
 		m_hp = card->m_hp;
 	}
 };
-
+typedef std::vector<Card*> CardVector;
 
 class CardConfig
 {
@@ -72,9 +73,8 @@ public:
 	~CardConfig();
 	
 	void readConfig();
-
-	Card* getCardByID(int id);
 	
+	Card* createCardByID(int ID);
 private:
 	CardConfig();
 	

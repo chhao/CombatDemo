@@ -104,14 +104,13 @@ void BattleLayer::setCardGroup(const std::vector<Card *> &card1, const std::vect
 
 void BattleLayer::onEnter()
 {
-	std::vector<Card *> card1, card2;
+	CardVector card2;
 	for (int i = 1; i < 7; i++)
 	{
-		card1.push_back(CardConfig::getInstance()->getCardByID(i));
-		card2.push_back(CardConfig::getInstance()->getCardByID(i + 10));
+		card2.push_back(CardConfig::getInstance()->createCardByID(i + 10));
 	}
 	
-	setCardGroup(card1, card2);
+	setCardGroup(Game::getInstance()->getCardGroup(0), card2);
 	
 	m_attackEffect = CCSprite::create("effect_attack.png");
 	addChild(m_attackEffect, 5);

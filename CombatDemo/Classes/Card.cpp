@@ -9,6 +9,7 @@
 #include "Card.h"
 #include "json_lib.h"
 #include "cocos2d.h"
+#include "HelperUtil.h"
 #include <sstream>
 
 using namespace cocos2d;
@@ -28,24 +29,9 @@ CardConfig::~CardConfig()
 
 void CardConfig::readConfig()
 {
-	CSJson::Reader reader;
 	CSJson::Value root;
-	
-	unsigned char* pBuffer = NULL;
-    unsigned long bufferSize = 0;
-    
-    pBuffer = CCFileUtils::sharedFileUtils()->getFileData("cardConfig.json", "r", &bufferSize);
-    
-	std::stringstream in;
-    in << pBuffer;
-    delete pBuffer;
-    pBuffer = NULL;
-	
-	if (!reader.parse(in.str(), root))
-	{
-		return;
-	}
-	
+	readJsonFile("cardConfig.json", root);
+		
 	for (int i = 0; i < root.size(); i++)
 	{
 		CSJson::Value value = root[i];
@@ -69,12 +55,14 @@ void CardConfig::readConfig()
 
 }
 
-Card* CardConfig::getCardByID(int id)
+Card* CardConfig::createCardByID(int id)
 {
 	auto itr = m_cardMap.find(id);
 	if(itr != m_cardMap.end())
 	{
-		return itr->second;
+		Card* card = new Card;
+		card->clone(itr->second);
+		return card;
 	}
 	
 	return NULL;

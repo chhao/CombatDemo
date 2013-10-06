@@ -356,3 +356,23 @@ float getResolutionScale()
 	else
 		return 0.645;
 }
+
+void readJsonFile(const std::string& filename, CSJson::Value& root)
+{
+	CSJson::Reader reader;
+	
+	unsigned char* pBuffer = NULL;
+    unsigned long bufferSize = 0;
+    
+    pBuffer = CCFileUtils::sharedFileUtils()->getFileData(filename.c_str(), "r", &bufferSize);
+    
+	std::stringstream in;
+    in << pBuffer;
+    delete pBuffer;
+    pBuffer = NULL;
+	
+	if (!reader.parse(in.str(), root))
+	{
+		return;
+	}
+}
