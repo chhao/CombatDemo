@@ -172,7 +172,7 @@ void SelectBackGround::setInfo(int tiletype)
 			image = "block/box5.png";
 			break;
 		case MapTile::End:
-			label = "终点";
+			label = "宝箱";
 			image = "block/box7.png";
 			break;
 		default:

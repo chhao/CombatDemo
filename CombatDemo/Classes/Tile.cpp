@@ -121,8 +121,8 @@ void TerrainMap::readLayout(const std::string &layout)
 		CSJson::Value value = root[i];
 		
 		MapTile* tile = MapTile::create(MapTile::TileType(value["type"].asInt()));
-		tile->setPositionX(value["posX"].asInt());
-		tile->setPositionY(value["posY"].asInt());
+		tile->setPositionX(320 + (value["posX"].asInt() - 2)*101);
+		tile->setPositionY(480 - (value["posY"].asInt() - 2)*101);
 		tile->setTileID(value["id"].asInt());
 		tile->setNextTile(value["nextId"].asInt());
 		

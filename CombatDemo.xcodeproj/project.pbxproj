@@ -10,6 +10,9 @@
 		D608851F18004CB600E9E5D7 /* cards in Resources */ = {isa = PBXBuildFile; fileRef = D608851E18004CB600E9E5D7 /* cards */; };
 		D6088522180077A700E9E5D7 /* effect_attack.png in Resources */ = {isa = PBXBuildFile; fileRef = D6088521180077A700E9E5D7 /* effect_attack.png */; };
 		D60885251801107F00E9E5D7 /* Combat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D60885231801107F00E9E5D7 /* Combat.cpp */; };
+		D611AF2218014D5A006051B2 /* cardConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = D611AF1F18014D5A006051B2 /* cardConfig.json */; };
+		D611AF2318014D5A006051B2 /* map0.json in Resources */ = {isa = PBXBuildFile; fileRef = D611AF2018014D5A006051B2 /* map0.json */; };
+		D611AF2418014D5A006051B2 /* map1.json in Resources */ = {isa = PBXBuildFile; fileRef = D611AF2118014D5A006051B2 /* map1.json */; };
 		D622DE4C17FE5F6400D0A525 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4B17FE5F6400D0A525 /* QuartzCore.framework */; };
 		D622DE4E17FE5F6400D0A525 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4D17FE5F6400D0A525 /* OpenGLES.framework */; };
 		D622DE5017FE5F6400D0A525 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4F17FE5F6400D0A525 /* OpenAL.framework */; };
@@ -315,8 +318,6 @@
 		D625C4A617FF18C100C591CB /* HudLayer.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C4A517FF18C100C591CB /* HudLayer.json */; };
 		D625C4A917FF18D000C591CB /* HUDLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C4A717FF18CF00C591CB /* HUDLayer.cpp */; };
 		D625C4AC17FFC4C300C591CB /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C4AA17FFC4C200C591CB /* Tile.cpp */; };
-		D625C4AE17FFDA6B00C591CB /* map1.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C4AD17FFDA6B00C591CB /* map1.json */; };
-		D625C4B017FFDEC300C591CB /* map0.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C4AF17FFDEC300C591CB /* map0.json */; };
 		D625C4B317FFE07C00C591CB /* SelectCardGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C4B117FFE07B00C591CB /* SelectCardGroup.cpp */; };
 		D625C4B917FFE18300C591CB /* SelectBackgroud.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C4B717FFE18300C591CB /* SelectBackgroud.json */; };
 		D625C4BA17FFE18300C591CB /* SelectCardGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C4B817FFE18300C591CB /* SelectCardGroup.json */; };
@@ -332,7 +333,6 @@
 		D625C51317FFF3DA00C591CB /* chk_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C51117FFF3D900C591CB /* chk_2.png */; };
 		D625C51517FFF40F00C591CB /* btn_form.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C51417FFF40F00C591CB /* btn_form.png */; };
 		D625C5171800264B00C591CB /* SelectGuard.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C5161800264B00C591CB /* SelectGuard.json */; };
-		D625C5191800389900C591CB /* cardConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C5181800389900C591CB /* cardConfig.json */; };
 		D625C51C180038CE00C591CB /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C51A180038CD00C591CB /* Card.cpp */; };
 /* End PBXBuildFile section */
 
@@ -341,6 +341,9 @@
 		D6088521180077A700E9E5D7 /* effect_attack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effect_attack.png; path = Resources/effect_attack.png; sourceTree = "<group>"; };
 		D60885231801107F00E9E5D7 /* Combat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Combat.cpp; path = Classes/Combat.cpp; sourceTree = "<group>"; };
 		D60885241801107F00E9E5D7 /* Combat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Combat.h; path = Classes/Combat.h; sourceTree = "<group>"; };
+		D611AF1F18014D5A006051B2 /* cardConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cardConfig.json; sourceTree = "<group>"; };
+		D611AF2018014D5A006051B2 /* map0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map0.json; sourceTree = "<group>"; };
+		D611AF2118014D5A006051B2 /* map1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map1.json; sourceTree = "<group>"; };
 		D622DE4817FE5F6400D0A525 /* CombatDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CombatDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D622DE4B17FE5F6400D0A525 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D622DE4D17FE5F6400D0A525 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -982,8 +985,6 @@
 		D625C4A817FF18CF00C591CB /* HUDLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HUDLayer.h; path = Classes/HUDLayer.h; sourceTree = "<group>"; };
 		D625C4AA17FFC4C200C591CB /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tile.cpp; path = Classes/Tile.cpp; sourceTree = "<group>"; };
 		D625C4AB17FFC4C200C591CB /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tile.h; path = Classes/Tile.h; sourceTree = "<group>"; };
-		D625C4AD17FFDA6B00C591CB /* map1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = map1.json; path = Resources/map1.json; sourceTree = "<group>"; };
-		D625C4AF17FFDEC300C591CB /* map0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = map0.json; path = Resources/map0.json; sourceTree = "<group>"; };
 		D625C4B117FFE07B00C591CB /* SelectCardGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectCardGroup.cpp; path = Classes/SelectCardGroup.cpp; sourceTree = "<group>"; };
 		D625C4B217FFE07C00C591CB /* SelectCardGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectCardGroup.h; path = Classes/SelectCardGroup.h; sourceTree = "<group>"; };
 		D625C4B717FFE18300C591CB /* SelectBackgroud.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SelectBackgroud.json; path = Resources/SelectBackgroud.json; sourceTree = "<group>"; };
@@ -1000,7 +1001,6 @@
 		D625C51117FFF3D900C591CB /* chk_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chk_2.png; path = Resources/chk_2.png; sourceTree = "<group>"; };
 		D625C51417FFF40F00C591CB /* btn_form.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_form.png; path = Resources/btn_form.png; sourceTree = "<group>"; };
 		D625C5161800264B00C591CB /* SelectGuard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SelectGuard.json; path = Resources/SelectGuard.json; sourceTree = "<group>"; };
-		D625C5181800389900C591CB /* cardConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = cardConfig.json; path = Resources/cardConfig.json; sourceTree = "<group>"; };
 		D625C51A180038CD00C591CB /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Card.cpp; path = Classes/Card.cpp; sourceTree = "<group>"; };
 		D625C51B180038CD00C591CB /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Card.h; path = Classes/Card.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1027,6 +1027,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D611AF1E18014D5A006051B2 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				D611AF1F18014D5A006051B2 /* cardConfig.json */,
+				D611AF2018014D5A006051B2 /* map0.json */,
+				D611AF2118014D5A006051B2 /* map1.json */,
+			);
+			name = config;
+			path = Resources/config;
+			sourceTree = "<group>";
+		};
 		D622DE3F17FE5F6400D0A525 = {
 			isa = PBXGroup;
 			children = (
@@ -1074,9 +1085,9 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D611AF1E18014D5A006051B2 /* config */,
 				D6088521180077A700E9E5D7 /* effect_attack.png */,
 				D608851E18004CB600E9E5D7 /* cards */,
-				D625C5181800389900C591CB /* cardConfig.json */,
 				D625C5161800264B00C591CB /* SelectGuard.json */,
 				D625C51417FFF40F00C591CB /* btn_form.png */,
 				D625C51017FFF3D900C591CB /* chk_1.png */,
@@ -1091,8 +1102,6 @@
 				D625C4DF17FFF34C00C591CB /* selectbg.png */,
 				D625C4B717FFE18300C591CB /* SelectBackgroud.json */,
 				D625C4B817FFE18300C591CB /* SelectCardGroup.json */,
-				D625C4AF17FFDEC300C591CB /* map0.json */,
-				D625C4AD17FFDA6B00C591CB /* map1.json */,
 				D625C4A517FF18C100C591CB /* HudLayer.json */,
 				D625C4A117FF145100C591CB /* combatresult.png */,
 				D625C4A217FF145100C591CB /* ResultLayer.json */,
@@ -2405,8 +2414,6 @@
 				D625C4A317FF145100C591CB /* combatresult.png in Resources */,
 				D625C4A417FF145100C591CB /* ResultLayer.json in Resources */,
 				D625C4A617FF18C100C591CB /* HudLayer.json in Resources */,
-				D625C4AE17FFDA6B00C591CB /* map1.json in Resources */,
-				D625C4B017FFDEC300C591CB /* map0.json in Resources */,
 				D625C4B917FFE18300C591CB /* SelectBackgroud.json in Resources */,
 				D625C4BA17FFE18300C591CB /* SelectCardGroup.json in Resources */,
 				D625C50217FFF34C00C591CB /* members_bg.png in Resources */,
@@ -2421,9 +2428,11 @@
 				D625C51317FFF3DA00C591CB /* chk_2.png in Resources */,
 				D625C51517FFF40F00C591CB /* btn_form.png in Resources */,
 				D625C5171800264B00C591CB /* SelectGuard.json in Resources */,
-				D625C5191800389900C591CB /* cardConfig.json in Resources */,
 				D608851F18004CB600E9E5D7 /* cards in Resources */,
 				D6088522180077A700E9E5D7 /* effect_attack.png in Resources */,
+				D611AF2218014D5A006051B2 /* cardConfig.json in Resources */,
+				D611AF2318014D5A006051B2 /* map0.json in Resources */,
+				D611AF2418014D5A006051B2 /* map1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

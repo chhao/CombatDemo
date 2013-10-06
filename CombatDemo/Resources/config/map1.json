@@ -1,0 +1,93 @@
+[
+    {
+        "id": 0,
+        "posX": 4,
+        "posY": 0,
+        "nextId":1,
+        "type": 1
+    },
+    {
+        "id": 1,
+        "posX": 4,
+        "posY": 1,
+        "nextId":2,
+        "type": 4
+    },
+    {
+        "id": 2,
+        "posX": 3,
+        "posY": 1,
+        "nextId":3,
+        "type": 2
+    },
+    {
+        "id": 3,
+        "posX": 2,
+        "posY": 1,
+        "nextId":4,
+        "type": 2
+    },
+    {
+        "id": 4,
+        "posX": 1,
+        "posY": 1,
+        "nextId":5,
+        "type": 5
+    },
+    {
+        "id": 5,
+        "posX": 0,
+        "posY": 1,
+        "nextId":6,
+        "type": 5
+    },        
+    {
+        "id": 6,
+        "posX": 0,
+        "posY": 2,
+        "nextId":7,
+        "type": 5
+    },
+    {
+        "id": 7,
+        "posX": 0,
+        "posY": 3,
+        "nextId": 8,
+        "type": 1
+    },    
+    {
+        "id": 8,
+        "posX": 1,
+        "posY": 3,
+        "nextId": 9,
+        "type": 3
+    },   
+    {
+        "id": 9,
+        "posX": 2,
+        "posY": 3,
+        "nextId": 10,
+        "type": 3
+    },   
+    {
+        "id": 10,
+        "posX": 3,
+        "posY": 3,
+        "nextId": 11,
+        "type": 3
+    },   
+    {
+        "id": 11,
+        "posX": 4,
+        "posY": 3,
+        "nextId": 12,
+        "type": 1
+    },           
+    {
+        "id": 12,
+        "posX": 4,
+        "posY": 4,
+        "nextId": 9,
+        "type": 6
+    }
+]
