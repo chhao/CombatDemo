@@ -29,7 +29,7 @@ bool cmp(Card* card1, Card* card2)
 	return card1->m_sp > card2->m_sp;
 }
 
-const Combat::CombatActionList& Combat::runCombat(const std::vector<Card*>& card1, const std::vector<Card*>& card2)
+const Combat::CombatActionList& Combat::runCombat(CardDeck* carddeck1, CardDeck* carddeck2)
 {
 	m_cardgroup1.clear();
 	m_cardgroup2.clear();
@@ -37,15 +37,18 @@ const Combat::CombatActionList& Combat::runCombat(const std::vector<Card*>& card
 	
 	for (int i = 0; i < 6; i++)
 	{
-		if (card1[i])
+		Card* card = carddeck1->getCardByIndex(i);
+		if (card)
 		{
-			m_cardgroup1.insert(std::make_pair(card1[i], i));
-			m_attackQueue.push_back(card1[i]);
+			m_cardgroup1.insert(std::make_pair(card, i));
+			m_attackQueue.push_back(card);
 		}
-		if (card2[i])
+		
+		card = carddeck2->getCardByIndex(i);
+		if (card)
 		{
-			m_cardgroup2.insert(std::make_pair(card2[i], i));
-			m_attackQueue.push_back(card2[i]);
+			m_cardgroup2.insert(std::make_pair(card, i));
+			m_attackQueue.push_back(card);
 		}
 	}
 	

@@ -80,17 +80,17 @@ void CardBattleLayer::createSprite(Card *card, int i, bool bOnBottom)
 	m_cardmap.insert(std::make_pair(card, sprite));
 }
 
-int CardBattleLayer::setCardGroup(const std::vector<Card *> &card1, const std::vector<Card *> &card2 )
+int CardBattleLayer::setCardGroup(CardDeck* carddeck1, CardDeck* carddeck2)
 {
 	Combat* combat = new Combat;
 	
 	for (int i = 0; i < 6; i++)
 	{
-		createSprite(card1[i], i, true);
-		createSprite(card2[i], i, false);
+		createSprite(carddeck1->getCardByIndex(i), i, true);
+		createSprite(carddeck2->getCardByIndex(i), i, false);
 	}
 	
-	const Combat::CombatActionList& combatlist = combat->runCombat(card1, card2);
+	const Combat::CombatActionList& combatlist = combat->runCombat(carddeck1, carddeck2);
 	for (auto itr = combatlist.begin(); itr != combatlist.end(); ++itr)
 	{
 		//TODO

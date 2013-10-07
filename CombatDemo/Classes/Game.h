@@ -32,7 +32,7 @@ public:
 	
 	GameScene* getGameScene();
 	
-	const CardVector& getCardGroup(int i);
+	CardDeck* getCardDeck(int i);
 private:
 	Game();
 	
@@ -41,7 +41,7 @@ private:
 	int m_world;
 	int m_level;
 	
-	CardVector m_cardgroup[3];
+	CardDeckVector m_cardDeckVec;
 };
 
 #endif /* defined(__CombatDemo__Game__) */

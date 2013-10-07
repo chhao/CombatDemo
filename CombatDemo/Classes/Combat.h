@@ -35,7 +35,7 @@ public:
 	};
 	typedef std::list<CombatAction*> CombatActionList;
 
-	const CombatActionList& runCombat(const CardVector& card1, const CardVector& card2);
+	const CombatActionList& runCombat(CardDeck* carddeck1, CardDeck* carddeck2);
 
 	int getResult();
 private:

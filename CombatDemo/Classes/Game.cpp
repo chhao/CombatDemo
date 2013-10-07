@@ -34,11 +34,7 @@ void Game::init()
 	for (int i = 0; i < root.size(); i++)
 	{
 		CSJson::Value value = root[i];
-		for (int j = 0; j < value.size(); j++)
-		{
-			int cardid = value[j].asInt();
-			m_cardgroup[i].push_back(CardConfig::getInstance()->createCardByID(cardid));
-		}
+		m_cardDeckVec.push_back(CardDeck::createCardDeck(value));
 	}
 }
 
@@ -68,7 +64,7 @@ GameScene* Game::getGameScene()
 	return (GameScene*)CCDirector::sharedDirector()->getRunningScene();
 }
 
-const CardVector& Game::getCardGroup(int i)
+CardDeck* Game::getCardDeck(int i)
 {
-	return m_cardgroup[i];
+	return m_cardDeckVec[i];
 }

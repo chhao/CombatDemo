@@ -61,22 +61,7 @@ void BattleLayer::copyHeroCards()
 {
 	for (int i = 0; i < 3; i++)
 	{
-		const CardVector& cards = Game::getInstance()->getCardGroup(i);
-		
-		for (int j = 0; j < 6; j++)
-		{
-			if(cards[j])
-			{
-				Card* card = new Card;
-				card->clone(cards[j]);
-				m_herocards[i].push_back(card);
-				
-			}
-			else
-			{
-				m_herocards[i].push_back(NULL);
-			}
-		}
+		m_herocards[i] = Game::getInstance()->getCardDeck(i)->clone();
 	}
 }
 
@@ -94,17 +79,7 @@ void BattleLayer::readEnemyCards()
 	for (int i = 0; i < levelvalue.size(); i++)
 	{
 		CSJson::Value cards = levelvalue[i];
-		for (int j = 0; j < cards.size(); j++)
-		{
-			if(cards[j] == 0)
-			{
-				m_enemycards[i].push_back(NULL);
-			}
-			else
-			{
-				m_enemycards[i].push_back(CardConfig::getInstance()->createCardByID(cards[j].asInt()));
-			}
-		}
+		m_enemycards[i] = CardDeck::createCardDeck(cards);
 	}
 }
 
@@ -153,12 +128,12 @@ void BattleLayer::onExit()
 	
 	for(int i = 0; i < 3; i++)
 	{
-		m_enemycards[i].clear();
+		delete m_enemycards[i];
 	}
 
 	for(int i = 0; i < 3; i++)
 	{
-		m_herocards[i].clear();
+		delete m_herocards[i];
 	}
 	
 	return CCLayer::onExit();

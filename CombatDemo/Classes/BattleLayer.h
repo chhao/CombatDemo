@@ -40,8 +40,8 @@ private:
 	
 private:
 	TerrainMap* m_terrain;
-	CardVector m_enemycards[3];
-	CardVector m_herocards[3];
+	CardDeck* m_enemycards[3];
+	CardDeck* m_herocards[3];
 	
 	int m_curEnemy;
 	MapTile* m_curTile;

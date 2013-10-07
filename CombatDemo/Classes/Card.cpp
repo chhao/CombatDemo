@@ -61,10 +61,63 @@ Card* CardConfig::createCardByID(int id)
 	auto itr = m_cardMap.find(id);
 	if(itr != m_cardMap.end())
 	{
-		Card* card = new Card;
-		card->clone(itr->second);
-		return card;
+		return itr->second->clone();
 	}
 	
 	return NULL;
+}
+
+
+CardDeck::CardDeck()
+{
+	
+}
+
+CardDeck::~CardDeck()
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if(m_cards[i])
+			delete m_cards[i];
+	}
+}
+
+CardDeck* CardDeck::createCardDeck(CSJson::Value &deckvalue)
+{
+	CardDeck* deck = new CardDeck;
+	
+	for (int i = 0; i < deckvalue.size(); i++)
+	{
+		if(deckvalue[i] == 0)
+		{
+			deck->m_cards[i] = NULL;
+		}
+		else
+		{
+			deck->m_cards[i] = CardConfig::getInstance()->createCardByID(deckvalue[i].asInt());
+		}
+	}
+	
+	return deck;
+}
+
+CardDeck* CardDeck::clone()
+{
+	CardDeck* deck = new CardDeck;
+	
+	for (int i = 0; i < 6; i++)
+	{
+		if(m_cards[i])
+		{
+			deck->m_cards[i] = m_cards[i]->clone();
+		}
+	}
+	
+	return deck;
+}
+
+Card* CardDeck::getCardByIndex(int iIndex)
+{
+	assert(iIndex >= 0 && iIndex < 6);
+	return m_cards[iIndex];
 }

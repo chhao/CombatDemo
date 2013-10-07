@@ -53,7 +53,7 @@ public:
 	void onEnter();
 	void onExit();
 	
-	int setCardGroup(const std::vector<Card*>& card1, const std::vector<Card*>& card2);
+	int setCardGroup(CardDeck* card1, CardDeck* card2);
 	
 	void clearEvents();
 	void excuteEvents();
