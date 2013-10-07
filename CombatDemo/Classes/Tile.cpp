@@ -50,6 +50,8 @@ MapTile* MapTile::create(MapTile::TileType type)
 
 
 MapTile::MapTile()
+:m_mark(MapTile::None)
+,m_type(MapTile::Normal)
 {
 	
 }
@@ -70,6 +72,11 @@ bool MapTile::isHit(cocos2d::CCPoint pt)
 		return true;
 	
 	return false;
+}
+
+MapTile::TileMark MapTile::getMark()
+{
+	return m_mark;
 }
 
 void MapTile::setMark(MapTile::TileMark mark)
@@ -144,6 +151,7 @@ void TerrainMap::readLayout(const std::string &layout)
 		tile->setPositionY(480 - (value["posY"].asInt() - 2)*100);
 		tile->setTileID(value["id"].asInt());
 		tile->setNextTile(value["nextId"].asInt());
+		tile->setTag(value["id"].asInt());
 		
 		addChild(tile);
 		m_tilelist.push_back(tile);
@@ -169,4 +177,9 @@ int TerrainMap::isHit(cocos2d::CCPoint pt)
 void TerrainMap::markCurTile(MapTile::TileMark mark)
 {
 	m_curTile->setMark(mark);
+}
+
+MapTile* TerrainMap::getTileByID(int ID)
+{
+	return (MapTile*)getChildByTag(ID);
 }

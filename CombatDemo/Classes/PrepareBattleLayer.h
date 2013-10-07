@@ -30,8 +30,8 @@ public:
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
     virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 
-	void setMap(int ID);
-	
+	TerrainMap* getTerrain();
+private:
 	void updateTerrain();
 	
 	enum PageType
@@ -47,7 +47,7 @@ private:
 		Back = 0,
 		Start = 1,
 	};
-	
+
 	cocos2d::CCSprite* m_backSprite;
 	cocos2d::CCSprite* m_startSprite;
 	TerrainMap* m_terrain;

@@ -11,34 +11,9 @@
 
 #include <iostream>
 #include "cocos2d.h"
+#include "CardBattleLayer.h"
+#include "Tile.h"
 #include "Card.h"
-#include "Combat.h"
-
-class CardSprite : public cocos2d::CCSprite
-{
-public:
-	static CardSprite* createByID(int ID);
-};
-
-class BattleEvent
-{
-public:
-	BattleEvent(CardSprite* card1, CardSprite* card2, Combat::ActionType type, std::string discription = "")
-	:m_type(type)
-	,m_discription(discription)
-	,m_card1(card1)
-	,m_card2(card2)
-	{
-		
-	}
-	
-	Combat::ActionType m_type;
-	std::string m_discription;
-	CardSprite* m_card1;
-	CardSprite* m_card2;
-};
-
-typedef std::list<BattleEvent*> BattleEventList;
 
 class BattleLayer : public cocos2d::CCLayer
 {
@@ -52,24 +27,27 @@ public:
 	
 	void onEnter();
 	void onExit();
-
-	void setCardGroup(const std::vector<Card*>& card1, const std::vector<Card*>& card2);
-
-	void clearEvents();
-	void excuteEvents();
-	void nextEvent();
+	
+	void copyTerrainTile(TerrainMap* terrain);
 
 private:
-	void createSprite(Card* card, int i, bool bOnBottom);
+	void readEnemyCards();
+	void copyHeroCards();
+	
+	void fight();
+	void cardBattleWin();
+	void cardBattleLose();
 	
 private:
-	typedef std::map<Card*, CardSprite*> CardSpriteMap;
-	CardSpriteMap m_cardmap;
+	TerrainMap* m_terrain;
+	CardVector m_enemycards[3];
+	CardVector m_herocards[3];
 	
-	cocos2d::CCSprite* m_attackEffect;
+	int m_curEnemy;
+	MapTile* m_curTile;
 	cocos2d::CCLabelTTF* m_label;
-	
-	BattleEventList m_eventlist;
+	cocos2d::CCSprite* m_enemySprite;
+	CardBattleLayer* m_cardbattleLayer;
 };
 
 

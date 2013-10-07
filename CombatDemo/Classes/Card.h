@@ -12,6 +12,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <list>
 
 class Card
 {
@@ -59,6 +60,7 @@ public:
 	}
 };
 typedef std::vector<Card*> CardVector;
+typedef std::list<Card*> CardList;
 
 class CardConfig
 {

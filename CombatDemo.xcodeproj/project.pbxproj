@@ -14,6 +14,13 @@
 		D611AF2318014D5A006051B2 /* map0.json in Resources */ = {isa = PBXBuildFile; fileRef = D611AF2018014D5A006051B2 /* map0.json */; };
 		D611AF2418014D5A006051B2 /* map1.json in Resources */ = {isa = PBXBuildFile; fileRef = D611AF2118014D5A006051B2 /* map1.json */; };
 		D611AF2618015CCE006051B2 /* heroCardGroup.json in Resources */ = {isa = PBXBuildFile; fileRef = D611AF2518015CCE006051B2 /* heroCardGroup.json */; };
+		D611AF28180250C0006051B2 /* cardGroup_map1.json in Resources */ = {isa = PBXBuildFile; fileRef = D611AF27180250C0006051B2 /* cardGroup_map1.json */; };
+		D611AF2D180258E7006051B2 /* CardBattleLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D611AF2B180258E6006051B2 /* CardBattleLayer.cpp */; };
+		D611AF2F18026208006051B2 /* cardGroup_map0.json in Resources */ = {isa = PBXBuildFile; fileRef = D611AF2E18026208006051B2 /* cardGroup_map0.json */; };
+		D611AF341802892F006051B2 /* lose_rings.png in Resources */ = {isa = PBXBuildFile; fileRef = D611AF301802892E006051B2 /* lose_rings.png */; };
+		D611AF351802892F006051B2 /* lose.png in Resources */ = {isa = PBXBuildFile; fileRef = D611AF311802892F006051B2 /* lose.png */; };
+		D611AF361802892F006051B2 /* win_rings.png in Resources */ = {isa = PBXBuildFile; fileRef = D611AF321802892F006051B2 /* win_rings.png */; };
+		D611AF371802892F006051B2 /* win.png in Resources */ = {isa = PBXBuildFile; fileRef = D611AF331802892F006051B2 /* win.png */; };
 		D622DE4C17FE5F6400D0A525 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4B17FE5F6400D0A525 /* QuartzCore.framework */; };
 		D622DE4E17FE5F6400D0A525 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4D17FE5F6400D0A525 /* OpenGLES.framework */; };
 		D622DE5017FE5F6400D0A525 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622DE4F17FE5F6400D0A525 /* OpenAL.framework */; };
@@ -346,6 +353,14 @@
 		D611AF2018014D5A006051B2 /* map0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map0.json; sourceTree = "<group>"; };
 		D611AF2118014D5A006051B2 /* map1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map1.json; sourceTree = "<group>"; };
 		D611AF2518015CCE006051B2 /* heroCardGroup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heroCardGroup.json; sourceTree = "<group>"; };
+		D611AF27180250C0006051B2 /* cardGroup_map1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cardGroup_map1.json; sourceTree = "<group>"; };
+		D611AF2B180258E6006051B2 /* CardBattleLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CardBattleLayer.cpp; path = Classes/CardBattleLayer.cpp; sourceTree = "<group>"; };
+		D611AF2C180258E6006051B2 /* CardBattleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardBattleLayer.h; path = Classes/CardBattleLayer.h; sourceTree = "<group>"; };
+		D611AF2E18026208006051B2 /* cardGroup_map0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cardGroup_map0.json; sourceTree = "<group>"; };
+		D611AF301802892E006051B2 /* lose_rings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lose_rings.png; path = Resources/lose_rings.png; sourceTree = "<group>"; };
+		D611AF311802892F006051B2 /* lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lose.png; path = Resources/lose.png; sourceTree = "<group>"; };
+		D611AF321802892F006051B2 /* win_rings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = win_rings.png; path = Resources/win_rings.png; sourceTree = "<group>"; };
+		D611AF331802892F006051B2 /* win.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = win.png; path = Resources/win.png; sourceTree = "<group>"; };
 		D622DE4817FE5F6400D0A525 /* CombatDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CombatDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D622DE4B17FE5F6400D0A525 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D622DE4D17FE5F6400D0A525 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1032,6 +1047,8 @@
 		D611AF1E18014D5A006051B2 /* config */ = {
 			isa = PBXGroup;
 			children = (
+				D611AF2E18026208006051B2 /* cardGroup_map0.json */,
+				D611AF27180250C0006051B2 /* cardGroup_map1.json */,
 				D611AF2518015CCE006051B2 /* heroCardGroup.json */,
 				D611AF1F18014D5A006051B2 /* cardConfig.json */,
 				D611AF2018014D5A006051B2 /* map0.json */,
@@ -1088,6 +1105,10 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D611AF301802892E006051B2 /* lose_rings.png */,
+				D611AF311802892F006051B2 /* lose.png */,
+				D611AF321802892F006051B2 /* win_rings.png */,
+				D611AF331802892F006051B2 /* win.png */,
 				D611AF1E18014D5A006051B2 /* config */,
 				D6088521180077A700E9E5D7 /* effect_attack.png */,
 				D608851E18004CB600E9E5D7 /* cards */,
@@ -2297,6 +2318,8 @@
 				D625C51B180038CD00C591CB /* Card.h */,
 				D60885231801107F00E9E5D7 /* Combat.cpp */,
 				D60885241801107F00E9E5D7 /* Combat.h */,
+				D611AF2B180258E6006051B2 /* CardBattleLayer.cpp */,
+				D611AF2C180258E6006051B2 /* CardBattleLayer.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2437,6 +2460,12 @@
 				D611AF2318014D5A006051B2 /* map0.json in Resources */,
 				D611AF2418014D5A006051B2 /* map1.json in Resources */,
 				D611AF2618015CCE006051B2 /* heroCardGroup.json in Resources */,
+				D611AF28180250C0006051B2 /* cardGroup_map1.json in Resources */,
+				D611AF2F18026208006051B2 /* cardGroup_map0.json in Resources */,
+				D611AF341802892F006051B2 /* lose_rings.png in Resources */,
+				D611AF351802892F006051B2 /* lose.png in Resources */,
+				D611AF361802892F006051B2 /* win_rings.png in Resources */,
+				D611AF371802892F006051B2 /* win.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2713,6 +2742,7 @@
 				D625C4B317FFE07C00C591CB /* SelectCardGroup.cpp in Sources */,
 				D625C51C180038CE00C591CB /* Card.cpp in Sources */,
 				D60885251801107F00E9E5D7 /* Combat.cpp in Sources */,
+				D611AF2D180258E7006051B2 /* CardBattleLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

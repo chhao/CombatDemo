@@ -21,7 +21,8 @@ public:
 		Layer_Main = 1,
 		Layer_PreBattle = 2,
 		Layer_Battle = 3,
-		Layer_Result = 4,
+		Layer_Result_Win = 4,
+		Layer_Result_Lose = 5,
 	};
 
 	void setActiveLayer(LayerType type);

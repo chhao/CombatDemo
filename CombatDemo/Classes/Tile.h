@@ -27,7 +27,8 @@ public:
 	
 	enum TileMark
 	{
-		Card1 = 0,
+		None = -1,
+		Card1,
 		Card2,
 		Card3,
 		Guard1,
@@ -56,6 +57,7 @@ public:
 	void setNextTile(int ID) {m_nextTile = ID;}
 
 	void setMark(TileMark mark);
+	TileMark getMark();
 private:
 	TileType m_type;
 	TileMark m_mark;
@@ -76,6 +78,8 @@ public:
 	int isHit(cocos2d::CCPoint pt);
 	
 	void markCurTile(MapTile::TileMark mark);
+	
+	MapTile* getTileByID(int ID);
 private:
 	std::list<MapTile*> m_tilelist;
 	MapTile* m_curTile;

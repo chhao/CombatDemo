@@ -65,17 +65,17 @@ void MagicGuard::setLabel(const std::string &label)
 	m_label->setString(label.c_str());
 }
 ///////////////////////////////////
-CardGroup::CardGroup()
+CardGroupItem::CardGroupItem()
 {
 	
 }
 
-CardGroup::~CardGroup()
+CardGroupItem::~CardGroupItem()
 {
 	
 }
 
-bool CardGroup::init()
+bool CardGroupItem::init()
 {
 	if(!CCNode::init())
 		return false;
@@ -85,12 +85,12 @@ bool CardGroup::init()
 	{
 		m_card[i] = (CCSprite*)getChildByTag(i+3);
 	}
-	m_checkBox = (CCSprite*)getChildByTag(CardGroup::CheckBox);
+	m_checkBox = (CCSprite*)getChildByTag(CardGroupItem::CheckBox);
 	
 	return true;
 }
 
-bool CardGroup::isHit(cocos2d::CCPoint pt)
+bool CardGroupItem::isHit(cocos2d::CCPoint pt)
 {
 	if(::isHit(m_checkBox->getQuad(), m_checkBox->convertToNodeSpace(pt)))
 	{
@@ -102,12 +102,12 @@ bool CardGroup::isHit(cocos2d::CCPoint pt)
 	return false;
 }
 
-bool CardGroup::getSelected()
+bool CardGroupItem::getSelected()
 {
 	return m_select;
 }
 
-void CardGroup::setSelected(bool select)
+void CardGroupItem::setSelected(bool select)
 {
 	m_select = select;
 	
@@ -153,7 +153,7 @@ bool SelectBackGround::init()
 	CCPoint basePt = ccp(320, 550);
 	for(int i = 0; i<3; i++)
 	{
-		m_cardGroup[i] = CardGroup::create();
+		m_cardGroup[i] = CardGroupItem::create();
 		m_cardGroup[i]->setPosition(ccpAdd(basePt, ccp(0, -i*135)));
 		addChild(m_cardGroup[i]);
 	}
@@ -183,6 +183,8 @@ void SelectBackGround::resetCheckStatus()
 			m_magicGuard[i]->setSelected(false);
 		}
 	}
+	
+	m_selectIndex = -1;
 }
 
 void SelectBackGround::setInfo(int tiletype)
@@ -236,12 +238,12 @@ int SelectBackGround::isHit(cocos2d::CCPoint pt)
 	
 	if(::isHit(m_btnCancle->getQuad(), m_btnCancle->convertToNodeSpace(pt)))
 	{
-		return -1;
+		return BtnCancel;
 	}
 	
 	if(::isHit(m_btnOK->getQuad(), m_btnOK->convertToNodeSpace(pt)))
 	{
-		return m_selectIndex;
+		return BtnOK;
 	}
 	
 	for (int i = 0; i < 3; i++)
@@ -335,4 +337,9 @@ void SelectBackGround::setTab(int tab)
 		updateCardGroup(false);
 		updateMagicGuard(true);
 	}
+}
+
+int SelectBackGround::getSelectIndex()
+{
+	return m_selectIndex;
 }

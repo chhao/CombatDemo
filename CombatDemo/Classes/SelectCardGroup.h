@@ -43,13 +43,13 @@ private:
 	bool m_select;
 };
 
-class CardGroup : public cocos2d::CCNode
+class CardGroupItem : public cocos2d::CCNode
 {
 public:
-	CREATE_FUNC(CardGroup);
+	CREATE_FUNC(CardGroupItem);
 	
-	CardGroup();
-	~CardGroup();
+	CardGroupItem();
+	~CardGroupItem();
 	
 	bool init();
 	
@@ -95,6 +95,8 @@ public:
 	
 	void resetCheckStatus();
 	
+	int getSelectIndex();
+	
 	enum ItemTag
 	{
 		TileType = 0,
@@ -106,7 +108,7 @@ public:
 	};
 	
 private:
-	CardGroup* m_cardGroup[3];
+	CardGroupItem* m_cardGroup[3];
 	MagicGuard* m_magicGuard[8];
 	
 	int m_selectIndex;

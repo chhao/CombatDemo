@@ -103,10 +103,19 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 	if(m_selectGroup && m_selectGroup->isVisible())
 	{
 		int hit = m_selectGroup->isHit(touchLocation);
-		if(hit != -1)
+		if(hit == SelectBackGround::BtnOK)
 		{
-			m_terrain->markCurTile((MapTile::TileMark)hit);
+			int selectIndex = m_selectGroup->getSelectIndex();
+			if(selectIndex != -1)
+			{
+				m_terrain->markCurTile((MapTile::TileMark)selectIndex);
+			}
 			
+			ShowPage(Terrain);
+			return;			
+		}
+		else if(hit == SelectBackGround::BtnCancel)
+		{
 			ShowPage(Terrain);
 			return;			
 		}
@@ -141,4 +150,9 @@ void PrepareBattleLayer::ShowPage(PrepareBattleLayer::PageType type)
 		default:
 			break;
 	}
+}
+
+TerrainMap* PrepareBattleLayer::getTerrain()
+{
+	return m_terrain;
 }

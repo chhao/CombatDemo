@@ -35,8 +35,9 @@ public:
 	};
 	typedef std::list<CombatAction*> CombatActionList;
 
-	const CombatActionList& runCombat(const std::vector<Card*>& card1, const std::vector<Card*>& card2);
+	const CombatActionList& runCombat(const CardVector& card1, const CardVector& card2);
 
+	int getResult();
 private:
 	Card* findOpponent(Card* card);
 	void singleRound(Card* card);

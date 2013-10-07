@@ -27,6 +27,7 @@ public:
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
     virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 
+	void setResult(bool bWin);
 private:
 	enum ItemTag
 	{
@@ -36,6 +37,7 @@ private:
 	};
 	
 	cocos2d::CCSprite* m_backSprite;
+	cocos2d::CCSprite* m_banner;
 };
 
 #endif /* defined(__CombatDemo__ResultLayer__) */

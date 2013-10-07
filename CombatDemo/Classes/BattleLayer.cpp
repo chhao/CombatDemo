@@ -16,191 +16,212 @@
 
 using namespace cocos2d;
 
-const float c_attack = 0.4;
-const float c_defense = 0.4;
-
-CardSprite* CardSprite::createByID(int ID)
+enum SpritezOrder
 {
-	std::stringstream ss;
-	ss << "cards/" << std::setfill('0') << std::setw(4) << ID << ".png";
-	
-	CardSprite* sprite = new CardSprite;
-	if(sprite->initWithFile(ss.str().c_str()))
-	{
-		sprite->autorelease();
-		sprite->setScale(1.5);
-		return sprite;
-	}
-
-	delete sprite;
-	return NULL;
-}
+	Enemy = 10,
+	CardBattle = 100,
+};
 
 BattleLayer::BattleLayer()
+:m_terrain(NULL)
+,m_curEnemy(0)
+,m_cardbattleLayer(NULL)
 {
 	
 }
 
 BattleLayer::~BattleLayer()
 {
-	
+	m_cardbattleLayer->release();
+	m_label->release();
+	m_enemySprite->release();
 }
 
 bool BattleLayer::init()
 {
 	if(!CCLayer::init())
 		return false;
-
+	
+	m_label = CCLabelTTF::create("第1波", "", 40);
+	m_label->setPosition(ccp(320,800));
+	m_label->retain();
+	addChild(m_label);
+	
+	m_enemySprite = CCSprite::create("icons/0020.png");
+	m_enemySprite->retain();
+	addChild(m_enemySprite,SpritezOrder::Enemy);
+	
+	m_cardbattleLayer = CardBattleLayer::create();
+	m_cardbattleLayer->retain();
+	
 	return true;
 }
 
-void BattleLayer::createSprite(Card *card, int i, bool bOnBottom)
+void BattleLayer::copyHeroCards()
 {
-	CardSprite* sprite = CardSprite::createByID(card->m_id);
-	if(bOnBottom)
+	for (int i = 0; i < 3; i++)
 	{
-		int row = i / 3;
-		sprite->setPositionX( 120 + (i%3) * 180 );
-		sprite->setPositionY(100 + row * 180);
+		const CardVector& cards = Game::getInstance()->getCardGroup(i);
+		
+		for (int j = 0; j < 6; j++)
+		{
+			if(cards[j])
+			{
+				Card* card = new Card;
+				card->clone(cards[j]);
+				m_herocards[i].push_back(card);
+				
+			}
+			else
+			{
+				m_herocards[i].push_back(NULL);
+			}
+		}
 	}
-	else
-	{
-		int row = i / 3;
-		sprite->setPositionX( 120 + (i%3) * 180 );
-		sprite->setPositionY(960 - 100 - row * 180);
-	}
-	addChild(sprite);
-	m_cardmap.insert(std::make_pair(card, sprite));
 }
 
-void BattleLayer::setCardGroup(const std::vector<Card *> &card1, const std::vector<Card *> &card2 )
+void BattleLayer::readEnemyCards()
 {
-	Combat* combat = new Combat;
+	std::stringstream ss;
+	ss << "cardGroup_map" << Game::getInstance()->getCurrentWorld() << ".json";
 	
-	for (int i = 0; i < 6; i++)
+	CSJson::Value root;
+	readJsonFile(ss.str(), root);
+	
+	int level = Game::getInstance()->getCurrentLevel();
+	CSJson::Value levelvalue = root[level];
+	
+	for (int i = 0; i < levelvalue.size(); i++)
 	{
-		createSprite(card1[i], i, true);
-		createSprite(card2[i], i, false);
+		CSJson::Value cards = levelvalue[i];
+		for (int j = 0; j < cards.size(); j++)
+		{
+			if(cards[j] == 0)
+			{
+				m_enemycards[i].push_back(NULL);
+			}
+			else
+			{
+				m_enemycards[i].push_back(CardConfig::getInstance()->createCardByID(cards[j].asInt()));
+			}
+		}
+	}
+}
+
+void BattleLayer::copyTerrainTile(TerrainMap *terrain)
+{
+	if(m_terrain)
+	{
+		m_terrain->removeFromParent();
+		m_terrain = NULL;
 	}
 	
-	const Combat::CombatActionList& combatlist = combat->runCombat(card1, card2);
-	for (auto itr = combatlist.begin(); itr != combatlist.end(); ++itr)
-	{
-		//TODO
-		Combat::CombatAction* action = *itr;
-		Card* card1 = action->card1;
-		Card* card2 = action->resultlist.begin()->first;
-		int hit = action->resultlist.begin()->second;
-		
-		std::stringstream ss;
-		ss << hit;
-		
-		BattleEvent* event = new BattleEvent(m_cardmap[card1], m_cardmap[card2], action->type, ss.str());
-		m_eventlist.push_back(event);
-	}
+	m_terrain = new TerrainMap;
+	m_terrain->autorelease();
+	addChild(m_terrain);
 	
-	delete combat;
+	CCArray* children = terrain->getChildren();
+	for (int i = children->count()-1; i > -1; i--)
+	{
+		CCNode* node = (CCNode*)children->objectAtIndex(i);
+		node->retain();
+		node->removeFromParent();
+		m_terrain->addChild(node);
+		node->release();
+	}
 }
 
 void BattleLayer::onEnter()
 {
-	CardVector card2;
-	for (int i = 1; i < 7; i++)
-	{
-		card2.push_back(CardConfig::getInstance()->createCardByID(i + 10));
-	}
+	readEnemyCards();
+	copyHeroCards();
 	
-	setCardGroup(Game::getInstance()->getCardGroup(0), card2);
+	m_curTile = m_terrain->getTileByID(0);
+	m_enemySprite->setPosition(m_curTile->getPosition());
+	m_curEnemy = 0;
+	m_label->setString("第1波");
+
+	fight();
 	
-	m_attackEffect = CCSprite::create("effect_attack.png");
-	addChild(m_attackEffect, 5);
-	m_attackEffect->setVisible(false);
-	
-	m_label = CCLabelTTF::create("-15", "", 32);
-	m_label->setColor(ccc3(255,0,0));
-	m_label->setVisible(false);
-	addChild(m_label, 5);
-	
-	excuteEvents();
 	return CCLayer::onEnter();
 }
 
 void BattleLayer::onExit()
 {
-	removeAllChildren();
+	m_terrain->removeFromParent();
+	m_terrain = NULL;
 	
-	m_cardmap.clear();
+	for(int i = 0; i < 3; i++)
+	{
+		m_enemycards[i].clear();
+	}
+
+	for(int i = 0; i < 3; i++)
+	{
+		m_herocards[i].clear();
+	}
 	
 	return CCLayer::onExit();
 }
 
-void BattleLayer::excuteEvents()
+void BattleLayer::fight()
 {
-	if(m_eventlist.empty())
-		return;
-	
-	CCCallFunc* callback = CCCallFunc::create(this, callfunc_selector(BattleLayer::nextEvent));
-	BattleEvent* event = *m_eventlist.begin();
-	
-	switch (event->m_type)
+	if(m_curTile->getType() == MapTile::End)
 	{
-		case Combat::NormalAttack:
+		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Result_Lose);
+		return;
+	}
+	
+	cocos2d::CCCallFunc* callback = CCCallFunc::create(this, callfunc_selector(BattleLayer::fight));
+	switch (m_curTile->getMark())
+	{
+		case MapTile::Card1:
+		case MapTile::Card2:
+		case MapTile::Card3:
 		{
-			event->m_card1->runAction(CCSequence::create(CCScaleTo::create(c_attack*0.5, 1.2*1.5), CCScaleTo::create(c_attack*0.5, 1.0*1.5),NULL));
-			event->m_card2->runAction(CCSequence::create(CCDelayTime::create(c_attack),CCScaleTo::create(c_defense*0.5, 0.8*1.5), CCScaleTo::create(c_defense*0.5, 1.0*1.5),callback,NULL));
-
-			m_attackEffect->setPosition(event->m_card2->getPosition());
-			m_label->setPosition(event->m_card2->getPosition());
-			
-			m_attackEffect->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCScaleTo::create(c_defense*0.3, 1.2*1.5), CCScaleTo::create(c_defense*0.3, 1.0*1.5),CCHide::create(),NULL));
-			
-			m_label->setString(event->m_discription.c_str());
-			m_label->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCMoveBy::create(c_defense*0.3, ccp(0, -50)), CCHide::create(),NULL));
+			int result = m_cardbattleLayer->setCardGroup(m_herocards[m_curTile->getMark()], m_enemycards[m_curEnemy]);
+			if(result == 1)
+				m_cardbattleLayer->setBattleFinishCallback(CCCallFunc::create(this, callfunc_selector(BattleLayer::cardBattleWin)));
+			else
+				m_cardbattleLayer->setBattleFinishCallback(CCCallFunc::create(this, callfunc_selector(BattleLayer::cardBattleLose)));
+			addChild(m_cardbattleLayer, SpritezOrder::CardBattle);
 		}
 			break;
-		case Combat::Dead:
+		default:
 		{
-			event->m_card1->runAction(CCSequence::create(CCScaleTo::create(c_attack*0.5, 1.2*1.5), CCScaleTo::create(c_attack*0.5, 1.0*1.5),NULL));
-			event->m_card2->runAction(CCSequence::create(CCDelayTime::create(c_attack),CCScaleTo::create(c_defense*0.5, 0.8*1.5), CCScaleTo::create(c_defense*0.5, 1.0*1.5), CCHide::create() ,callback,NULL));
-			
-			m_attackEffect->setPosition(event->m_card2->getPosition());
-			m_label->setPosition(event->m_card2->getPosition());
-			
-			m_attackEffect->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCScaleTo::create(c_defense*0.3, 1.2*1.5), CCScaleTo::create(c_defense*0.3, 1.0*1.5),CCHide::create(),NULL));
-			
-			m_label->setString(event->m_discription.c_str());
-			m_label->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCMoveBy::create(c_defense*0.3, ccp(0, -50)), CCHide::create(),NULL));
+			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
+			m_enemySprite->runAction(CCSequence::create(CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
+			m_curTile = nextTile;
 		}
 			break;
 	}
 }
 
-void BattleLayer::nextEvent()
+void BattleLayer::cardBattleWin()
 {
-	if(m_eventlist.empty())
+	removeChild(m_cardbattleLayer);
+	
+	m_curTile = m_terrain->getTileByID(0);
+	m_enemySprite->setPosition(m_curTile->getPosition());
+	m_curEnemy++;
+	std::stringstream ss;
+	ss << "第" << m_curEnemy+1 << "波";
+	m_label->setString(ss.str().c_str());
+	
+	fight();
+	
+	if(m_curEnemy == 3)
 	{
-		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Result);
-		return;
+		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Result_Win);
 	}
-	
-	assert(!m_eventlist.empty());
-	m_eventlist.pop_front();
-	
-	if(m_eventlist.empty())
-	{
-		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Result);
-		return;
-	}
-	
-	excuteEvents();
 }
 
-void BattleLayer::clearEvents()
+void BattleLayer::cardBattleLose()
 {
-	for (auto itr = m_eventlist.begin(); itr != m_eventlist.end(); ++itr)
-	{
-		delete (*itr);
-	}
-	m_eventlist.clear();
+	removeChild(m_cardbattleLayer);
+	
+	cocos2d::CCCallFunc* callback = CCCallFunc::create(this, callfunc_selector(BattleLayer::fight));
+	MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
+	m_enemySprite->runAction(CCSequence::create(CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
+	m_curTile = nextTile;
 }
-

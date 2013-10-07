@@ -32,6 +32,10 @@ bool ResultLayer::init()
 	
 	m_backSprite = (CCSprite*)getChildByTag(ResultLayer::BackSprite);
 	
+	m_banner = CCSprite::create("win.png");
+	m_banner->setPosition(ccp(320, 360));
+	addChild(m_banner);
+	
 	return true;
 }
 
@@ -56,5 +60,23 @@ void ResultLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEven
 	if(isHit(m_backSprite->getQuad(), m_backSprite->convertToNodeSpace(touchLocation)))
 	{
 		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Main);
+	}
+}
+
+void ResultLayer::setResult(bool bWin)
+{
+	if(bWin)
+	{
+		((CCLabelTTF*)getChildByTag(1))->setString("100");
+		((CCLabelTTF*)getChildByTag(2))->setString("500");
+		
+		m_banner->setTexture(CCTextureCache::sharedTextureCache()->addImage("win.png"));
+	}
+	else
+	{
+		((CCLabelTTF*)getChildByTag(1))->setString("0");
+		((CCLabelTTF*)getChildByTag(2))->setString("0");
+		
+		m_banner->setTexture(CCTextureCache::sharedTextureCache()->addImage("lose.png"));
 	}
 }

@@ -34,6 +34,11 @@ bool GameScene::init()
 
 void GameScene::setActiveLayer(GameScene::LayerType type)
 {
+	if(type == Layer_Battle)
+	{
+		m_battlelayer->copyTerrainTile(m_prebattlelayer->getTerrain());
+	}
+	
 	removeAllChildren();
 	switch (type)
 	{
@@ -50,14 +55,24 @@ void GameScene::setActiveLayer(GameScene::LayerType type)
 		}
 			break;
 		case Layer_Battle:
+		{
 			addChild(m_battlelayer);
+		}
 			break;
-		case Layer_Result:
+		case Layer_Result_Win:
 		{
 			addChild(m_resultlayer);
+			m_resultlayer->setResult(true);
 			addChild(m_hudlayer);
 		}
 			break;
+		case Layer_Result_Lose:
+		{
+			addChild(m_resultlayer);
+			m_resultlayer->setResult(false);
+			addChild(m_hudlayer);
+		}
+			break;			
 		default:
 			break;
 	}
