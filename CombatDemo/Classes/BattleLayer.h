@@ -14,6 +14,7 @@
 #include "CardBattleLayer.h"
 #include "Tile.h"
 #include "Card.h"
+#include "SetTrapLayer.h"
 
 class BattleLayer : public cocos2d::CCLayer
 {
@@ -30,6 +31,8 @@ public:
 	
 	void copyTerrainTile(TerrainMap* terrain);
 
+	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 private:
 	void readEnemyCards();
 	void copyHeroCards();
@@ -48,6 +51,9 @@ private:
 	cocos2d::CCLabelTTF* m_label;
 	cocos2d::CCSprite* m_enemySprite;
 	CardBattleLayer* m_cardbattleLayer;
+	
+	SetTrapLayer* m_setTrapLayer;
+	int m_setTrapType;
 };
 
 

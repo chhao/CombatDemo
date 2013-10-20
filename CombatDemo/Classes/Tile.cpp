@@ -92,16 +92,18 @@ void MapTile::setMark(MapTile::TileMark mark)
 			ss << "C" << m_mark+1;
 		}
 			break;
+			
+		case Trap1:
+		case Trap2:
+		{
+			ss << "T" << m_mark-2;
+		}
+			break;
+			
 		case Guard1:
 		case Guard2:
-		case Guard3:
-		case Guard4:
-		case Guard5:
-		case Guard6:
-		case Guard7:
-		case Guard8:
 		{
-			ss << "G" << m_mark-2;
+			ss << "G" << m_mark-4;
 		}
 			break;
 		default:
@@ -153,8 +155,7 @@ void TerrainMap::readLayout(const std::string &layout)
 		tile->setNextTile(value["nextId"].asInt());
 		tile->setTag(value["id"].asInt());
 		
-		addChild(tile);
-		m_tilelist.push_back(tile);
+		addTile(tile);
 	}
 }
 
@@ -182,4 +183,10 @@ void TerrainMap::markCurTile(MapTile::TileMark mark)
 MapTile* TerrainMap::getTileByID(int ID)
 {
 	return (MapTile*)getChildByTag(ID);
+}
+
+void TerrainMap::addTile(MapTile *tile)
+{
+	addChild(tile);
+	m_tilelist.push_back(tile);
 }

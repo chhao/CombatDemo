@@ -26,6 +26,7 @@ BattleLayer::BattleLayer()
 :m_terrain(NULL)
 ,m_curEnemy(0)
 ,m_cardbattleLayer(NULL)
+,m_setTrapLayer(NULL)
 {
 	
 }
@@ -53,6 +54,9 @@ bool BattleLayer::init()
 	
 	m_cardbattleLayer = CardBattleLayer::create();
 	m_cardbattleLayer->retain();
+	
+	m_setTrapLayer = SetTrapLayer::create();
+	addChild(m_setTrapLayer);
 	
 	return true;
 }
@@ -98,10 +102,10 @@ void BattleLayer::copyTerrainTile(TerrainMap *terrain)
 	CCArray* children = terrain->getChildren();
 	for (int i = children->count()-1; i > -1; i--)
 	{
-		CCNode* node = (CCNode*)children->objectAtIndex(i);
+		MapTile* node = (MapTile*)children->objectAtIndex(i);
 		node->retain();
 		node->removeFromParent();
-		m_terrain->addChild(node);
+		m_terrain->addTile(node);
 		node->release();
 	}
 }
@@ -118,6 +122,10 @@ void BattleLayer::onEnter()
 
 	fight();
 	
+	setTouchEnabled(true);
+	
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 1, true);
+
 	return CCLayer::onEnter();
 }
 
@@ -135,6 +143,9 @@ void BattleLayer::onExit()
 	{
 		delete m_herocards[i];
 	}
+	
+	m_setTrapLayer->resetCurSel();
+	m_setTrapType = 0;
 	
 	return CCLayer::onExit();
 }
@@ -201,4 +212,30 @@ void BattleLayer::cardBattleLose()
 	MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
 	m_enemySprite->runAction(CCSequence::create(CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
 	m_curTile = nextTile;
+}
+
+bool BattleLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+	return true;
+}
+
+void BattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+	CCPoint touchLocation = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
+	
+	if(m_terrain && m_terrain->isVisible())
+	{
+		int hit = m_terrain->isHit(touchLocation);
+		if(hit != -1)
+		{
+			if(m_setTrapType != 0) //select card
+			{
+				m_terrain->markCurTile((MapTile::TileMark)(m_setTrapType+2));
+				m_setTrapType = 0;
+				m_setTrapLayer->resetCurSel();
+			}
+		}
+	}
+		
+	m_setTrapType = m_setTrapLayer->isHit(touchLocation);
 }

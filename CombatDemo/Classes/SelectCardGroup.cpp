@@ -162,6 +162,7 @@ bool SelectBackGround::init()
 	m_btnOK = (CCSprite*)getChildByTag(SelectBackGround::BtnOK);
 	m_tabCardGroup = (CCSprite*)getChildByTag(SelectBackGround::TabCardGroup);
 	m_tabTrap = (CCSprite*)getChildByTag(SelectBackGround::TabTrap);
+	m_tabTrap->setVisible(false);
 	
 	m_tile = (CCSprite*)getChildByTag(SelectBackGround::TileType);
 	m_label = (CCLabelTTF*)getChildByTag(SelectBackGround::DescriptionLabel);
@@ -230,7 +231,7 @@ int SelectBackGround::isHit(cocos2d::CCPoint pt)
 		return -1;
 	}
 	
-	if(::isHit(m_tabTrap->getQuad(), m_tabTrap->convertToNodeSpace(pt)))
+	if(m_tabTrap->isVisible() && ::isHit(m_tabTrap->getQuad(), m_tabTrap->convertToNodeSpace(pt)))
 	{
 		setTab(1);
 		return -1;

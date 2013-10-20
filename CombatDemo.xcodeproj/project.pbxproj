@@ -343,6 +343,8 @@
 		D625C5171800264B00C591CB /* SelectGuard.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C5161800264B00C591CB /* SelectGuard.json */; };
 		D625C51C180038CE00C591CB /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C51A180038CD00C591CB /* Card.cpp */; };
 		D678D11A1812C78C005652A2 /* skill.json in Resources */ = {isa = PBXBuildFile; fileRef = D678D1191812C78C005652A2 /* skill.json */; };
+		D678D11D1813BD94005652A2 /* SetTrapLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D678D11B1813BD93005652A2 /* SetTrapLayer.cpp */; };
+		D678D11F1813BDE5005652A2 /* SetTrapAndGuard.json in Resources */ = {isa = PBXBuildFile; fileRef = D678D11E1813BDE5005652A2 /* SetTrapAndGuard.json */; };
 		D69F7B1118069752009D1C07 /* Skill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D69F7B0F18069752009D1C07 /* Skill.cpp */; };
 /* End PBXBuildFile section */
 
@@ -1023,6 +1025,9 @@
 		D625C51A180038CD00C591CB /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Card.cpp; path = Classes/Card.cpp; sourceTree = "<group>"; };
 		D625C51B180038CD00C591CB /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Card.h; path = Classes/Card.h; sourceTree = "<group>"; };
 		D678D1191812C78C005652A2 /* skill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = skill.json; sourceTree = "<group>"; };
+		D678D11B1813BD93005652A2 /* SetTrapLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SetTrapLayer.cpp; path = Classes/SetTrapLayer.cpp; sourceTree = "<group>"; };
+		D678D11C1813BD93005652A2 /* SetTrapLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetTrapLayer.h; path = Classes/SetTrapLayer.h; sourceTree = "<group>"; };
+		D678D11E1813BDE5005652A2 /* SetTrapAndGuard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SetTrapAndGuard.json; path = Resources/SetTrapAndGuard.json; sourceTree = "<group>"; };
 		D69F7B0F18069752009D1C07 /* Skill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skill.cpp; path = Classes/Skill.cpp; sourceTree = "<group>"; };
 		D69F7B1018069752009D1C07 /* Skill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Skill.h; path = Classes/Skill.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1111,6 +1116,7 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D678D11E1813BDE5005652A2 /* SetTrapAndGuard.json */,
 				D611AF301802892E006051B2 /* lose_rings.png */,
 				D611AF311802892F006051B2 /* lose.png */,
 				D611AF321802892F006051B2 /* win_rings.png */,
@@ -2328,6 +2334,8 @@
 				D611AF2C180258E6006051B2 /* CardBattleLayer.h */,
 				D69F7B0F18069752009D1C07 /* Skill.cpp */,
 				D69F7B1018069752009D1C07 /* Skill.h */,
+				D678D11B1813BD93005652A2 /* SetTrapLayer.cpp */,
+				D678D11C1813BD93005652A2 /* SetTrapLayer.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2475,6 +2483,7 @@
 				D611AF361802892F006051B2 /* win_rings.png in Resources */,
 				D611AF371802892F006051B2 /* win.png in Resources */,
 				D678D11A1812C78C005652A2 /* skill.json in Resources */,
+				D678D11F1813BDE5005652A2 /* SetTrapAndGuard.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2753,6 +2762,7 @@
 				D60885251801107F00E9E5D7 /* Combat.cpp in Sources */,
 				D611AF2D180258E7006051B2 /* CardBattleLayer.cpp in Sources */,
 				D69F7B1118069752009D1C07 /* Skill.cpp in Sources */,
+				D678D11D1813BD94005652A2 /* SetTrapLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

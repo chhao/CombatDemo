@@ -39,6 +39,9 @@ bool PrepareBattleLayer::init()
 	addChild(m_selectGroup);
 	m_selectGroup->setVisible(false);
 	
+	m_setTrapLayer = SetTrapLayer::create();
+	addChild(m_setTrapLayer);
+	
 	return true;
 }
 
@@ -94,9 +97,18 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 		int hit = m_terrain->isHit(touchLocation);
 		if(hit != -1)
 		{
-			ShowPage(SelectCard);
-			m_selectGroup->setInfo(hit);
-			return;			
+			if(m_setTrapType == 0) //select card
+			{
+				ShowPage(SelectCard);
+				m_selectGroup->setInfo(hit);
+				return;
+			}
+			else  //put trap
+			{
+				m_terrain->markCurTile((MapTile::TileMark)(m_setTrapType+2));
+				m_setTrapType = 0;
+				m_setTrapLayer->resetCurSel();
+			}
 		}
 	}
 
@@ -130,8 +142,10 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 	if(isHit(m_backSprite->getQuad(), m_backSprite->convertToNodeSpace(touchLocation)))
 	{
 		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Main);
+		return;
 	}
 	
+	m_setTrapType = m_setTrapLayer->isHit(touchLocation);
 }
 
 void PrepareBattleLayer::ShowPage(PrepareBattleLayer::PageType type)

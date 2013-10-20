@@ -31,14 +31,10 @@ public:
 		Card1,
 		Card2,
 		Card3,
+		Trap1,
+		Trap2,
 		Guard1,
 		Guard2,
-		Guard3,
-		Guard4,
-		Guard5,
-		Guard6,
-		Guard7,
-		Guard8,
 	};
 	
 	MapTile();
@@ -80,6 +76,8 @@ public:
 	void markCurTile(MapTile::TileMark mark);
 	
 	MapTile* getTileByID(int ID);
+	
+	void addTile(MapTile* tile);
 private:
 	std::list<MapTile*> m_tilelist;
 	MapTile* m_curTile;

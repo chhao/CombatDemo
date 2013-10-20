@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 #include "Tile.h"
 #include "SelectCardGroup.h"
+#include "SetTrapLayer.h"
 
 class PrepareBattleLayer : public cocos2d::CCLayer
 {
@@ -46,12 +47,16 @@ private:
 	{
 		Back = 0,
 		Start = 1,
+		
+		
 	};
 
 	cocos2d::CCSprite* m_backSprite;
 	cocos2d::CCSprite* m_startSprite;
 	TerrainMap* m_terrain;
 	SelectBackGround* m_selectGroup;
+	SetTrapLayer* m_setTrapLayer;
+	int m_setTrapType;
 };
 
 #endif /* defined(__CombatDemo__PrepareBattleLayer__) */
