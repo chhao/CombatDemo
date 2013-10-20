@@ -167,6 +167,8 @@ void BattleLayer::fight()
 			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
 			m_enemySprite->runAction(CCSequence::create(CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
 			m_curTile = nextTile;
+			
+			m_enemycards[m_curEnemy]->buffHP(0.2);
 		}
 			break;
 	}

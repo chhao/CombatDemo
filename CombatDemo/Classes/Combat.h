@@ -30,7 +30,7 @@ public:
 	{
 		Card* card1;
 		ActionType type;
-		
+		std::string description;
 		std::list<std::pair<Card*, int>> resultlist;
 	};
 	typedef std::list<CombatAction*> CombatActionList;
@@ -39,7 +39,7 @@ public:
 
 	int getResult();
 private:
-	Card* findOpponent(Card* card);
+	Card* findOpponent(Card* card, int targetType);
 	void singleRound(Card* card);
 
 private:

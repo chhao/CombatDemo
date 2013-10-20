@@ -18,14 +18,23 @@ class CardSprite : public cocos2d::CCSprite
 {
 public:
 	static CardSprite* createByID(int ID);
+	void setCardInfo(int hp, int dmg, int def, int mdef);
+	void updateHP(int deltaHp);
+
+private:
+	cocos2d::CCNode* addCardInfo(const std::string& info, int num, cocos2d::CCPoint pos, int tag = -1);
+	void updateHPLabel();
+private:
+	int m_HP;
 };
 
 class BattleEvent
 {
 public:
-	BattleEvent(CardSprite* card1, CardSprite* card2, Combat::ActionType type, std::string discription = "")
+	BattleEvent(CardSprite* card1, CardSprite* card2, Combat::ActionType type, int number, const std::string& skill = "")
 	:m_type(type)
-	,m_discription(discription)
+	,m_number(number)
+	,m_skill(skill)
 	,m_card1(card1)
 	,m_card2(card2)
 	{
@@ -33,7 +42,8 @@ public:
 	}
 	
 	Combat::ActionType m_type;
-	std::string m_discription;
+	int m_number;
+	std::string m_skill;
 	CardSprite* m_card1;
 	CardSprite* m_card2;
 };
@@ -60,6 +70,7 @@ public:
 	void nextEvent();
 	
 	void setBattleFinishCallback(cocos2d::CCCallFunc* callback);
+	
 private:
 	void createSprite(Card* card, int i, bool bOnBottom);
 	
@@ -69,6 +80,8 @@ private:
 	
 	cocos2d::CCSprite* m_attackEffect;
 	cocos2d::CCLabelTTF* m_label;
+
+	cocos2d::CCLabelTTF* m_skillName;
 	
 	BattleEventList m_eventlist;
 	cocos2d::CCCallFunc* m_finishcallback;

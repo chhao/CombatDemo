@@ -35,9 +35,43 @@ CardSprite* CardSprite::createByID(int ID)
 	delete sprite;
 	return NULL;
 }
+void CardSprite::setCardInfo(int hp, int dmg, int def, int mdef)
+{
+	addChild(addCardInfo("HP:", hp, ccp(80,80), 0));
+	addChild(addCardInfo("DMG:", dmg, ccp(80,60)));
+	addChild(addCardInfo("DEF:", def, ccp(80,40)));
+	addChild(addCardInfo("MDEF:", mdef, ccp(80,20)));
+	m_HP = hp;
+}
+
+void CardSprite::updateHP(int deltaHp)
+{
+	m_HP += deltaHp;
+	
+	runAction(CCSequence::create(CCDelayTime::create(c_attack+c_defense*0.3), CCCallFunc::create(this, callfunc_selector( CardSprite::updateHPLabel)),NULL));
+}
+void CardSprite::updateHPLabel()
+{
+	CCLabelTTF* label = (CCLabelTTF*)getChildByTag(0);
+	std::stringstream ss;
+	ss << "HP: " << m_HP;
+	label->setString(ss.str().c_str());
+}
+
+CCNode* CardSprite::addCardInfo(const std::string &info, int num, cocos2d::CCPoint pos, int tag)
+{
+	std::stringstream ss;
+	ss << info << " " << num;
+	CCLabelTTF* label = CCLabelTTF::create(ss.str().c_str(), "", 15);
+	label->setPosition(pos);
+	label->setTag(tag);
+	return label;
+}
+
 
 CardBattleLayer::CardBattleLayer()
 :m_finishcallback(NULL)
+,m_skillName(NULL)
 {
 	
 }
@@ -58,6 +92,7 @@ bool CardBattleLayer::init()
 	return true;
 }
 
+
 void CardBattleLayer::createSprite(Card *card, int i, bool bOnBottom)
 {
 	if(card == NULL)
@@ -76,6 +111,8 @@ void CardBattleLayer::createSprite(Card *card, int i, bool bOnBottom)
 		sprite->setPositionX( 120 + (i%3) * 180 );
 		sprite->setPositionY(960 - 100 - row * 180);
 	}
+		
+	sprite->setCardInfo(card->getHP(), card->getDmg(), card->getDef(), card->getMDef());
 	addChild(sprite);
 	m_cardmap.insert(std::make_pair(card, sprite));
 }
@@ -98,11 +135,8 @@ int CardBattleLayer::setCardGroup(CardDeck* carddeck1, CardDeck* carddeck2)
 		Card* card1 = action->card1;
 		Card* card2 = action->resultlist.begin()->first;
 		int hit = action->resultlist.begin()->second;
-		
-		std::stringstream ss;
-		ss << hit;
-		
-		BattleEvent* event = new BattleEvent(m_cardmap[card1], m_cardmap[card2], action->type, ss.str());
+	
+		BattleEvent* event = new BattleEvent(m_cardmap[card1], m_cardmap[card2], action->type, hit, action->description);
 		m_eventlist.push_back(event);
 	}
 	
@@ -123,6 +157,11 @@ void CardBattleLayer::onEnter()
 	m_label->setColor(ccc3(255,0,0));
 	m_label->setVisible(false);
 	addChild(m_label, 5);
+	
+	m_skillName = CCLabelTTF::create("", "", 42);
+	m_skillName->setPosition(ccp(320,480));
+	m_skillName->setVisible(false);
+	addChild(m_skillName, 5);
 	
 	excuteEvents();
 	return CCLayer::onEnter();
@@ -150,32 +189,33 @@ void CardBattleLayer::excuteEvents()
 		case Combat::NormalAttack:
 		{
 			event->m_card1->runAction(CCSequence::create(CCScaleTo::create(c_attack*0.5, 1.2*1.5), CCScaleTo::create(c_attack*0.5, 1.0*1.5),NULL));
-			event->m_card2->runAction(CCSequence::create(CCDelayTime::create(c_attack),CCScaleTo::create(c_defense*0.5, 0.8*1.5), CCScaleTo::create(c_defense*0.5, 1.0*1.5),callback,NULL));
-			
-			m_attackEffect->setPosition(event->m_card2->getPosition());
-			m_label->setPosition(event->m_card2->getPosition());
-			
-			m_attackEffect->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCScaleTo::create(c_defense*0.3, 1.2), CCScaleTo::create(c_defense*0.3, 1.0),CCHide::create(),NULL));
-			
-			m_label->setString(event->m_discription.c_str());
-			m_label->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCMoveBy::create(c_defense, ccp(0, -60)), CCHide::create(),NULL));
+			event->m_card2->runAction(CCSequence::create(CCDelayTime::create(c_attack),CCScaleTo::create(c_defense*0.5, 0.8*1.5), CCScaleTo::create(c_defense*0.5, 1.0*1.5),callback,NULL));			
+
 		}
 			break;
 		case Combat::Dead:
 		{
 			event->m_card1->runAction(CCSequence::create(CCScaleTo::create(c_attack*0.5, 1.2*1.5), CCScaleTo::create(c_attack*0.5, 1.0*1.5),NULL));
 			event->m_card2->runAction(CCSequence::create(CCDelayTime::create(c_attack),CCScaleTo::create(c_defense*0.5, 0.8*1.5), CCScaleTo::create(c_defense*0.5, 1.0*1.5), CCHide::create() ,callback,NULL));
-			
-			m_attackEffect->setPosition(event->m_card2->getPosition());
-			m_label->setPosition(event->m_card2->getPosition());
-			
-			m_attackEffect->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCScaleTo::create(c_defense*0.3, 1.2), CCScaleTo::create(c_defense*0.3, 1.0),CCHide::create(),NULL));
-			
-			m_label->setString(event->m_discription.c_str());
-			m_label->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCMoveBy::create(c_defense, ccp(0, -60)), CCHide::create(),NULL));
 		}
 			break;
 	}
+	
+	m_attackEffect->setPosition(event->m_card2->getPosition());
+	m_label->setPosition(event->m_card2->getPosition());
+	
+	m_attackEffect->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCScaleTo::create(c_defense*0.3, 1.2), CCScaleTo::create(c_defense*0.3, 1.0),CCHide::create(),NULL));
+	
+	std::stringstream ss;
+	ss << event->m_number;
+	m_label->setString(ss.str().c_str());
+	m_label->runAction(CCSequence::create(CCDelayTime::create(c_attack), CCShow::create(), CCMoveBy::create(c_defense, ccp(0, -60)), CCHide::create(),NULL));
+	
+	m_skillName->setString(event->m_skill.c_str());
+	m_skillName->runAction(CCSequence::create(CCShow::create(), CCDelayTime::create(1.5), CCHide::create(),NULL));
+	
+	//update card info
+	event->m_card2->updateHP(event->m_number);
 }
 
 void CardBattleLayer::nextEvent()

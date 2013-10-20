@@ -7,6 +7,7 @@
 //
 
 #include "Combat.h"
+#include "Skill.h"
 #include <algorithm>
 #include <assert.h>
 
@@ -77,10 +78,12 @@ const Combat::CombatActionList& Combat::runCombat(CardDeck* carddeck1, CardDeck*
 
 void Combat::singleRound(Card *card)
 {
-	Card* opcard = findOpponent(card);
+	Skill* skill = SkillConfig::getInstance()->getSkillByID(card->m_skilln);
+	Card* opcard = findOpponent(card,skill->m_targetType);
 	assert(opcard);
 	
-	opcard->m_bhp -= card->m_bdmg;
+	int dmg = SkillConfig::getInstance()->calHurt(skill->m_id, card, opcard);
+	opcard->m_bhp += dmg;
 	
 	if(opcard->m_bhp <= 0)
 	{
@@ -95,7 +98,8 @@ void Combat::singleRound(Card *card)
 		
 		CombatAction* action = new CombatAction;
 		action->card1 = card;
-		action->resultlist.push_back(std::make_pair(opcard, -card->m_bdmg));
+		action->description = skill->m_name;
+		action->resultlist.push_back(std::make_pair(opcard, dmg));
 		action->type = Combat::Dead;
 		m_actionlist.push_back(action);
 	}
@@ -103,16 +107,27 @@ void Combat::singleRound(Card *card)
 	{
 		CombatAction* action = new CombatAction;
 		action->card1 = card;
-		action->resultlist.push_back(std::make_pair(opcard, -card->m_bdmg));
+		action->description = skill->m_name;
+		action->resultlist.push_back(std::make_pair(opcard, dmg));
 		action->type = Combat::NormalAttack;
 		m_actionlist.push_back(action);
 	}
 }
 
-Card* Combat::findOpponent(Card* card)
+Card* Combat::findOpponent(Card* card, int targetType)
 {
 	if( m_cardgroup1.find(card) != m_cardgroup1.end() )  //in group1
 	{
+		if(targetType == 7)
+		{
+			for (auto itr = m_cardgroup1.begin(); itr != m_cardgroup1.end(); ++itr)
+			{
+				Card* opcard = itr->first;
+				if(opcard->m_bhp > 0)
+					return opcard;
+			}
+		}
+		
 		for (auto itr = m_cardgroup2.begin(); itr != m_cardgroup2.end(); ++itr)
 		{
 			Card* opcard = itr->first;
@@ -122,6 +137,16 @@ Card* Combat::findOpponent(Card* card)
 	}
 	else  //in group2
 	{
+		if(targetType == 7)
+		{
+			for (auto itr = m_cardgroup2.begin(); itr != m_cardgroup2.end(); ++itr)
+			{
+				Card* opcard = itr->first;
+				if(opcard->m_bhp > 0)
+					return opcard;
+			}
+		}
+		
 		for (auto itr = m_cardgroup1.begin(); itr != m_cardgroup1.end(); ++itr)
 		{
 			Card* opcard = itr->first;

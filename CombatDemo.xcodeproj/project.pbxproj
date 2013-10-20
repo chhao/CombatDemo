@@ -342,6 +342,8 @@
 		D625C51517FFF40F00C591CB /* btn_form.png in Resources */ = {isa = PBXBuildFile; fileRef = D625C51417FFF40F00C591CB /* btn_form.png */; };
 		D625C5171800264B00C591CB /* SelectGuard.json in Resources */ = {isa = PBXBuildFile; fileRef = D625C5161800264B00C591CB /* SelectGuard.json */; };
 		D625C51C180038CE00C591CB /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D625C51A180038CD00C591CB /* Card.cpp */; };
+		D678D11A1812C78C005652A2 /* skill.json in Resources */ = {isa = PBXBuildFile; fileRef = D678D1191812C78C005652A2 /* skill.json */; };
+		D69F7B1118069752009D1C07 /* Skill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D69F7B0F18069752009D1C07 /* Skill.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1020,6 +1022,9 @@
 		D625C5161800264B00C591CB /* SelectGuard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SelectGuard.json; path = Resources/SelectGuard.json; sourceTree = "<group>"; };
 		D625C51A180038CD00C591CB /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Card.cpp; path = Classes/Card.cpp; sourceTree = "<group>"; };
 		D625C51B180038CD00C591CB /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Card.h; path = Classes/Card.h; sourceTree = "<group>"; };
+		D678D1191812C78C005652A2 /* skill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = skill.json; sourceTree = "<group>"; };
+		D69F7B0F18069752009D1C07 /* Skill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skill.cpp; path = Classes/Skill.cpp; sourceTree = "<group>"; };
+		D69F7B1018069752009D1C07 /* Skill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Skill.h; path = Classes/Skill.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1047,6 +1052,7 @@
 		D611AF1E18014D5A006051B2 /* config */ = {
 			isa = PBXGroup;
 			children = (
+				D678D1191812C78C005652A2 /* skill.json */,
 				D611AF2E18026208006051B2 /* cardGroup_map0.json */,
 				D611AF27180250C0006051B2 /* cardGroup_map1.json */,
 				D611AF2518015CCE006051B2 /* heroCardGroup.json */,
@@ -2320,6 +2326,8 @@
 				D60885241801107F00E9E5D7 /* Combat.h */,
 				D611AF2B180258E6006051B2 /* CardBattleLayer.cpp */,
 				D611AF2C180258E6006051B2 /* CardBattleLayer.h */,
+				D69F7B0F18069752009D1C07 /* Skill.cpp */,
+				D69F7B1018069752009D1C07 /* Skill.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2466,6 +2474,7 @@
 				D611AF351802892F006051B2 /* lose.png in Resources */,
 				D611AF361802892F006051B2 /* win_rings.png in Resources */,
 				D611AF371802892F006051B2 /* win.png in Resources */,
+				D678D11A1812C78C005652A2 /* skill.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2743,6 +2752,7 @@
 				D625C51C180038CE00C591CB /* Card.cpp in Sources */,
 				D60885251801107F00E9E5D7 /* Combat.cpp in Sources */,
 				D611AF2D180258E7006051B2 /* CardBattleLayer.cpp in Sources */,
+				D69F7B1118069752009D1C07 /* Skill.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
