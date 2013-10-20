@@ -22,11 +22,14 @@ enum SpritezOrder
 	CardBattle = 100,
 };
 
+const float c_trapDelayTime = 1.0;
+
 BattleLayer::BattleLayer()
 :m_terrain(NULL)
 ,m_curEnemy(0)
 ,m_cardbattleLayer(NULL)
 ,m_setTrapLayer(NULL)
+,m_preventEnemyBuff(0)
 {
 	
 }
@@ -47,6 +50,11 @@ bool BattleLayer::init()
 	m_label->setPosition(ccp(320,800));
 	m_label->retain();
 	addChild(m_label);
+	
+	m_effectLabel = CCLabelTTF::create("", "", 30);
+	m_effectLabel->setPosition(ccp(320,750));
+	m_effectLabel->setColor(ccc3(255,0,0));
+	addChild(m_effectLabel);
 	
 	m_enemySprite = CCSprite::create("icons/0020.png");
 	m_enemySprite->retain();
@@ -173,13 +181,42 @@ void BattleLayer::fight()
 			addChild(m_cardbattleLayer, SpritezOrder::CardBattle);
 		}
 			break;
+		case MapTile::Trap1:
+		{
+			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
+			m_enemySprite->runAction(CCSequence::create(CCDelayTime::create(c_trapDelayTime), CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
+			m_curTile = nextTile;
+			
+			m_effectLabel->setString("尖刺陷阱, HP - 30%");
+			m_effectLabel->runAction(CCSequence::create(CCShow::create(), CCDelayTime::create(c_trapDelayTime), CCHide::create(), NULL));
+			
+			m_enemycards[m_curEnemy]->buffHP(-0.3);
+		}
+			break;
+		case MapTile::Trap2:
+		{
+			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
+			m_enemySprite->runAction(CCSequence::create(CCDelayTime::create(c_trapDelayTime), CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
+			m_curTile = nextTile;
+			
+			m_effectLabel->setString("烈火陷阱, HP - 20%");
+			m_effectLabel->runAction(CCSequence::create(CCShow::create(), CCDelayTime::create(c_trapDelayTime), CCHide::create(), NULL));
+			m_enemycards[m_curEnemy]->buffHP(-0.2);
+			m_preventEnemyBuff = 2;
+		}
+			break;
 		default:
 		{
 			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
 			m_enemySprite->runAction(CCSequence::create(CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
 			m_curTile = nextTile;
 			
-			m_enemycards[m_curEnemy]->buffHP(0.2);
+			if(m_preventEnemyBuff<=0)
+				m_enemycards[m_curEnemy]->buffHP(0.2);
+			else
+			{
+				m_preventEnemyBuff--;
+			}
 		}
 			break;
 	}
