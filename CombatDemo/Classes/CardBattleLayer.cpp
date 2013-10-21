@@ -47,14 +47,16 @@ CardSprite* CardSprite::createByID(int ID)
 	delete sprite;
 	return NULL;
 }
-void CardSprite::setCardInfo(int hp, int dmg, int def, int mdef)
+void CardSprite::setCardInfo(int hp, int maxhp, int dmg, int def, int mdef)
 {
 	addChild(addCardInfo("HP:", hp, ccp(80,80), 0));
 	addChild(addCardInfo("DMG:", dmg, ccp(80,60)));
 	addChild(addCardInfo("DEF:", def, ccp(80,40)));
 	addChild(addCardInfo("MDEF:", mdef, ccp(80,20)));
 	m_HP = hp;
-	m_maxHP = hp;
+	m_maxHP = maxhp;
+	
+	updateHPLabel();
 }
 
 void CardSprite::updateHP(int deltaHp)
@@ -113,6 +115,9 @@ void CardBattleLayer::createSprite(Card *card, int i, bool bOnBottom)
 	if(card == NULL)
 		return;
 	
+	if(card->getHP() < 0)
+		return;
+	
 	CardSprite* sprite = CardSprite::createByID(card->m_id);
 	if(bOnBottom)
 	{
@@ -127,7 +132,7 @@ void CardBattleLayer::createSprite(Card *card, int i, bool bOnBottom)
 		sprite->setPositionY(960 - 100 - row * 180);
 	}
 		
-	sprite->setCardInfo(card->getHP(), card->getDmg(), card->getDef(), card->getMDef());
+	sprite->setCardInfo(card->getHP(), card->getMaxHP(), card->getDmg(), card->getDef(), card->getMDef());
 	addChild(sprite);
 	m_cardmap.insert(std::make_pair(card, sprite));
 }

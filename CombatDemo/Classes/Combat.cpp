@@ -39,14 +39,14 @@ const Combat::CombatActionList& Combat::runCombat(CardDeck* carddeck1, CardDeck*
 	for (int i = 0; i < 6; i++)
 	{
 		Card* card = carddeck1->getCardByIndex(i);
-		if (card)
+		if (card && card->getHP() > 0)
 		{
 			m_cardgroup1.insert(std::make_pair(card, i));
 			m_attackQueue.push_back(card);
 		}
 		
 		card = carddeck2->getCardByIndex(i);
-		if (card)
+		if (card && card->getHP() > 0)
 		{
 			m_cardgroup2.insert(std::make_pair(card, i));
 			m_attackQueue.push_back(card);
@@ -83,9 +83,9 @@ void Combat::singleRound(Card *card)
 	assert(opcard);
 	
 	int dmg = SkillConfig::getInstance()->calHurt(skill->m_id, card, opcard);
-	opcard->m_bhp += dmg;
+	opcard->m_HP += dmg;
 	
-	if(opcard->m_bhp <= 0)
+	if(opcard->m_HP <= 0)
 	{
 		m_attackQueue.erase(std::find(m_attackQueue.begin(), m_attackQueue.end(), opcard));
 		auto itr = m_cardgroup1.find(opcard);

@@ -18,7 +18,7 @@ class CardSprite : public cocos2d::CCSprite
 {
 public:
 	static CardSprite* createByID(int ID);
-	void setCardInfo(int hp, int dmg, int def, int mdef);
+	void setCardInfo(int hp, int maxhp, int dmg, int def, int mdef);
 	void updateHP(int deltaHp);
 
 private:

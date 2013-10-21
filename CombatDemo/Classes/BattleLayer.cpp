@@ -218,9 +218,13 @@ void BattleLayer::fight()
 		{
 			int result = m_cardbattleLayer->setCardGroup(m_herocards[m_curTile->getMark()], m_enemycards[m_curEnemy]);
 			if(result == 1)
+			{
 				m_cardbattleLayer->setBattleFinishCallback(CCCallFunc::create(this, callfunc_selector(BattleLayer::cardBattleWin)));
+			}
 			else
+			{
 				m_cardbattleLayer->setBattleFinishCallback(CCCallFunc::create(this, callfunc_selector(BattleLayer::cardBattleLose)));
+			}
 			addChild(m_cardbattleLayer, SpritezOrder::CardBattle);
 			return;
 		}
@@ -375,6 +379,8 @@ void BattleLayer::cardBattleWin()
 void BattleLayer::cardBattleLose()
 {
 	removeChild(m_cardbattleLayer);
+	
+	m_curTile->setMark(MapTile::None);
 	
 	cocos2d::CCCallFunc* callback = CCCallFunc::create(this, callfunc_selector(BattleLayer::fight));
 	MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
