@@ -43,6 +43,11 @@ public:
 		return m_HP;
 	}
 	
+	int getMaxHP()
+	{
+		return m_bhp + m_level * m_uhp;
+	}
+	
 	int getDef()
 	{
 		return (m_bdef + m_level*m_udef)*m_defRatio;
@@ -55,7 +60,9 @@ public:
 	
 	void buffHP(float buff)  //0~1, percentage of max hp
 	{
-		m_HP += (m_bhp + m_level * m_uhp) * buff;
+		int maxHP = getMaxHP();
+		int newHP = m_HP + maxHP * buff;
+		m_HP = newHP > maxHP ? maxHP : newHP;
 	}
 	
 	void buffAtk(float buff)
@@ -192,6 +199,10 @@ public:
 	
 	void buffAtk(float buff);
 	void buffDef(float buff);
+	
+	float getHPPercentage();
+	
+	bool isDead();
 private:
 	Card* m_cards[6];
 };

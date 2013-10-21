@@ -183,3 +183,33 @@ void CardDeck::buffDef(float buff)
 		}
 	}
 }
+
+float CardDeck::getHPPercentage()
+{
+	int maxHP = 0;
+	int hp = 0;
+	for (int i = 0; i < 6; i++)
+	{
+		if(m_cards[i])
+		{
+			maxHP += m_cards[i]->getMaxHP();
+			hp += m_cards[i]->getHP();
+		}
+	}
+	
+	return (float)hp/maxHP;
+}
+
+bool CardDeck::isDead()
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if(m_cards[i])
+		{
+			if(m_cards[i]->getHP() > 0)
+				return false;
+		}
+	}
+	
+	return true;
+}

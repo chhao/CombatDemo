@@ -1,10 +1,4 @@
-//
-//  HelperUtil.cpp
-//  FairyTales
-//
-//  Created by Hao Chen on 3/31/13.
-//
-//
+
 
 #include "HelperUtil.h"
 #include <iomanip>
@@ -75,87 +69,12 @@ bool isHit(const cocos2d::CCRect& rect, const cocos2d::CCPoint& pt)
 	return true;
 }
 
-void split(std::string src, const char* token, StringVector& vect)
-{
-    int nend=0;
-    int nbegin=0;
-    while(nend != -1)
-    {
-        nend = src.find(token, nbegin);
-        if(nend == -1)
-            vect.push_back(src.substr(nbegin, src.length()-nbegin));
-        else
-            vect.push_back(src.substr(nbegin, nend-nbegin));
-        nbegin = nend + strlen(token);
-    }
-}
-
 bool isPointInRect(const cocos2d::CCPoint& pos, const cocos2d::CCRect& rect)
 {
 	if(pos.x > rect.origin.x && pos.y > rect.origin.y && (pos.x < rect.origin.x + rect.size.width) && (pos.y < rect.origin.y + rect.size.height))
 	   return true;
 	   
 	return false;
-}
-
-
-
-void addAnimationFiles(const std::string& name)
-{
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(getSpriteFrameResourceFullPath(name+".plist").c_str());
-}
-
-void addAnimationFrames(CCArray* frames, int startIndex, int endIndex, const std::string& prestr, const std::string& suffixstr)
-{
-	for(int i = startIndex; i < endIndex; i++)
-	{
-		std::stringstream ss;
-		ss << prestr << std::setfill('0') << std::setw(4) << i << suffixstr;
-		CCSpriteFrame *frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(ss.str().c_str());
-		frames->addObject(frame);
-	}	
-}
-
-
-CCParticleSystemQuad* createParticle(const std::string &particle, const cocos2d::CCPoint &pos)
-{
-	CCParticleSystemQuad* pa = CCParticleSystemQuad::create(particle.c_str());
-	pa->setPosition(pos);
-	pa->setDuration(-1);
-	pa->setPositionType(kCCPositionTypeRelative);
-	
-	return pa;
-}
-
-int getRandomPercentage()
-{
-	srand(time(NULL));
-	return rand() % 100 + 1;
-}
-
-//Read UI Layout
-CCSize getCurrentResolution()
-{
-	return CCDirector::sharedDirector()->getWinSize();
-}
-
-std::string getUIResourceFullPath(const std::string& file)
-{
-	return CCFileUtils::sharedFileUtils()->fullPathForFilename(file.c_str());
-}
-std::string getMD2ResourceFullPath(const std::string& file)
-{
-	return CCFileUtils::sharedFileUtils()->fullPathForFilename(file.c_str());
-}
-
-std::string getAnimationResourceFullPath(const std::string& file)
-{
-	return CCFileUtils::sharedFileUtils()->fullPathForFilename(file.c_str());
-}
-
-std::string getSpriteFrameResourceFullPath(const std::string& file)
-{
-	return CCFileUtils::sharedFileUtils()->fullPathForFilename(file.c_str());
 }
 
 void readPublicPropertys(const CSJson::Value& value, CCNode* node, cocos2d::CCPoint offset)
@@ -174,21 +93,21 @@ void readPublicPropertys(const CSJson::Value& value, CCNode* node, cocos2d::CCPo
 			break;
 		case 1:
 		{
-			CCSize size = getCurrentResolution();
+			CCSize size = CCDirector::sharedDirector()->getWinSize();
 			pos.x = posx;
 			pos.y = size.height - posy;
 		}
 			break;
 		case 2:
 		{
-			CCSize size = getCurrentResolution();
+			CCSize size = CCDirector::sharedDirector()->getWinSize();
 			pos.x = size.width - posx;
 			pos.y = size.height - posy;
 		}
 			break;
 		case 3:
 		{
-			CCSize size = getCurrentResolution();
+			CCSize size = CCDirector::sharedDirector()->getWinSize();
 			pos.x = size.width - posx;
 			pos.y = posy;
 		}
@@ -220,7 +139,7 @@ void readPublicPropertys(const CSJson::Value& value, CCNode* node, cocos2d::CCPo
 void readSpriteProperty(const CSJson::Value& value, CCNode* parent, cocos2d::CCPoint offset)
 {
 	std::string imagename = value["image"].asString();
-	CCSprite* sprite = CCSprite::create(getUIResourceFullPath(imagename).c_str());
+	CCSprite* sprite = CCSprite::create((imagename).c_str());
 	
 	readPublicPropertys(value, sprite, offset);
 	
@@ -236,7 +155,7 @@ void readSpriteProperty(const CSJson::Value& value, CCNode* parent, cocos2d::CCP
 void readScale9SpriteProperty(const CSJson::Value& value, CCNode* parent, cocos2d::CCPoint offset)
 {
 	std::string imagename = value["image"].asString();
-	cocos2d::extension::CCScale9Sprite * sprite = cocos2d::extension::CCScale9Sprite::create(getUIResourceFullPath(imagename).c_str());
+	cocos2d::extension::CCScale9Sprite * sprite = cocos2d::extension::CCScale9Sprite::create((imagename).c_str());
 	
 	readPublicPropertys(value, sprite, offset);
 	
@@ -280,11 +199,10 @@ bool readLayout(cocos2d::CCNode* parent, const std::string& layoutFileName, coco
 	CSJson::Reader reader;
 	CSJson::Value root;
 	
-	std::string fullpath = getUIResourceFullPath(layoutFileName);
 	unsigned char* pBuffer = NULL;
     unsigned long bufferSize = 0;
     
-    pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullpath.c_str(), "r", &bufferSize);
+    pBuffer = CCFileUtils::sharedFileUtils()->getFileData(layoutFileName.c_str(), "r", &bufferSize);
     
 	std::stringstream in;
     in << pBuffer;
@@ -316,45 +234,6 @@ bool readLayout(cocos2d::CCNode* parent, const std::string& layoutFileName, coco
 	}
 	
 	return true;
-}
-
-CCNode* createNodeFromLayout(const std::string& layoutFileName, cocos2d::CCPoint offset)
-{
-	CCNode* node = CCNode::create();
-	
-	if(!readLayout(node, layoutFileName, offset))
-	{
-		return NULL;
-	}
-		
-	return node;
-}
-
-const char* getResolutionPath()
-{
-	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
-	if (winsize.width < 1500)
-	{
-		return "960X640/";
-	}
-	else
-	{
-		return "1920X1080/";
-	}
-}
-
-bool isHighResolution()
-{
-	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
-	return winsize.width >= 1500;
-}
-
-float getResolutionScale()
-{
-	if(isHighResolution())
-		return 1;
-	else
-		return 0.645;
 }
 
 void readJsonFile(const std::string& filename, CSJson::Value& root)

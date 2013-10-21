@@ -64,6 +64,20 @@ bool BattleLayer::init()
 	
 	m_enemySprite = CCSprite::create("icons/0020.png");
 	m_enemySprite->retain();
+	
+	CCSprite* hpbg = CCSprite::create("hpbar_bg.png");
+	CCProgressTimer* hpbar = CCProgressTimer::create(CCSprite::create("hpbar_fore.png"));
+	hpbg->setPosition(ccp(50,100));
+	hpbar->setPosition(ccp(50,100));
+	hpbar->setType(kCCProgressTimerTypeBar);
+	hpbar->setBarChangeRate(ccp(1,0));
+	hpbar->setPercentage(100);
+	hpbar->setMidpoint(CCPointZero);
+	hpbar->setTag(0);
+	m_enemySprite->addChild(hpbg);
+	m_enemySprite->addChild(hpbar);
+	
+	
 	addChild(m_enemySprite,SpritezOrder::Enemy);
 	
 	m_cardbattleLayer = CardBattleLayer::create();
@@ -208,34 +222,53 @@ void BattleLayer::fight()
 			else
 				m_cardbattleLayer->setBattleFinishCallback(CCCallFunc::create(this, callfunc_selector(BattleLayer::cardBattleLose)));
 			addChild(m_cardbattleLayer, SpritezOrder::CardBattle);
+			return;
 		}
 			break;
 		case MapTile::Trap1:
 		{
-			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
-			m_enemySprite->runAction(CCSequence::create(CCDelayTime::create(c_trapDelayTime), CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
-			m_curTile = nextTile;
-			
 			m_effectLabel->setString("尖刺陷阱, HP - 30%");
 			m_effectLabel->runAction(CCSequence::create(CCShow::create(), CCDelayTime::create(c_trapDelayTime), CCHide::create(), NULL));
 			
 			m_enemycards[m_curEnemy]->buffHP(-0.3);
+			
+			if(!isEnemyLive())
+			{
+				nextEnemyGroup();
+				return;
+			}
+			
+			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
+			m_enemySprite->runAction(CCSequence::create(CCDelayTime::create(c_trapDelayTime), CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
+			m_curTile = nextTile;
 		}
 			break;
 		case MapTile::Trap2:
 		{
-			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
-			m_enemySprite->runAction(CCSequence::create(CCDelayTime::create(c_trapDelayTime), CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
-			m_curTile = nextTile;
-			
 			m_effectLabel->setString("烈火陷阱, HP - 20%");
 			m_effectLabel->runAction(CCSequence::create(CCShow::create(), CCDelayTime::create(c_trapDelayTime), CCHide::create(), NULL));
 			m_enemycards[m_curEnemy]->buffHP(-0.2);
 			m_preventEnemyBuff += 2;
+			
+			if(!isEnemyLive())
+			{
+				nextEnemyGroup();
+				return;
+			}
+			
+			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
+			m_enemySprite->runAction(CCSequence::create(CCDelayTime::create(c_trapDelayTime), CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
+			m_curTile = nextTile;
 		}
 			break;
 		default:
 		{
+			if(!isEnemyLive())
+			{
+				nextEnemyGroup();
+				return;
+			}
+			
 			MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
 			m_enemySprite->runAction(CCSequence::create(CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
 			m_curTile = nextTile;
@@ -249,6 +282,23 @@ void BattleLayer::fight()
 		}
 			break;
 	}
+}
+
+bool BattleLayer::isEnemyLive()
+{
+	if(!m_enemycards[m_curEnemy]->isDead())
+	{
+		updateEnemyHpBar();
+		return true;
+	}
+	
+	return false;
+}
+
+void BattleLayer::updateEnemyHpBar()
+{
+	CCProgressTimer* bar = (CCProgressTimer*)m_enemySprite->getChildByTag(0);
+	bar->setPercentage(m_enemycards[m_curEnemy]->getHPPercentage() * 100);
 }
 
 bool BattleLayer::checkGuardBuff(int x, int y)
@@ -294,23 +344,32 @@ bool BattleLayer::checkGuardBuff(int x, int y)
 	return true;
 }
 
-void BattleLayer::cardBattleWin()
+void BattleLayer::nextEnemyGroup()
 {
-	removeChild(m_cardbattleLayer);
+	if(m_curEnemy == 2)
+	{
+		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Result_Win);
+		return;
+	}
 	
 	m_curTile = m_terrain->getTileByID(0);
 	m_enemySprite->setPosition(m_curTile->getPosition());
+	CCProgressTimer* bar = (CCProgressTimer*)m_enemySprite->getChildByTag(0);
+	bar->setPercentage(100);
 	m_curEnemy++;
 	std::stringstream ss;
 	ss << "第" << m_curEnemy+1 << "波";
 	m_label->setString(ss.str().c_str());
 	
+	m_preventEnemyBuff = 0;
+
 	fight();
-	
-	if(m_curEnemy == 3)
-	{
-		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Result_Win);
-	}
+}
+
+void BattleLayer::cardBattleWin()
+{
+	removeChild(m_cardbattleLayer);
+	nextEnemyGroup();
 }
 
 void BattleLayer::cardBattleLose()
@@ -321,6 +380,8 @@ void BattleLayer::cardBattleLose()
 	MapTile* nextTile = m_terrain->getTileByID(m_curTile->getNextTile());
 	m_enemySprite->runAction(CCSequence::create(CCMoveTo::create(1.0, nextTile->getPosition()),callback,NULL));
 	m_curTile = nextTile;
+	
+	updateEnemyHpBar();
 }
 
 bool BattleLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)

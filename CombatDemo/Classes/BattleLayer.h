@@ -42,6 +42,10 @@ private:
 	void cardBattleLose();
 	
 	bool checkGuardBuff(int x,int y);
+	
+	bool isEnemyLive();
+	void updateEnemyHpBar();
+	void nextEnemyGroup();
 private:
 	TerrainMap* m_terrain;
 	CardDeck* m_enemycards[3];

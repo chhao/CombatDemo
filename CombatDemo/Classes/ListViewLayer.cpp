@@ -1,6 +1,5 @@
 //
 //  ListViewLayer.cpp
-//  FairyTales
 //
 //  Created by Hao Chen on 6/6/13.
 //

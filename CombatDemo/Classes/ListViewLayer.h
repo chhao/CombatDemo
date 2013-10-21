@@ -1,13 +1,12 @@
 //
 //  ListViewLayer.h
-//  FairyTales
 //
 //  Created by Hao Chen on 6/6/13.
 //
 //
 
-#ifndef __FairyTales__ListViewLayer__
-#define __FairyTales__ListViewLayer__
+#ifndef ___ListViewLayer__
+#define ___ListViewLayer__
 
 #include <iostream>
 #include "cocos2d.h"
@@ -67,4 +66,4 @@ private:
 };
 
 
-#endif /* defined(__FairyTales__ListViewLayer__) */
+#endif /* defined(___ListViewLayer__) */
