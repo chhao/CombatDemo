@@ -63,9 +63,11 @@ void QuestDialog::readEnemyCards()
 			if(cardID != 0 && cardset.find(cardID) == cardset.end())
 			{
 				int index = cardset.size();
-				assert(index < 4);
-				m_card[index]->setTexture(CCTextureCache::sharedTextureCache()->addImage(Card::getImageNameByID(cardID).c_str()));
-				cardset.insert(cardID);
+				if(index < 4)
+				{
+					m_card[index]->setTexture(CCTextureCache::sharedTextureCache()->addImage(Card::getImageNameByID(cardID).c_str()));
+					cardset.insert(cardID);
+				}
 			}
 		}
 	}

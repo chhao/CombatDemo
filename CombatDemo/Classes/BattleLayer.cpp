@@ -278,7 +278,10 @@ void BattleLayer::fight()
 			m_curTile = nextTile;
 			
 			if(m_preventEnemyBuff<=0)
+			{
 				m_enemycards[m_curEnemy]->buffHP(0.2);
+				updateEnemyHpBar();
+			}
 			else
 			{
 				m_preventEnemyBuff--;
