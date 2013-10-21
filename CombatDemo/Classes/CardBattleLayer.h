@@ -26,6 +26,8 @@ private:
 	void updateHPLabel();
 private:
 	int m_HP;
+	int m_maxHP;
+	cocos2d::CCProgressTimer* m_hpbar;
 };
 
 class BattleEvent

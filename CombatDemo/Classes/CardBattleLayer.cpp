@@ -26,6 +26,21 @@ CardSprite* CardSprite::createByID(int ID)
 	{
 		sprite->autorelease();
 		sprite->setScale(1.5);
+		
+		CCSprite* hpbg = CCSprite::create("hpbar_bg.png");
+		hpbg->setScale(0.8);
+		CCProgressTimer* hpbar = CCProgressTimer::create(CCSprite::create("hpbar_fore.png"));
+		hpbar->setScale(0.8);
+		hpbg->setPosition(ccp(50,100));
+		hpbar->setPosition(ccp(50,100));
+		hpbar->setType(kCCProgressTimerTypeBar);
+		hpbar->setBarChangeRate(ccp(1,0));
+		hpbar->setPercentage(100);
+		hpbar->setMidpoint(CCPointZero);
+		sprite->addChild(hpbg);
+		sprite->addChild(hpbar);
+		sprite->m_hpbar = hpbar;
+		
 		return sprite;
 	}
 	
@@ -39,6 +54,7 @@ void CardSprite::setCardInfo(int hp, int dmg, int def, int mdef)
 	addChild(addCardInfo("DEF:", def, ccp(80,40)));
 	addChild(addCardInfo("MDEF:", mdef, ccp(80,20)));
 	m_HP = hp;
+	m_maxHP = hp;
 }
 
 void CardSprite::updateHP(int deltaHp)
@@ -53,6 +69,8 @@ void CardSprite::updateHPLabel()
 	std::stringstream ss;
 	ss << "HP: " << m_HP;
 	label->setString(ss.str().c_str());
+	
+	m_hpbar->setPercentage(float(m_HP*100)/m_maxHP);
 }
 
 CCNode* CardSprite::addCardInfo(const std::string &info, int num, cocos2d::CCPoint pos, int tag)

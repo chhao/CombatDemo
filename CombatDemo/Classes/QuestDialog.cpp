@@ -59,7 +59,7 @@ void QuestDialog::readEnemyCards()
 		CSJson::Value cards = levelvalue[i];
 		for (int j = 0; j < cards.size(); j++)
 		{
-			int cardID = cards[i].asInt();
+			int cardID = cards[j].asInt();
 			if(cardID != 0 && cardset.find(cardID) == cardset.end())
 			{
 				int index = cardset.size();
