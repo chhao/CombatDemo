@@ -348,6 +348,8 @@
 		D678D122181426D8005652A2 /* card_set.png in Resources */ = {isa = PBXBuildFile; fileRef = D678D120181426D8005652A2 /* card_set.png */; };
 		D678D123181426D8005652A2 /* QuestDialog.json in Resources */ = {isa = PBXBuildFile; fileRef = D678D121181426D8005652A2 /* QuestDialog.json */; };
 		D678D126181427DF005652A2 /* QuestDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D678D124181427DE005652A2 /* QuestDialog.cpp */; };
+		D678D12918152477005652A2 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = D678D12718152477005652A2 /* pause.png */; };
+		D678D12A18152477005652A2 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = D678D12818152477005652A2 /* start.png */; };
 		D69F7B1118069752009D1C07 /* Skill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D69F7B0F18069752009D1C07 /* Skill.cpp */; };
 /* End PBXBuildFile section */
 
@@ -1035,6 +1037,8 @@
 		D678D121181426D8005652A2 /* QuestDialog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = QuestDialog.json; path = Resources/QuestDialog.json; sourceTree = "<group>"; };
 		D678D124181427DE005652A2 /* QuestDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuestDialog.cpp; path = Classes/QuestDialog.cpp; sourceTree = "<group>"; };
 		D678D125181427DF005652A2 /* QuestDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestDialog.h; path = Classes/QuestDialog.h; sourceTree = "<group>"; };
+		D678D12718152477005652A2 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Resources/pause.png; sourceTree = "<group>"; };
+		D678D12818152477005652A2 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = start.png; path = Resources/start.png; sourceTree = "<group>"; };
 		D69F7B0F18069752009D1C07 /* Skill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skill.cpp; path = Classes/Skill.cpp; sourceTree = "<group>"; };
 		D69F7B1018069752009D1C07 /* Skill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Skill.h; path = Classes/Skill.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1123,6 +1127,8 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D678D12718152477005652A2 /* pause.png */,
+				D678D12818152477005652A2 /* start.png */,
 				D678D120181426D8005652A2 /* card_set.png */,
 				D678D121181426D8005652A2 /* QuestDialog.json */,
 				D678D11E1813BDE5005652A2 /* SetTrapAndGuard.json */,
@@ -2497,6 +2503,8 @@
 				D678D11F1813BDE5005652A2 /* SetTrapAndGuard.json in Resources */,
 				D678D122181426D8005652A2 /* card_set.png in Resources */,
 				D678D123181426D8005652A2 /* QuestDialog.json in Resources */,
+				D678D12918152477005652A2 /* pause.png in Resources */,
+				D678D12A18152477005652A2 /* start.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

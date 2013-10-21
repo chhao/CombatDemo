@@ -58,6 +58,9 @@ private:
 	SetTrapLayer* m_setTrapLayer;
 	int m_setTrapType;
 	int m_preventEnemyBuff;
+	
+	bool m_bPause;
+	cocos2d::CCSprite* m_pauseSprite;
 };
 
 

@@ -30,6 +30,7 @@ BattleLayer::BattleLayer()
 ,m_cardbattleLayer(NULL)
 ,m_setTrapLayer(NULL)
 ,m_preventEnemyBuff(0)
+,m_bPause(false)
 {
 	
 }
@@ -70,6 +71,10 @@ bool BattleLayer::init()
 	
 	m_setTrapLayer = SetTrapLayer::create();
 	addChild(m_setTrapLayer);
+	
+	m_pauseSprite = CCSprite::create("pause.png");
+	m_pauseSprite->setPosition(ccp(590,910));
+	addChild(m_pauseSprite);
 	
 	return true;
 }
@@ -165,6 +170,9 @@ void BattleLayer::onExit()
 
 void BattleLayer::fight()
 {
+	if(m_bPause)
+		return;
+	
 	if(m_curTile->getType() == MapTile::End)
 	{
 		Game::getInstance()->getGameScene()->setActiveLayer(GameScene::Layer_Result_Lose);
@@ -323,6 +331,19 @@ bool BattleLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEven
 void BattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {
 	CCPoint touchLocation = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
+	
+	if(isHit(m_pauseSprite->getQuad(), m_pauseSprite->convertToNodeSpace(touchLocation)))
+	{
+		m_bPause = !m_bPause;
+		if(m_bPause)
+			m_pauseSprite->setTexture(CCTextureCache::sharedTextureCache()->addImage("start.png"));
+		else
+		{
+			m_pauseSprite->setTexture(CCTextureCache::sharedTextureCache()->addImage("pause.png"));
+			fight();
+		}
+		return;
+	}
 	
 	if(m_terrain && m_terrain->isVisible())
 	{
