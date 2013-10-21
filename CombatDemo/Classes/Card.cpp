@@ -11,8 +11,16 @@
 #include "cocos2d.h"
 #include "HelperUtil.h"
 #include <sstream>
+#include <iomanip>
 
 using namespace cocos2d;
+
+std::string Card::getImageNameByID(int ID)
+{
+	std::stringstream ss;
+	ss << "cards/" << std::setfill('0') << std::setw(4) << ID << ".png";
+	return ss.str();
+}
 
 CardConfig::CardConfig()
 {

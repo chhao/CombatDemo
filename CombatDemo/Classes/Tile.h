@@ -78,9 +78,11 @@ public:
 	MapTile* getTileByID(int ID);
 	
 	void addTile(MapTile* tile);
+	
 private:
 	std::list<MapTile*> m_tilelist;
 	MapTile* m_curTile;
+	
 };
 
 #endif /* defined(__CombatDemo__Tile__) */

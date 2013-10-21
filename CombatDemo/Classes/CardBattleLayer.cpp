@@ -12,7 +12,7 @@
 #include "GameScene.h"
 #include "Combat.h"
 #include <sstream>
-#include <iomanip>
+
 
 using namespace cocos2d;
 
@@ -21,11 +21,8 @@ const float c_defense = 0.4;
 
 CardSprite* CardSprite::createByID(int ID)
 {
-	std::stringstream ss;
-	ss << "cards/" << std::setfill('0') << std::setw(4) << ID << ".png";
-	
 	CardSprite* sprite = new CardSprite;
-	if(sprite->initWithFile(ss.str().c_str()))
+	if(sprite->initWithFile(Card::getImageNameByID(ID).c_str()))
 	{
 		sprite->autorelease();
 		sprite->setScale(1.5);

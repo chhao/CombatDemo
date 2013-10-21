@@ -10,6 +10,7 @@
 #include "HelperUtil.h"
 #include "Game.h"
 #include "GameScene.h"
+#include "QuestDialog.h"
 using namespace cocos2d;
 
 PrepareBattleLayer::PrepareBattleLayer()
@@ -52,6 +53,9 @@ void PrepareBattleLayer::onEnter()
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 1, true);
 	
 	updateTerrain();
+	
+	QuestDialog* questdlg = QuestDialog::create();
+	m_pParent->addChild(questdlg, 5);
 	
 	return CCLayer::onEnter();
 }

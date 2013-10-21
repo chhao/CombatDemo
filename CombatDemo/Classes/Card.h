@@ -29,6 +29,8 @@ public:
 		
 	}
 	
+	static std::string getImageNameByID(int ID);
+	
 	int getDmg()
 	{
 		return m_bdmg + m_level*m_udmg;
