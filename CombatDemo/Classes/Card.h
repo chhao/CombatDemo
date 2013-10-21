@@ -21,6 +21,8 @@ public:
 	Card()
 	:m_level(0)
 	,m_HP(-1)
+	,m_atkRatio(1.0)
+	,m_defRatio(1.0)
 	{
 	}
 	
@@ -33,7 +35,7 @@ public:
 	
 	int getDmg()
 	{
-		return m_bdmg + m_level*m_udmg;
+		return (m_bdmg + m_level*m_udmg)*m_atkRatio;
 	}
 	
 	int getHP()
@@ -43,17 +45,27 @@ public:
 	
 	int getDef()
 	{
-		return m_bdef + m_level*m_udef;
+		return (m_bdef + m_level*m_udef)*m_defRatio;
 	}
 	
 	int getMDef()
 	{
-		return m_bmdf + m_level * m_umdf;
+		return (m_bmdf + m_level * m_umdf)*m_defRatio;
 	}
 	
 	void buffHP(float buff)  //0~1, percentage of max hp
 	{
 		m_HP += (m_bhp + m_level * m_uhp) * buff;
+	}
+	
+	void buffAtk(float buff)
+	{
+		m_atkRatio *= (1+buff);
+	}
+	
+	void buffDef(float buff)
+	{
+		m_defRatio *= (1+buff);
 	}
 	
 	Card* clone()
@@ -92,14 +104,19 @@ public:
 		card->m_umdf = m_umdf;
 		card->m_usp = m_usp;
 		card->m_vo = m_vo;
+		
 		card->m_level = m_level;
 		card->m_HP = m_HP;
+		card->m_atkRatio = m_atkRatio;
+		card->m_defRatio = m_defRatio;
 		
 		return card;
 	}
 public:
 	int m_level;
 	int m_HP;
+	float m_atkRatio;
+	float m_defRatio;
 	
 	float m_bdef;
 	int m_bdmg;
@@ -172,6 +189,9 @@ public:
 	Card* getCardByIndex(int iIndex);
 	
 	void buffHP(float buff);  //0~1, percentage of max hp
+	
+	void buffAtk(float buff);
+	void buffDef(float buff);
 private:
 	Card* m_cards[6];
 };

@@ -79,6 +79,12 @@ MapTile::TileMark MapTile::getMark()
 	return m_mark;
 }
 
+void MapTile::setCoordinate(int x, int y)
+{
+	m_posX = x;
+	m_posY = y;
+}
+
 void MapTile::setMark(MapTile::TileMark mark)
 {
 	m_mark = mark;
@@ -109,10 +115,20 @@ void MapTile::setMark(MapTile::TileMark mark)
 		default:
 			break;
 	}
-	CCSize size = getContentSize();
-	CCLabelTTF* label = CCLabelTTF::create(ss.str().c_str(), "", 30,size,kCCTextAlignmentCenter, kCCVerticalTextAlignmentCenter);
-	label->setPosition(ccp(size.width*0.5, size.height*0.5));
-	addChild(label, 5);
+	
+	if(getChildByTag(0))
+	{
+		CCLabelTTF* label = (CCLabelTTF*)getChildByTag(0);
+		label->setString(ss.str().c_str());
+	}
+	else
+	{
+		CCSize size = getContentSize();
+		CCLabelTTF* label = CCLabelTTF::create(ss.str().c_str(), "", 30,size,kCCTextAlignmentCenter, kCCVerticalTextAlignmentCenter);
+		label->setPosition(ccp(size.width*0.5, size.height*0.5));
+		label->setTag(0);
+		addChild(label, 5);
+	}
 }
 
 ///////////////////////////////
@@ -154,6 +170,7 @@ void TerrainMap::readLayout(const std::string &layout)
 		tile->setTileID(value["id"].asInt());
 		tile->setNextTile(value["nextId"].asInt());
 		tile->setTag(value["id"].asInt());
+		tile->setCoordinate(value["posX"].asInt(), value["posY"].asInt());
 		
 		addTile(tile);
 	}
@@ -183,6 +200,20 @@ void TerrainMap::markCurTile(MapTile::TileMark mark)
 MapTile* TerrainMap::getTileByID(int ID)
 {
 	return (MapTile*)getChildByTag(ID);
+}
+
+MapTile* TerrainMap::getTileByCoordinate(int x, int y)
+{
+	for (std::list<MapTile*>::iterator itr = m_tilelist.begin(); itr != m_tilelist.end(); ++itr)
+	{
+		MapTile* tile = *itr;
+		if(tile->getXCoord() == x && tile->getYCoord() == y)
+		{
+			return tile;
+		}
+	}
+	
+	return NULL;
 }
 
 void TerrainMap::addTile(MapTile *tile)

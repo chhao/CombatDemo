@@ -56,6 +56,11 @@ bool BattleLayer::init()
 	m_effectLabel->setColor(ccc3(255,0,0));
 	addChild(m_effectLabel);
 	
+	m_guardLabel = CCLabelTTF::create("", "", 30);
+	m_guardLabel->setPosition(ccp(320,700));
+	m_guardLabel->setColor(ccc3(255,255,0));
+	addChild(m_guardLabel);
+	
 	m_enemySprite = CCSprite::create("icons/0020.png");
 	m_enemySprite->retain();
 	addChild(m_enemySprite,SpritezOrder::Enemy);
@@ -166,6 +171,22 @@ void BattleLayer::fight()
 		return;
 	}
 	
+	//check if in guard
+	int x = m_curTile->getXCoord();
+	int y = m_curTile->getYCoord();
+	checkGuardBuff(x-1,y-1);
+	checkGuardBuff(x-1, y);
+	checkGuardBuff(x-1, y+1);
+	
+	checkGuardBuff(x,y-1);
+	checkGuardBuff(x,y);
+	checkGuardBuff(x, y+1);
+	
+	checkGuardBuff(x+1,y-1);
+	checkGuardBuff(x+1, y);
+	checkGuardBuff(x+1, y+1);
+	
+	//check current tile
 	cocos2d::CCCallFunc* callback = CCCallFunc::create(this, callfunc_selector(BattleLayer::fight));
 	switch (m_curTile->getMark())
 	{
@@ -202,7 +223,7 @@ void BattleLayer::fight()
 			m_effectLabel->setString("烈火陷阱, HP - 20%");
 			m_effectLabel->runAction(CCSequence::create(CCShow::create(), CCDelayTime::create(c_trapDelayTime), CCHide::create(), NULL));
 			m_enemycards[m_curEnemy]->buffHP(-0.2);
-			m_preventEnemyBuff = 2;
+			m_preventEnemyBuff += 2;
 		}
 			break;
 		default:
@@ -220,6 +241,49 @@ void BattleLayer::fight()
 		}
 			break;
 	}
+}
+
+bool BattleLayer::checkGuardBuff(int x, int y)
+{
+	MapTile* tile = m_terrain->getTileByCoordinate(x, y);
+	if(!tile)
+		return false;
+	
+	if(tile->getMark() == MapTile::Guard1)
+	{
+		m_preventEnemyBuff++;
+		m_enemycards[m_curEnemy]->buffHP(-0.1);
+		MapTile::TileMark mark = m_curTile->getMark();
+		if(mark == MapTile::Card1 || mark == MapTile::Card2 || mark == MapTile::Card3)
+		{
+			m_herocards[m_curTile->getMark()]->buffAtk(0.1);
+		}
+		
+		m_guardLabel->setString("攻击守卫");
+		m_guardLabel->runAction(CCSequence::create(CCShow::create(), CCDelayTime::create(c_trapDelayTime), CCHide::create(), NULL));
+		
+		
+		return true;
+	}
+	
+	if(tile->getMark() == MapTile::Guard2)
+	{
+		m_preventEnemyBuff++;
+		MapTile::TileMark mark = m_curTile->getMark();
+		if(mark == MapTile::Card1 || mark == MapTile::Card2 || mark == MapTile::Card3)
+		{
+			m_herocards[m_curTile->getMark()]->buffDef(0.1);
+			m_herocards[m_curTile->getMark()]->buffHP(0.3);
+		}
+		
+		m_guardLabel->setString("守护守卫");
+		m_guardLabel->runAction(CCSequence::create(CCShow::create(), CCDelayTime::create(c_trapDelayTime), CCHide::create(), NULL));
+		
+		
+		return true;
+	}
+	
+	return true;
 }
 
 void BattleLayer::cardBattleWin()

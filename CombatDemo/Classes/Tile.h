@@ -37,6 +37,7 @@ public:
 		Guard2,
 	};
 	
+	
 	MapTile();
 	~MapTile();
 	
@@ -54,11 +55,18 @@ public:
 
 	void setMark(TileMark mark);
 	TileMark getMark();
+	
+	void setCoordinate(int x, int y);
+	int getXCoord() {return m_posX;}
+	int getYCoord() {return m_posY;}
 private:
 	TileType m_type;
 	TileMark m_mark;
 	int m_id;
 	int m_nextTile;
+	
+	int m_posX;
+	int m_posY;
 };
 
 class TerrainMap : public cocos2d::CCNode
@@ -77,12 +85,13 @@ public:
 	
 	MapTile* getTileByID(int ID);
 	
+	MapTile* getTileByCoordinate(int x, int y);
+	
 	void addTile(MapTile* tile);
 	
 private:
 	std::list<MapTile*> m_tilelist;
 	MapTile* m_curTile;
-	
 };
 
 #endif /* defined(__CombatDemo__Tile__) */

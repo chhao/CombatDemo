@@ -161,3 +161,25 @@ void CardDeck::buffHP(float buff)
 		}
 	}
 }
+
+void CardDeck::buffAtk(float buff)
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if(m_cards[i])
+		{
+			m_cards[i]->buffAtk(buff);
+		}
+	}
+}
+
+void CardDeck::buffDef(float buff)
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if(m_cards[i])
+		{
+			m_cards[i]->buffDef(buff);
+		}
+	}
+}

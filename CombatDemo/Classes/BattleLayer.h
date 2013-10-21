@@ -41,6 +41,7 @@ private:
 	void cardBattleWin();
 	void cardBattleLose();
 	
+	bool checkGuardBuff(int x,int y);
 private:
 	TerrainMap* m_terrain;
 	CardDeck* m_enemycards[3];
@@ -50,6 +51,7 @@ private:
 	MapTile* m_curTile;
 	cocos2d::CCLabelTTF* m_label;
 	cocos2d::CCLabelTTF* m_effectLabel;
+	cocos2d::CCLabelTTF* m_guardLabel;
 	cocos2d::CCSprite* m_enemySprite;
 	CardBattleLayer* m_cardbattleLayer;
 	
