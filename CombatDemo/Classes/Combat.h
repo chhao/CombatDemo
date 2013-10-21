@@ -43,7 +43,7 @@ private:
 	void singleRound(Card* card);
 
 private:
-	typedef std::map<Card*, int> CardGroup;
+	typedef std::list<Card*> CardGroup;
 	CardGroup m_cardgroup1;
 	CardGroup m_cardgroup2;
 

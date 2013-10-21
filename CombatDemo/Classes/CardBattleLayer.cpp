@@ -123,13 +123,13 @@ void CardBattleLayer::createSprite(Card *card, int i, bool bOnBottom)
 	{
 		int row = i / 3;
 		sprite->setPositionX( 120 + (i%3) * 180 );
-		sprite->setPositionY(100 + row * 180);
+		sprite->setPositionY(280 - row * 180);
 	}
 	else
 	{
 		int row = i / 3;
 		sprite->setPositionX( 120 + (i%3) * 180 );
-		sprite->setPositionY(960 - 100 - row * 180);
+		sprite->setPositionY(960 - 280 + row * 180);
 	}
 		
 	sprite->setCardInfo(card->getHP(), card->getMaxHP(), card->getDmg(), card->getDef(), card->getMDef());

@@ -41,14 +41,14 @@ const Combat::CombatActionList& Combat::runCombat(CardDeck* carddeck1, CardDeck*
 		Card* card = carddeck1->getCardByIndex(i);
 		if (card && card->getHP() > 0)
 		{
-			m_cardgroup1.insert(std::make_pair(card, i));
+			m_cardgroup1.push_back(card);
 			m_attackQueue.push_back(card);
 		}
 		
 		card = carddeck2->getCardByIndex(i);
 		if (card && card->getHP() > 0)
 		{
-			m_cardgroup2.insert(std::make_pair(card, i));
+			m_cardgroup2.push_back(card);
 			m_attackQueue.push_back(card);
 		}
 	}
@@ -88,11 +88,11 @@ void Combat::singleRound(Card *card)
 	if(opcard->m_HP <= 0)
 	{
 		m_attackQueue.erase(std::find(m_attackQueue.begin(), m_attackQueue.end(), opcard));
-		auto itr = m_cardgroup1.find(opcard);
+		auto itr = std::find(m_cardgroup1.begin(), m_cardgroup1.end(), opcard);
 		if(itr != m_cardgroup1.end())
 			m_cardgroup1.erase(itr);
 		
-		itr = m_cardgroup2.find(opcard);
+		itr = std::find(m_cardgroup2.begin(), m_cardgroup2.end(), opcard);
 		if(itr != m_cardgroup2.end())
 			m_cardgroup2.erase(itr);
 		
@@ -116,13 +116,13 @@ void Combat::singleRound(Card *card)
 
 Card* Combat::findOpponent(Card* card, int targetType)
 {
-	if( m_cardgroup1.find(card) != m_cardgroup1.end() )  //in group1
+	if( std::find(m_cardgroup1.begin(), m_cardgroup1.end(), card) != m_cardgroup1.end() )  //in group1
 	{
 		if(targetType == 7)
 		{
 			for (auto itr = m_cardgroup1.begin(); itr != m_cardgroup1.end(); ++itr)
 			{
-				Card* opcard = itr->first;
+				Card* opcard = *itr;
 				if(opcard->m_bhp > 0)
 					return opcard;
 			}
@@ -130,7 +130,7 @@ Card* Combat::findOpponent(Card* card, int targetType)
 		
 		for (auto itr = m_cardgroup2.begin(); itr != m_cardgroup2.end(); ++itr)
 		{
-			Card* opcard = itr->first;
+			Card* opcard = *itr;
 			if(opcard->m_bhp > 0)
 				return opcard;
 		}
@@ -141,7 +141,7 @@ Card* Combat::findOpponent(Card* card, int targetType)
 		{
 			for (auto itr = m_cardgroup2.begin(); itr != m_cardgroup2.end(); ++itr)
 			{
-				Card* opcard = itr->first;
+				Card* opcard = *itr;
 				if(opcard->m_bhp > 0)
 					return opcard;
 			}
@@ -149,7 +149,7 @@ Card* Combat::findOpponent(Card* card, int targetType)
 		
 		for (auto itr = m_cardgroup1.begin(); itr != m_cardgroup1.end(); ++itr)
 		{
-			Card* opcard = itr->first;
+			Card* opcard = *itr;
 			if(opcard->m_bhp > 0)
 				return opcard;
 		}
