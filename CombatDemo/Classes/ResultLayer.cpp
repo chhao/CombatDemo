@@ -20,7 +20,7 @@ ResultLayer::ResultLayer()
 
 ResultLayer::~ResultLayer()
 {
-	
+	m_ftueNode->release();
 }
 
 bool ResultLayer::init()
@@ -36,6 +36,9 @@ bool ResultLayer::init()
 	m_banner->setPosition(ccp(320, 360));
 	addChild(m_banner);
 	
+	m_ftueNode = FTUENode::create();
+	m_ftueNode->retain();
+	
 	return true;
 }
 
@@ -45,7 +48,20 @@ void ResultLayer::onEnter()
 
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 1, true);
 
+	if(Game::getInstance()->isInFTUE())
+	{
+		m_ftueNode->showFTUE(FTUENode::Succeed);
+		addChild(m_ftueNode);
+	}
+	
 	return CCLayer::onEnter();
+}
+
+void ResultLayer::onExit()
+{
+	m_ftueNode->removeFromParent();
+	
+	return CCLayer::onExit();
 }
 
 bool ResultLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)

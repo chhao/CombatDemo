@@ -352,6 +352,8 @@
 		D678D12A18152477005652A2 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = D678D12818152477005652A2 /* start.png */; };
 		D678D12E181529E0005652A2 /* hpbar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D678D12C181529E0005652A2 /* hpbar_bg.png */; };
 		D678D12F181529E0005652A2 /* hpbar_fore.png in Resources */ = {isa = PBXBuildFile; fileRef = D678D12D181529E0005652A2 /* hpbar_fore.png */; };
+		D678D13118162AA3005652A2 /* Guide.png in Resources */ = {isa = PBXBuildFile; fileRef = D678D13018162AA3005652A2 /* Guide.png */; };
+		D678D13418162B21005652A2 /* FTUELayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D678D13218162B1E005652A2 /* FTUELayer.cpp */; };
 		D69F7B1118069752009D1C07 /* Skill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D69F7B0F18069752009D1C07 /* Skill.cpp */; };
 /* End PBXBuildFile section */
 
@@ -1043,6 +1045,9 @@
 		D678D12818152477005652A2 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = start.png; path = Resources/start.png; sourceTree = "<group>"; };
 		D678D12C181529E0005652A2 /* hpbar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hpbar_bg.png; path = Resources/hpbar_bg.png; sourceTree = "<group>"; };
 		D678D12D181529E0005652A2 /* hpbar_fore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hpbar_fore.png; path = Resources/hpbar_fore.png; sourceTree = "<group>"; };
+		D678D13018162AA3005652A2 /* Guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Guide.png; path = Resources/Guide.png; sourceTree = "<group>"; };
+		D678D13218162B1E005652A2 /* FTUELayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FTUELayer.cpp; path = Classes/FTUELayer.cpp; sourceTree = "<group>"; };
+		D678D13318162B1F005652A2 /* FTUELayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTUELayer.h; path = Classes/FTUELayer.h; sourceTree = "<group>"; };
 		D69F7B0F18069752009D1C07 /* Skill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skill.cpp; path = Classes/Skill.cpp; sourceTree = "<group>"; };
 		D69F7B1018069752009D1C07 /* Skill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Skill.h; path = Classes/Skill.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1131,6 +1136,7 @@
 		D622DE5C17FE5F6400D0A525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D678D13018162AA3005652A2 /* Guide.png */,
 				D678D12C181529E0005652A2 /* hpbar_bg.png */,
 				D678D12D181529E0005652A2 /* hpbar_fore.png */,
 				D678D12718152477005652A2 /* pause.png */,
@@ -2359,6 +2365,8 @@
 				D678D11C1813BD93005652A2 /* SetTrapLayer.h */,
 				D678D124181427DE005652A2 /* QuestDialog.cpp */,
 				D678D125181427DF005652A2 /* QuestDialog.h */,
+				D678D13218162B1E005652A2 /* FTUELayer.cpp */,
+				D678D13318162B1F005652A2 /* FTUELayer.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2513,6 +2521,7 @@
 				D678D12A18152477005652A2 /* start.png in Resources */,
 				D678D12E181529E0005652A2 /* hpbar_bg.png in Resources */,
 				D678D12F181529E0005652A2 /* hpbar_fore.png in Resources */,
+				D678D13118162AA3005652A2 /* Guide.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2793,6 +2802,7 @@
 				D69F7B1118069752009D1C07 /* Skill.cpp in Sources */,
 				D678D11D1813BD94005652A2 /* SetTrapLayer.cpp in Sources */,
 				D678D126181427DF005652A2 /* QuestDialog.cpp in Sources */,
+				D678D13418162B21005652A2 /* FTUELayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

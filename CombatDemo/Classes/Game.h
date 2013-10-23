@@ -30,6 +30,8 @@ public:
 	void setCurrentLevel(int level);
 	int getCurrentLevel();
 	
+	bool isInFTUE();
+	
 	GameScene* getGameScene();
 	
 	CardDeck* getCardDeck(int i);

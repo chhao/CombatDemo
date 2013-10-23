@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "cocos2d.h"
+#include "FTUELayer.h"
 
 class ResultLayer : public cocos2d::CCLayer
 {
@@ -23,6 +24,7 @@ public:
 	bool init();
 	
 	void onEnter();
+	void onExit();
 	
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
     virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
@@ -38,6 +40,8 @@ private:
 	
 	cocos2d::CCSprite* m_backSprite;
 	cocos2d::CCSprite* m_banner;
+	
+	FTUENode* m_ftueNode;
 };
 
 #endif /* defined(__CombatDemo__ResultLayer__) */

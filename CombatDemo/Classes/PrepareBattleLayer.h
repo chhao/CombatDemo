@@ -14,6 +14,7 @@
 #include "Tile.h"
 #include "SelectCardGroup.h"
 #include "SetTrapLayer.h"
+#include "FTUELayer.h"
 
 class PrepareBattleLayer : public cocos2d::CCLayer
 {
@@ -57,6 +58,9 @@ private:
 	SelectBackGround* m_selectGroup;
 	SetTrapLayer* m_setTrapLayer;
 	int m_setTrapType;
+	
+	int m_ftueStep;
+	FTUENode* m_ftueNode;
 };
 
 #endif /* defined(__CombatDemo__PrepareBattleLayer__) */

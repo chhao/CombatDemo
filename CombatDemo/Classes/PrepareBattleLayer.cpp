@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "GameScene.h"
 #include "QuestDialog.h"
+#include "FTUELayer.h"
 using namespace cocos2d;
 
 PrepareBattleLayer::PrepareBattleLayer()
@@ -22,7 +23,7 @@ PrepareBattleLayer::PrepareBattleLayer()
 
 PrepareBattleLayer::~PrepareBattleLayer()
 {
-	
+	m_ftueNode->release();
 }
 
 bool PrepareBattleLayer::init()
@@ -43,6 +44,9 @@ bool PrepareBattleLayer::init()
 	m_setTrapLayer = SetTrapLayer::create();
 	addChild(m_setTrapLayer);
 	
+	m_ftueNode = FTUENode::create();
+	m_ftueNode->retain();
+	
 	return true;
 }
 
@@ -53,6 +57,13 @@ void PrepareBattleLayer::onEnter()
 	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 1, true);
 	
 	updateTerrain();
+
+	if(Game::getInstance()->isInFTUE())
+	{
+		m_ftueStep = 0;
+		m_ftueNode->showFTUE(FTUENode::Info);
+		addChild(m_ftueNode,100);		
+	}
 	
 	QuestDialog* questdlg = QuestDialog::create();
 	m_pParent->addChild(questdlg, 5);
@@ -68,6 +79,7 @@ void PrepareBattleLayer::onExit()
 		m_terrain = NULL;
 	}
 	m_selectGroup->setVisible(false);
+	m_ftueNode->removeFromParent();
 	
 	return CCLayer::onExit();
 }
@@ -96,6 +108,25 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 {
 	CCPoint touchLocation = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
 	
+	if(Game::getInstance()->isInFTUE())
+	{
+		switch (m_ftueStep)
+		{
+			case 0:
+			case 3:
+			case 4:
+			case 5:
+			{
+				m_ftueStep++;
+				m_ftueNode->showFTUE(FTUENode::FTUEStep(m_ftueStep));
+			}
+				break;
+			default:
+				break;
+		}
+	}
+	
+	
 	if(m_terrain && m_terrain->isVisible())
 	{
 		int hit = m_terrain->isHit(touchLocation);
@@ -105,6 +136,11 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 			{
 				ShowPage(SelectCard);
 				m_selectGroup->setInfo(hit);
+				if(Game::getInstance()->isInFTUE())
+				{
+					m_ftueNode->showFTUE(FTUENode::SelectCard);
+					m_ftueStep++;
+				}
 				return;
 			}
 			else  //put trap
@@ -128,7 +164,12 @@ void PrepareBattleLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 			}
 			
 			ShowPage(Terrain);
-			return;			
+			if(Game::getInstance()->isInFTUE())
+			{
+				m_ftueNode->showFTUE(FTUENode::FinishSelectCard);
+				m_ftueStep++;
+			}
+			return;
 		}
 		else if(hit == SelectBackGround::BtnCancel)
 		{

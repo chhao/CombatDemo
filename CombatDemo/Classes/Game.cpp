@@ -68,3 +68,8 @@ CardDeck* Game::getCardDeck(int i)
 {
 	return m_cardDeckVec[i];
 }
+
+bool Game::isInFTUE()
+{
+	return m_world == 0 && m_level == 0;
+}
